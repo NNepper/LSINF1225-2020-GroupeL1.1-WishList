@@ -1,0 +1,57 @@
+############ User Story ############
+
+1. Création d'un compte
+
+EN TANT que nouvel utilisateur, 
+AFIN d'adapter l'information fournie par l'application à mon nom, mes tailles et mes centres,
+d'intérêts
+JE VEUX encoder un profil personnalisé lors de ma première connection à l'application
+
+2. Modifier son profil utilisateur
+
+AFIN de pouvoir modifier mon profil personnalisé,
+EN TANT qu'utilisateur actif de l'application,
+JE VEUX pouvoir changer via un menu dédié mes informations personnelles, mes informations seront automatiquement prise en compte par l'application
+
+3. Ajouter une WishList
+
+EN TANT qu'utilisateur de l'application,
+JE VEUX pouvoir ajouter une WishList composée d'articles que j'enregistrerait via un menu dédié. Cette WishList sera caractérisée par un nom et, si je le souhaite, une description et un tag,
+AFIN de partager à mes followers les articles qui m'intéressent et ce de manière organisée.
+
+4. Follow un amis
+
+EN TANT qu'utilisateur de l'application,
+AFIN DE suivre mes amis et leurs WishLists,
+JE VEUX pouvoir suivre un ami afin d'être au courant des articles et des préférences de mon ami.
+
+5. Accepter une demande de follow
+
+EN TANT qu'utilisateur de l'application,
+AFIN DE pouvoir gérer qui peut voir mon profil et mes WishList, pour ainsi garder une main sur ma vie privée,
+JE VEUX pouvoir accepter ou refuser une demande de follow
+
+6. Ajout d'un article à une WishList
+
+EN TANT qu'utilisateur de l'application,
+JE VEUX pouvoir ajouter un article à une WishList existante,
+AFIN DE remplir ma WishList de mes derniers coups de coeur.
+
+7. Supprimer un article d'une WishList
+
+EN TANT qu'utilisateur de l'application,
+JE VEUX pouvoir supprimer un article d'une WishList
+AFIN DE supprimer déjà reçu ou acheter
+
+8. Consulter le profil d'un amis
+
+EN TANT qu'utilisateur de l'application,
+JE VEUX pouvoir consulter les WishLists et les informations personnelles d'un amis 
+AFIN D'avoir des informations sur ses intérêts, ses tailles et ses WishList
+
+9. Supprimer un amis de ma liste d'amis
+
+EN TANT qu'utilisateur de l'application,
+JE VEUX pouvoir supprimer une personne de ma liste d'amis
+
+
