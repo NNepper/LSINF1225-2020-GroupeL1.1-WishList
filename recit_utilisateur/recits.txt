@@ -54,4 +54,29 @@ AFIN D'avoir des informations sur ses intérêts, ses tailles et ses WishList
 EN TANT qu'utilisateur de l'application,
 JE VEUX pouvoir supprimer une personne de ma liste d'amis
 
+10. Modifier l'état d'un article d'un amis
 
+EN TANT qu'utilisateur de l'application,
+JE VEUX pouvoir changer l'état d'un article d'une WishList d'un amis
+AFIN D'éviter mon amis de se voir commander plusieurs fois le même article, et ainsi retirer automatiquement l'article de la liste de mon ami pour lui faciliter la vie dans la gestion de ses WishList
+
+11. Modifier un de mes articles
+
+EN TANT qu'utilisateur de l'application,
+JE VEUX pouvoir modifier la description ou l'adresse internet de l'objet,
+AFIN DE tenir mes articles à jour par rapport à la situation actuelle des prix et des moyens de l'acheter
+
+12. Modifier mon mot de passe
+
+EN TANT qu'utilisateur de l'application,
+JE VEUX pouvoir modifier le mot de passe de mon compte de l'application,
+AFIN DE garder mon compte protéger d'un point de vue accès si je le souhaite
+
+
+############ Fonctionnalités supplémentaire ############
+
+1. Réinitialisation de mon mot de passe
+
+EN TANT qu'utilisateur de l'application,
+JE VEUX pouvoir réinitialisé le mot de passe de mon compte de l'application
+AFIN DE pouvoir accès à mon profil si j'ai oublié mon mot de passe
