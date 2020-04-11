@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/background">
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:src="@drawable/Logo"
+        />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="Log In"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_red_button"
+        android:textColor="@color/red_border"
+        android:textSize="20sp"
+        />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="Register"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_red_button"
+        android:textColor="@color/red_border"
+        android:textSize="20sp"
+        />
+</LinearLayout>
