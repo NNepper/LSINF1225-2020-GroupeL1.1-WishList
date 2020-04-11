@@ -69,7 +69,7 @@ public class UserDAO {
         return null;
     }
 
-    public static ArrayList<WishList> getWishLists(String emailAddress) {
+    public static ArrayList<WishListDAO> getWishLists(String emailAddress) {
         //TODO
         return null;
     }
