@@ -70,7 +70,13 @@ public class UserDAO {
     }
 
     public static ArrayList<WishList> getWishLists(String emailAddress) {
-        //TODO
+        WishListDAO DAO = new WishListDAO();
+
+        /*
+         * TODO: Faire l'appel SQL avec emailAddress pour avoir les ID SQL des différentes WishList pour init
+         *      les instances WishList avec WishListDAO, qui vont à leur tour appeller les ProductDAO pour init
+         *      les product composant les WishLists
+         */
         return null;
     }
 }
