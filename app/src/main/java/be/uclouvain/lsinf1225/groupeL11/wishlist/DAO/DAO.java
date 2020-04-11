@@ -24,37 +24,37 @@ public class DAO {
         return null;
     }
 
-    public static String getFirsName(String emailAddress) {
+    public static String getFirsname(String emailAddress) {
         //TODO
         return null;
     }
 
-    public static String getLastName(String emailAddress) {
+    public static String getLastname(String emailAddress) {
         //TODO
         return null;
     }
 
-    public static String color(String emailAddress) {
+    public static String getColor(String emailAddress) {
         //TODO
         return null;
     }
 
-    public static String tshirtSize(String emailAddress) {
+    public static String getTshirtSize(String emailAddress) {
         //TODO
         return null;
     }
 
-    public static String shoesSize(String emailAddress) {
+    public static String getShoesSize(String emailAddress) {
         //TODO
         return null;
     }
 
-    public static String address(String emailAddress) {
+    public static String getAddress(String emailAddress) {
         //TODO
         return null;
     }
 
-    public static String getPrivacy(String emailAddress) {
+    public static Boolean getPrivacy(String emailAddress) {
         //TODO
         return null;
     }
@@ -64,12 +64,12 @@ public class DAO {
         return null;
     }
 
-    public static ArrayList<User> following(String emailAddress) {
+    public static ArrayList<User> getFollowing(String emailAddress) {
         //TODO
         return null;
     }
 
-    public static ArrayList<WishList> wishLists(String emailAddress) {
+    public static ArrayList<WishList> getWishLists(String emailAddress) {
         //TODO
         return null;
     }
