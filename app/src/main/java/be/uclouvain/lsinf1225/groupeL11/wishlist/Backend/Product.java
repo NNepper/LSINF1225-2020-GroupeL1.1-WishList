@@ -1,65 +1,46 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Backend;
 
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
+
 public class Product {
-    private String productName;
-    private String productDescription;
-    private String webLink;
-    private String productPicture;
-    private String shipping;
-    private int position;
-    private int quantity;
 
-    public Product(String productName, String productDescription, String webLink, String productPicture, String shipping, int position, int quantity) {
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.webLink = webLink;
-        this.productPicture = productPicture;
-        this.shipping = shipping;
-        this.position = position;
-        this.quantity = quantity;
+    public Product() {
+        //TODO
     }
 
-    public void setWebLink(String webLink) {
-        this.webLink = webLink;
-    }
+    public void setWebLink(String newWeblink) { ProductDAO.setWeblink(newWeblink); }
 
-    public void setShipping(String shipping) {
-        this.shipping = shipping;
-    }
+    public void setShipping(String newShipping) { ProductDAO.setShpping(newShipping); }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
+    public void setPosition(int position) { ProductDAO.setPosition(position); }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    public void setQuantity(int quantity) { ProductDAO.setQuantity(quantity); }
 
     public String getProductName() {
-        return productName;
+        return ProductDAO.getProductName(this);
     }
 
     public String getProductDescription() {
-        return productDescription;
+        return ProductDAO.getProductDescription(this);
     }
 
-    public String getWebLink() {
-        return webLink;
+    public String getWeblink() {
+        return ProductDAO.getWeblink(this);
     }
 
     public String getProductPicture() {
-        return productPicture;
+        return ProductDAO.getProductPicture(this);
     }
 
     public String getShipping() {
-        return shipping;
+        return ProductDAO.getShipping(this);
     }
 
     public int getPosition() {
-        return position;
+        return ProductDAO.getPosition(this);
     }
 
     public int getQuantity() {
-        return quantity;
+        return ProductDAO.getQuantity(this);
     }
 }
