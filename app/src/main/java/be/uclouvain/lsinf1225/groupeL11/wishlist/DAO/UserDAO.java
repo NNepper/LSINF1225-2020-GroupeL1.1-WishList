@@ -3,9 +3,9 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.DAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.*;
 import java.util.ArrayList;
 
-public class DAO {
+public class UserDAO {
 
-    public DAO(){
+    public UserDAO(){
         //TODO
     }
 
