@@ -16,4 +16,8 @@ public class Interest {
     public int getInterestRating() {
         return interestRating;
     }
+
+    public void setInterestRating(int interestRating) {
+        this.interestRating = interestRating;
+    }
 }
