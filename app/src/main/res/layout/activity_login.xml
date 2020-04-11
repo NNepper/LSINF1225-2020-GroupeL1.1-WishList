@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".LogIn">
+    tools:context=".Interface.LoginActivity">
 
     <TextView
         android:id="@+id/LogIn"
         android:layout_width="188dp"
         android:layout_height="60dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="100dp"
         android:text="LOG IN"
         android:textAlignment="center"
         android:textColor="@color/green_border"
         android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,8 +25,9 @@
         android:id="@+id/Username"
         android:layout_width="319dp"
         android:layout_height="43dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="172dp"
         android:background="@drawable/edit_round_input_text"
+        android:gravity="center"
         android:hint="Username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,23 +37,25 @@
         android:id="@+id/Password"
         android:layout_width="319dp"
         android:layout_height="43dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/edit_round_input_text"
+        android:gravity="center"
         android:hint="Password"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Username" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="319dp"
-        android:layout_height="43dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginTop="80dp"
         android:background="@drawable/edit_round_button"
         android:text="Submit"
         android:textColor="@color/red_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password" />
 </androidx.constraintlayout.widget.ConstraintLayout>
