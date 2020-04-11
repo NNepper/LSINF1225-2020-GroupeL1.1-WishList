@@ -8,7 +8,7 @@ public class User {
     private String password;
 
     /* User's constructor */
-    public User(String email, String password,) {
+    public User(String email, String password) {
         DAO DAO = new DAO();
 
         // Check if the given emailAddress is linked to a User account
