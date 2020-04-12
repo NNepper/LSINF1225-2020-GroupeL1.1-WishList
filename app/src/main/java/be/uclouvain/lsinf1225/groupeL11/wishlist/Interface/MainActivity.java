@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: make RegisterActivity to make the following method functional
-        /*
+
         //when register is clicked, switch to RegisterActivity
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(switchToRegister);
                 finish();
             }
-        }); */
+        });
     }
 }
