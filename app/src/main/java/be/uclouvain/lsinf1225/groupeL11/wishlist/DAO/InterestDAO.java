@@ -8,16 +8,16 @@ public class InterestDAO {
         //TODO
     }
 
-    public static String getInterestName(Interest interest) {
+    public static String getInterestName(int interestID) {
         //TODO
         return null;
     }
-    public static int getInterestRating(Interest interest) {
+    public static int getInterestRating(int interestID) {
         //TODO
         return 1;
     }
 
-    public static void setInterestRating(int newRating) {
+    public static void setInterestRating(int interestID, int newRating) {
         //TODO
     }
 }
