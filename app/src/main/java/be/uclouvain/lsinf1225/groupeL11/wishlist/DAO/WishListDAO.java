@@ -11,17 +11,17 @@ public class WishListDAO {
         //TODO
     }
 
-    public static String getWishListName(WishList wishList) {
+    public static String getWishListName(int wishListID) {
         //TODO
         return null;
     }
 
-    public static String getWishListDescription(WishList wishList) {
+    public static String getWishListDescription(int wishListID) {
         //TODO
         return null;
     }
 
-    public static ArrayList<Product> getProducts(WishList wishList) {
+    public static ArrayList<Product> getProducts(int wishListID) {
         //TODO
         return null;
     }

@@ -7,19 +7,22 @@ import java.util.Comparator;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 
 public class WishList {
-    ArrayList<Product> products;
+    private String wishListName;
+    private String wishListDescription;
+    private ArrayList<Product> products;
 
-    public WishList() {
-        //TODO
+    public WishList(int wishListID) {
+        products = getProducts(wishListID);
+        this.sortProductsByPosition();
+        wishListName = getWishListName(wishListID);
+        wishListDescription = getWishListDescription(wishListID);
     }
 
-    public String getWishListName() { return WishListDAO.getWishListName(this); }
+    public String getWishListName(int wishListID) { return WishListDAO.getWishListName(wishListID); }
 
-    public String getWishListDescription() {
-        return WishListDAO.getWishListDescription(this);
-    }
+    public String getWishListDescription(int wishListID) { return WishListDAO.getWishListDescription(wishListID); }
 
-    public ArrayList<Product> getProducts() { return WishListDAO.getProducts(this); }
+    public ArrayList<Product> getProducts(int wishListID) { return WishListDAO.getProducts(wishListID); }
 
     public Product getProduct(int i) { return WishListDAO.getProduct(i, this); }
 
