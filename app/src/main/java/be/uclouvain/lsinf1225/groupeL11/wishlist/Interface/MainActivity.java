@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent switchToLogin = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(switchToLogin);
-                finish();
+                finishActivity(0);
             }
         });
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent switchToRegister = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(switchToRegister);
-                finish();
+                finishActivity(0);
             }
         });
     }
