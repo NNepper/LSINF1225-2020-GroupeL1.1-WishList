@@ -127,5 +127,24 @@ public class User {
         data.put("wishlists", getWishLists());
         return data;
     }
+
+    public void askFollow(User toFollow) {
+        if (this.getPrivacy()) {
+            toFollow.askedFollow.add(this);
+            // TODO new variable and access to DB !!!
+        } else {
+            this.following.add(toFollow);
+            // TODO We need to update DB here !!!
+        }
+    }
+
+    public void acceptFollow(boolean ok, User toAccept) {
+        if (ok) {
+            toAccept.following.add(this);
+            // TODO We need to update DB here !!!
+        }
+        this.askedFollow.remove(toAccept);
+        // TODO new variable and access to DB !!!
+    }
 }
 
