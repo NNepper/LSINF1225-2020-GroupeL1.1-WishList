@@ -107,6 +107,8 @@ public class User {
         return this.wishlists;
     }
 
+    public void addFollow(User toFollow, boolean pending) { UserDAO.addFollow(toFollow, this, pending); }
+
     public Map<String, Object> getUserInfos() {
         Map<String, Object> data = new HashMap<>();
         data.put("first name", getFirstname());
@@ -128,23 +130,16 @@ public class User {
         return data;
     }
 
-    public void askFollow(User toFollow) {
+    public void askFollow(User followed) {
         if (this.getPrivacy()) {
-            toFollow.askedFollow.add(this);
-            // TODO new variable and access to DB !!!
+            UserDAO.addFollow(this, followed, false);
         } else {
-            this.following.add(toFollow);
-            // TODO We need to update DB here !!!
+            UserDAO.addFollow(this, followed, true);
         }
     }
 
-    public void acceptFollow(boolean ok, User toAccept) {
-        if (ok) {
-            toAccept.following.add(this);
-            // TODO We need to update DB here !!!
-        }
-        this.askedFollow.remove(toAccept);
-        // TODO new variable and access to DB !!!
+    public void acceptFollow(User toAccept) {
+        UserDAO.setFollow(toAccept, this, true);
     }
 }
 

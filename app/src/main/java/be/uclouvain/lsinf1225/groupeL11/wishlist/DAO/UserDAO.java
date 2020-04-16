@@ -79,4 +79,12 @@ public class UserDAO {
          */
         return null;
     }
+
+    public static void addFollow(User follower, User followed, boolean pending) {
+        //TODO Ajouter l'utilisateur followed à la liste following de follower avec le pending
+    }
+
+    public static void setFollow(User follower, User followed, boolean pending) {
+        //TODO Ajouter l'utilisateur followed à la liste following de follower avec le pending
+    }
 }
