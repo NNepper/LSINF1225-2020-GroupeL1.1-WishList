@@ -43,4 +43,11 @@ public class Product {
     public int getQuantity() {
         return ProductDAO.getQuantity(this);
     }
+
+    public void editProduct(String Weblink, String Shipping, int position, int quantity) {
+        setWebLink(Weblink);
+        setShipping(Shipping);
+        setPosition(position);
+        setQuantity(quantity);
+    }
 }
