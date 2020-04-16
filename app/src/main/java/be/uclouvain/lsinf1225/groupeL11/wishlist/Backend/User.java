@@ -1,6 +1,9 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Backend;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.*;
 
 public class User {
@@ -100,8 +103,26 @@ public class User {
     }
 
     // Getter wishLists
-    public ArrayList<WishList> getWishList() {
+    public ArrayList<WishList> getWishLists() {
         return this.wishlists;
+    }
+
+    public Map<String, String> getUserInfos() {
+        Map<String, String> data = new HashMap<>();
+        data.put("first name", getFirstname());
+        data.put("last name", getLastname());
+        data.put("address", getAddress());
+        data.put("color", getColor());
+        data.put("shoes size", getShoesSize());
+        data.put("t-shirt size", getTshirtSize());
+        data.put("username", getUsername());
+        data.put("email address", this.emailAddress);
+        if (getPrivacy()) {
+            data.put("privacy", "private");
+        } else {
+            data.put("privacy", "public");
+        }
+        return data;
     }
 }
 
