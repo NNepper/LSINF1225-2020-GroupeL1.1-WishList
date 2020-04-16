@@ -107,8 +107,8 @@ public class User {
         return this.wishlists;
     }
 
-    public Map<String, String> getUserInfos() {
-        Map<String, String> data = new HashMap<>();
+    public Map<String, Object> getUserInfos() {
+        Map<String, Object> data = new HashMap<>();
         data.put("first name", getFirstname());
         data.put("last name", getLastname());
         data.put("address", getAddress());
@@ -122,6 +122,9 @@ public class User {
         } else {
             data.put("privacy", "public");
         }
+        data.put("following", getFollowing());
+        data.put("interests", getInterests());
+        data.put("wishlists", getWishLists());
         return data;
     }
 }
