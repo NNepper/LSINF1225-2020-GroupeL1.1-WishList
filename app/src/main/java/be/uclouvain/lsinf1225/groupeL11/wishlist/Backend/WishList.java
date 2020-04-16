@@ -3,6 +3,8 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Backend;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 
@@ -41,5 +43,14 @@ public class WishList {
                 return o2.getPosition() - o1.getPosition();
             }
         });
+    }
+
+    public Map<String, Object> getWishListInfos() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("wishlist name", this.wishListName);
+        data.put("wishlist description", this.wishListDescription);
+        sortProductsByPosition();
+        data.put("products", this.products);
+        return data;
     }
 }
