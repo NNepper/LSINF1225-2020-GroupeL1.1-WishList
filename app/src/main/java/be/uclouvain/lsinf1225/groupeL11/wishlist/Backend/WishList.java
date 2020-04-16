@@ -9,6 +9,7 @@ import java.util.Map;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 
 public class WishList {
+    /**
     private String wishListName;
     private String wishListDescription;
     private ArrayList<Product> products;
@@ -53,4 +54,5 @@ public class WishList {
         data.put("products", this.products);
         return data;
     }
+     **/
 }

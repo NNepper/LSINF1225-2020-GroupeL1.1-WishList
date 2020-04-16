@@ -7,14 +7,15 @@ import java.util.Map;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.*;
 
 public class User {
-    private String emailAddress;
-    private String password;
-    private String username;
+    private int id;
     private String firstname;
     private String lastname;
+    private String email;
+    private String password;
+    private String username;
     private String color;
     private String tshirtSize;
-    private String shoesSize;
+    private int shoeSize;
     private String address;
     private Boolean privacy;
     private ArrayList<Interest> interests;
@@ -23,33 +24,41 @@ public class User {
 
 
     /* User's constructor */
-    public User(String email, String password) {
-        UserDAO UserDAO = new UserDAO();
-
-        // Check if the given emailAddress is linked to a User account
-        if (!UserDAO.checkExistence(email)) {
-            throw new RuntimeException("The given emailAddress doesn't exist");
-        }
-
-        // Check if the given password is right
-        if (!UserDAO.checkPassword(email, password)) {
-            throw new RuntimeException("Password incorrect");
-        }
-
-        this.emailAddress = email;
+    public User(
+            int id,
+            String firstname,
+            String lastname,
+            String email,
+            String password,
+            String username,
+            String color,
+            String tshirtSize,
+            int shoeSize,
+            String address
+            )
+    {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
         this.password = password;
-        this.username = UserDAO.getUsername(this.emailAddress);
-        this.firstname = UserDAO.getFirsname(this.emailAddress);
-        this.lastname = UserDAO.getLastname(this.emailAddress);
-        this.color = UserDAO.getColor(this.emailAddress);
-        this.tshirtSize = UserDAO.getTshirtSize(this.emailAddress);
-        this.shoesSize = UserDAO.getShoesSize(this.emailAddress);
-        this.address = UserDAO.getAddress(this.emailAddress);
-        this.privacy = UserDAO.getPrivacy(this.emailAddress);
-        this.interests = UserDAO.getInterests(this.emailAddress);
-        this.following = UserDAO.getFollowing(this.emailAddress);
-        this.wishlists = UserDAO.getWishLists(this.emailAddress);
+        this.username = username;
+        this.color = color;
+        this.tshirtSize = tshirtSize;
+        this.shoeSize = shoeSize;
+        this.address = address;
+    }
 
+    public int getId(){
+        return this.id;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     // Getter username
@@ -78,8 +87,8 @@ public class User {
     }
 
     // Getter shoesSize
-    public String getShoesSize() {
-        return this.shoesSize;
+    public int getShoesSize() {
+        return this.shoeSize;
     }
 
     // Getter address
@@ -106,7 +115,7 @@ public class User {
     public ArrayList<WishList> getWishLists() {
         return this.wishlists;
     }
-
+    /**
     public void addFollow(User toFollow, boolean pending) { UserDAO.addFollow(toFollow, this, pending); }
 
     public Map<String, Object> getUserInfos() {
@@ -141,5 +150,6 @@ public class User {
     public void acceptFollow(User toAccept) {
         UserDAO.setFollow(toAccept, this, true);
     }
+     **/
 }
 

@@ -1,11 +1,9 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.DAO;
-
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Interest;
 
-public class InterestDAO {
+public class InterestDAO{
 
-    public InterestDAO() {
-        //TODO
+    public InterestDAO(){
     }
 
     public static String getInterestName(int interestID) {

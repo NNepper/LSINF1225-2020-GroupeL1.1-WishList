@@ -5,9 +5,9 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
 public class Product {
 
     public Product() {
-        //TODO
-    }
 
+    }
+    /**
     public void setWebLink(String newWeblink) { ProductDAO.setWeblink(newWeblink); }
 
     public void setShipping(String newShipping) { ProductDAO.setShpping(newShipping); }
@@ -50,4 +50,5 @@ public class Product {
         setPosition(position);
         setQuantity(quantity);
     }
+     **/
 }

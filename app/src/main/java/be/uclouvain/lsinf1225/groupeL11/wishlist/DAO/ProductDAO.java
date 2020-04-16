@@ -12,7 +12,7 @@ public class ProductDAO {
         //TODO
     }
 
-    public static void setShpping(String newShipping) {
+    public static void setShipping(String newShipping) {
         //TODO
     }
 
