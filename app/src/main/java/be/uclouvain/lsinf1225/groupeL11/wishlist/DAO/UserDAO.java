@@ -75,8 +75,9 @@ public class UserDAO extends DAO<User>{
                 System.out.println(e.getMessage());
                 return false;
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

@@ -79,4 +79,29 @@ public class TestUserDao {
             System.out.println(e.getMessage());
         }
     }
+
+    @Test
+    public void test_find_non_exising_row(){
+        String url = "jdbc:sqlite:db/bdd.sqlite";
+        try(Connection conn = DriverManager.getConnection(url)){
+            UserDAO dao = new UserDAO(conn);
+            User found_user = dao.find("non-existing-email@gmail.com");
+            assertNull(found_user);
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_update_non_existing_row(){
+        String url = "jdbc:sqlite:db/bdd.sqlite";
+        try(Connection conn = DriverManager.getConnection(url)){
+            UserDAO dao = new UserDAO(conn);
+            User new_user = new User("Bruce", "Willis", "tbobruce@gmail.com", "diehard", "bwillis", "red", "medium", 43, "a cote de chez toi");
+            boolean ret = dao.update(new_user);
+            assertFalse(ret);
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
