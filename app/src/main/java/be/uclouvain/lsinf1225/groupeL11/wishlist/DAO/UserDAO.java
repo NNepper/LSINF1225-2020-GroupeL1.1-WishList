@@ -19,9 +19,8 @@ public class UserDAO extends DAO<User>{
 
     @Override
     public boolean create(User user){
-        String query = "INSERT INTO " +
-                "User(firstname, lastname, username, email, password, address, fav_color, shoe_size, trouser_size, tshirt_size) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO User (firstname, lastname, username, email, password, address, fav_color, shoe_size)"
+                + " values (?, ?, ?, ?, ?, ?, ?, ?)";
         try(PreparedStatement pstmt = this.connect.prepareStatement(query)){
             pstmt.setString(1, user.getFirstname());
             pstmt.setString(2, user.getLastname());
@@ -31,8 +30,10 @@ public class UserDAO extends DAO<User>{
             pstmt.setString(6, user.getAddress());
             pstmt.setString(7, user.getColor());
             pstmt.setInt(8, user.getShoesSize());
-
             pstmt.execute();
+            ResultSet result = this.connect.createStatement().executeQuery("select last_insert_rowid()");
+            user.setId(result.getInt("last_insert_rowid()"));
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
@@ -42,7 +43,7 @@ public class UserDAO extends DAO<User>{
 
     @Override
     public boolean delete(User user){
-        String query = "DELETE FROM User WHERE User.userID == ?";
+        String query = " DELETE FROM User WHERE userID == ?";
         try(PreparedStatement pstmt = this.connect.prepareStatement(query)){
             pstmt.setInt(1, user.getId());
             pstmt.execute();
@@ -55,23 +56,25 @@ public class UserDAO extends DAO<User>{
 
     @Override
     public boolean update(User user) {
-        String query = "UPDATE " +
-            "User(firstname, lastname, username, email, password, address, fav_color, shoe_size, trouser_size, tshirt_size) = " +
-                "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try(PreparedStatement pstmt = this.connect.prepareStatement(query)){
-            pstmt.setString(1, user.getFirstname());
-            pstmt.setString(2, user.getLastname());
-            pstmt.setString(3, user.getUsername());
-            pstmt.setString(4, user.getEmail());
-            pstmt.setString(5, user.getPassword());
-            pstmt.setString(6, user.getAddress());
-            pstmt.setString(7, user.getColor());
-            pstmt.setInt(8, user.getShoesSize());
-            pstmt.setString(10, user.getTshirtSize());
-            pstmt.executeUpdate();
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-            return false;
+        String query = "UPDATE User " +
+            "SET (firstname, lastname, username, email, password, address, fav_color, shoe_size) = " +
+                "(?, ?, ?, ?, ?, ?, ?, ?) WHERE userID == ?";
+        if(user.getId() != -1) {
+            try (PreparedStatement pstmt = this.connect.prepareStatement(query)) {
+                pstmt.setString(1, user.getFirstname());
+                pstmt.setString(2, user.getLastname());
+                pstmt.setString(3, user.getUsername());
+                pstmt.setString(4, user.getEmail());
+                pstmt.setString(5, user.getPassword());
+                pstmt.setString(6, user.getAddress());
+                pstmt.setString(7, user.getColor());
+                pstmt.setInt(8, user.getShoesSize());
+                pstmt.setInt(9, user.getId());
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
         }
         return true;
     }
@@ -79,15 +82,10 @@ public class UserDAO extends DAO<User>{
     @Override
     public User find(String email){
         User user = null;
-        String query = "SELECT * FROM User WHERE User.userID == ?";
         try{
-            ResultSet result = this.connect.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY
-            ).executeQuery("SELECT * FROM User WHERE User.email == " + email);
-            if(result.first())
+            ResultSet result = this.connect.createStatement().executeQuery("SELECT * FROM User WHERE email == \"" + email + "\"");
+            if(result != null)
                 user = new User(
-                        result.getInt("userID"),
                         result.getString("firstname"),
                         result.getString("lastname"),
                         result.getString("username"),
@@ -98,6 +96,7 @@ public class UserDAO extends DAO<User>{
                         result.getInt("shoe_size"),
                         result.getString("address")
                 );
+                user.setId(result.getInt("userID"));
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }

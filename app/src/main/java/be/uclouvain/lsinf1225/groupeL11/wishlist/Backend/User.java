@@ -25,7 +25,6 @@ public class User {
 
     /* User's constructor */
     public User(
-            int id,
             String firstname,
             String lastname,
             String email,
@@ -34,10 +33,9 @@ public class User {
             String color,
             String tshirtSize,
             int shoeSize,
-            String address
-            )
+            String address)
     {
-        this.id = id;
+        this.id = -1;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -49,8 +47,12 @@ public class User {
         this.address = address;
     }
 
-    public int getId(){
-        return this.id;
+    public void setId(int id) { this.id = id; }
+
+    public int getId() { return this.id; }
+
+    public void setEmail(String email){
+        this.email = email;
     }
 
     public String getEmail() {
