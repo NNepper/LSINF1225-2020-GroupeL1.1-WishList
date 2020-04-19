@@ -3,14 +3,17 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Backend;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.InterestDAO;
 
 public class Interest {
+    private int id=-1;
+    private String interestname;
 
-    public Interest() {
-        //TODO
+    public Interest(String name) {
+        this.interestname = name;
     }
 
-    public String getInterestName(int interestID) { return InterestDAO.getInterestName(interestID); }
+    public int getId() {return this.id;}
 
-    public int getInterestRating(int interestID) { return InterestDAO.getInterestRating(interestID); }
+    public void setId(int id) {this.id = id;}
 
-    public void setInterestRating(int newRating,int interestID) { InterestDAO.setInterestRating(interestID, newRating); }
+    public String getInterestName() {return this.interestname;}
+
 }

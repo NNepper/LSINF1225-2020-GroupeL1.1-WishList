@@ -43,15 +43,18 @@ public class UserDAO extends DAO<User>{
 
     @Override
     public boolean delete(User user){
-        String query = " DELETE FROM User WHERE userID == ?";
-        try(PreparedStatement pstmt = this.connect.prepareStatement(query)){
-            pstmt.setInt(1, user.getId());
-            pstmt.execute();
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-            return false;
+        if(user.getId() != -1) {
+            String query = " DELETE FROM User WHERE userID == ?";
+            try (PreparedStatement pstmt = this.connect.prepareStatement(query)) {
+                pstmt.setInt(1, user.getId());
+                pstmt.execute();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

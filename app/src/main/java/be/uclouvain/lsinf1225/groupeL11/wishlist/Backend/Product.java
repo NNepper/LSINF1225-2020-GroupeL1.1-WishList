@@ -3,10 +3,27 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Backend;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
 
 public class Product {
+    private int id = -1;
+    private String name;
+    private String description;
+    private String link;
 
-    public Product() {
-
+    public Product(String name, String description, String link) {
+        this.name = name;
+        this.description = description;
+        this.link = link;
     }
+
+    public void setId(int id){ this.id = id; }
+
+    public int getId(){ return this.id; }
+
+    public String getName(){ return this.name; }
+
+    public String getDescription(){ return this.description; }
+
+    public String getLink(){ return this.link; }
+
     /**
     public void setWebLink(String newWeblink) { ProductDAO.setWeblink(newWeblink); }
 

@@ -119,17 +119,18 @@ public class User {
     }
     /**
     public void addFollow(User toFollow, boolean pending) { UserDAO.addFollow(toFollow, this, pending); }
+     **/
 
     public Map<String, Object> getUserInfos() {
         Map<String, Object> data = new HashMap<>();
-        data.put("first name", getFirstname());
-        data.put("last name", getLastname());
-        data.put("address", getAddress());
-        data.put("color", getColor());
-        data.put("shoes size", getShoesSize());
-        data.put("t-shirt size", getTshirtSize());
-        data.put("username", getUsername());
-        data.put("email address", this.emailAddress);
+        data.put("first name", this.getFirstname());
+        data.put("last name", this.getLastname());
+        data.put("address", this.getAddress());
+        data.put("color", this.getColor());
+        data.put("shoes size", this.getShoesSize());
+        data.put("t-shirt size", this.getTshirtSize());
+        data.put("username", this.getUsername());
+        data.put("email address", this.getEmail());
         if (getPrivacy()) {
             data.put("privacy", "private");
         } else {
@@ -141,6 +142,7 @@ public class User {
         return data;
     }
 
+    /**
     public void askFollow(User followed) {
         if (this.getPrivacy()) {
             UserDAO.addFollow(this, followed, false);
@@ -148,7 +150,6 @@ public class User {
             UserDAO.addFollow(this, followed, true);
         }
     }
-
     public void acceptFollow(User toAccept) {
         UserDAO.setFollow(toAccept, this, true);
     }

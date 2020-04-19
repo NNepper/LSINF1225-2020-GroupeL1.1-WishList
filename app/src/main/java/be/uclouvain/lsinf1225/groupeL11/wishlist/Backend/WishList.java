@@ -7,24 +7,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 
 public class WishList {
-    /**
-    private String wishListName;
-    private String wishListDescription;
-    private ArrayList<Product> products;
 
-    public WishList(int wishListID) {
-        products = getProducts(wishListID);
-        this.sortProductsByPosition();
-        wishListName = getWishListName(wishListID);
-        wishListDescription = getWishListDescription(wishListID);
+    private int id;
+    private String name;
+    private String description;
+    private ArrayList<Product> products;
+    public User user = null;
+
+    public WishList(String name, String description, User user) {
+        this.name = name;
+        this.description = description;
+        this.user = user;
     }
 
-    public String getWishListName(int wishListID) { return WishListDAO.getWishListName(wishListID); }
+    public void setId(int id){ this.id=id; }
 
-    public String getWishListDescription(int wishListID) { return WishListDAO.getWishListDescription(wishListID); }
+    public int getId(){ return this.id; }
 
+    public String getName(){ return this.name; }
+
+    public void setName(String name){ this.name = name; }
+
+    public String getDescription(){ return this.description; }
+
+    /**
     public ArrayList<Product> getProducts(int wishListID) { return WishListDAO.getProducts(wishListID); }
 
     public Product getProduct(int i) { return WishListDAO.getProduct(i, this); }
@@ -45,7 +54,8 @@ public class WishList {
             }
         });
     }
-
+     **/
+    /**
     public Map<String, Object> getWishListInfos() {
         Map<String, Object> data = new HashMap<>();
         data.put("wishlist name", this.wishListName);
