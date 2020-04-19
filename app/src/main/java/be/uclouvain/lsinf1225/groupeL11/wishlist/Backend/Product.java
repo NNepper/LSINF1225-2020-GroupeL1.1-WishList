@@ -7,11 +7,25 @@ public class Product {
     private String name;
     private String description;
     private String link;
+    public WishList list;
+    public int position;
+    public String shipping;
+    public int quantity;
 
-    public Product(String name, String description, String link) {
+    public Product(String name,
+                   String description,
+                   String link,
+                   int position,
+                   String shipping,
+                   int quantity,
+                   WishList list) {
         this.name = name;
         this.description = description;
         this.link = link;
+        this.position = position;
+        this.shipping = shipping;
+        this.quantity = quantity;
+        this.list = list;
     }
 
     public void setId(int id){ this.id = id; }

@@ -4,6 +4,9 @@ import android.view.accessibility.AccessibilityRecord;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.DAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
+
+import java.util.ArrayList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -80,7 +83,11 @@ public class ProductDAO extends DAO<Product>{
                 product = new Product(
                         result.getString("name"),
                         result.getString("description"),
-                        result.getString("link")
+                        result.getString("link"),
+                        0,
+                        null,
+                        0,
+                        null
                 );
             product.setId(result.getInt("productID"));
         }catch(SQLException e){
@@ -89,55 +96,40 @@ public class ProductDAO extends DAO<Product>{
         return product;
     }
 
-    public static void setWeblink(String newWeblink) {
-        //TODO
-    }
+    public ArrayList<Product> findByWishList(WishList wishlist){
+        ArrayList<Product> productlist = null;
+        if(wishlist.getId() != -1) {
+            productlist = new ArrayList<Product>();
+            String query1 = "SELECT * FROM Products p WHERE p.productID IN (SELECT productID FROM Wishlist_has_Products WHERE wishlistID == ?)";
+            String query2 = "SELECT * FROM Wishlist_has_Products WHERE wishlistID == ? AND productID == ?";
+            try (PreparedStatement q1 = this.connect.prepareStatement(query1)) {
+                q1.setInt(1, wishlist.getId());
+                ResultSet products = q1.executeQuery();
 
-    public static void setShipping(String newShipping) {
-        //TODO
-    }
+                while (products.next()) {
+                    int productID = products.getInt("productID");
+                    PreparedStatement q2 = this.connect.prepareStatement(query2);
+                    q2.setInt(1, wishlist.getId());
+                    q2.setInt(2, productID);
+                    ResultSet whp_info = q2.executeQuery();
 
-    public static void setPosition(int position) {
-        //TODO
-    }
+                    Product product = new Product(
+                            products.getString("name"),
+                            products.getString("description"),
+                            products.getString("link"),
+                            whp_info.getInt("position"),
+                            whp_info.getString("shipping"),
+                            whp_info.getInt("quantity"),
+                            wishlist
+                    );
 
-    public static void setQuantity(int quantity) {
-        //TODO
+                    product.setId(productID);
+                    productlist.add(product);
+                }
+            } catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return productlist;
     }
-
-    public static String getProductName(Product product) {
-        //TODO
-        return null;
-    }
-
-    public static String getProductDescription(Product product) {
-        //TODO
-        return null;
-    }
-
-    public static String getWeblink(Product product) {
-        //TODO
-        return null;
-    }
-
-    public static String getProductPicture(Product product) {
-        //TODO
-        return null;
-    }
-
-    public static String getShipping(Product product) {
-        //TODO
-        return null;
-    }
-
-    public static int getPosition(Product product) {
-        //TODO
-        return 1;
-    }
-
-    public static int getQuantity(Product product) {
-        //TODO
-        return 1;
-    }
-
 }
