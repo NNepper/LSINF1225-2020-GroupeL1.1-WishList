@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.sql.Connection;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.DAO;
 
@@ -73,6 +74,13 @@ public class WishListDAO extends DAO<WishList>{
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 return false;
+            }
+
+            //Update every product in list
+            ProductDAO p_dao = new ProductDAO(this.connect);
+            for(Product p : list.getProducts()){
+                if(p_dao.update(p) == false)
+                    return false;
             }
             return true;
         }

@@ -21,6 +21,7 @@ public class WishList {
         this.name = name;
         this.description = description;
         this.user = user;
+        this.products = new ArrayList<Product>();
     }
 
     public void setId(int id){ this.id=id; }
@@ -32,6 +33,15 @@ public class WishList {
     public void setName(String name){ this.name = name; }
 
     public String getDescription(){ return this.description; }
+
+    public ArrayList<Product> getProducts(){return this.products;}
+
+    public void setProducts(ArrayList<Product> products){this.products=products;}
+
+    public void addProduct(Product product){
+        this.products.add(product);
+        product.list = this;
+    }
 
     /**
     public ArrayList<Product> getProducts(int wishListID) { return WishListDAO.getProducts(wishListID); }
