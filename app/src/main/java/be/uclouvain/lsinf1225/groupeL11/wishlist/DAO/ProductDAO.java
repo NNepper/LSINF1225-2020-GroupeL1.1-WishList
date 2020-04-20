@@ -64,7 +64,7 @@ public class ProductDAO extends DAO<Product>{
                 "(?, ?, ?, ?, ?, ?, ?, ?) WHERE productID == ?";
         if(product.getId() != -1) {
             try (PreparedStatement pstmt = this.connect.prepareStatement(query)) {
-                pstmt.setInt(1, product.list.getId());
+                pstmt.setInt(1, product.wishlist.getId());
                 pstmt.setInt(2, product.getId());
                 pstmt.setString(3, product.name);
                 pstmt.setString(3, product.link);
