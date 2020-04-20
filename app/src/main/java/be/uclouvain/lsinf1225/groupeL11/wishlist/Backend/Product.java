@@ -4,39 +4,22 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
 
 public class Product {
     private int id = -1;
-    private String name;
-    private String description;
-    private String link;
-    public WishList list;
+    public String name;
+    public String description;
+    public String link;
     public int position;
-    public String shipping;
+    public boolean purchased;
     public int quantity;
 
-    public Product(String name,
-                   String description,
-                   String link,
-                   int position,
-                   String shipping,
-                   int quantity,
-                   WishList list) {
-        this.name = name;
-        this.description = description;
-        this.link = link;
-        this.position = position;
-        this.shipping = shipping;
-        this.quantity = quantity;
-        this.list = list;
+    public WishList wishlist;
+
+    public Product(int id) {
+        this.id = id;
     }
 
     public void setId(int id){ this.id = id; }
 
     public int getId(){ return this.id; }
-
-    public String getName(){ return this.name; }
-
-    public String getDescription(){ return this.description; }
-
-    public String getLink(){ return this.link; }
 
     /**
     public void setWebLink(String newWeblink) { ProductDAO.setWeblink(newWeblink); }

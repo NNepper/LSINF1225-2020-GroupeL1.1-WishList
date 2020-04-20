@@ -8,140 +8,27 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.*;
 
 public class User {
     private int id;
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String password;
-    private String username;
-    private String color;
-    private String tshirtSize;
-    private int shoeSize;
-    private String address;
-    private Boolean privacy;
-    private ArrayList<Interest> interests;
-    private ArrayList<User> following;
-    private ArrayList<WishList> wishlists;
+    public String firstname;
+    public String lastname;
+    public String email;
+    public String password;
+    public String username;
+    public String color;
+    public String tshirtSize;
+    public int shoeSize;
+    public String address;
+    public Boolean privacy;
+    public ArrayList<Interest> interests;
+    public ArrayList<User> following;
+    public ArrayList<WishList> wishlists;
 
 
     /* User's constructor */
-    public User(
-            String firstname,
-            String lastname,
-            String email,
-            String password,
-            String username,
-            String color,
-            String tshirtSize,
-            int shoeSize,
-            String address)
+    public User(int id)
     {
-        this.id = -1;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.color = color;
-        this.tshirtSize = tshirtSize;
-        this.shoeSize = shoeSize;
-        this.address = address;
+        this.id = id;
     }
-
-    public void setId(int id) { this.id = id; }
-
-    public int getId() { return this.id; }
-
-    public void setEmail(String email){
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    // Getter username
-    public String getUsername() {
-        return this.username;
-    }
-
-    // Getter firstname
-    public String getFirstname() {
-        return this.firstname;
-    }
-
-    // Getter lastname
-    public String getLastname() {
-        return this.lastname;
-    }
-
-    // Getter color
-    public String getColor() {
-        return this.color;
-    }
-
-    // Getter tshirtSize
-    public String getTshirtSize() {
-        return this.tshirtSize;
-    }
-
-    // Getter shoesSize
-    public int getShoesSize() {
-        return this.shoeSize;
-    }
-
-    // Getter address
-    public String getAddress() {
-        return this.address;
-    }
-
-    // Getter privacy
-    public Boolean getPrivacy() {
-        return this.privacy;
-    }
-
-    // Getter interests
-    public ArrayList<Interest> getInterests() {
-        return this.interests;
-    }
-
-    // Getter following
-    public ArrayList<User> getFollowing() {
-        return this.following;
-    }
-
-    // Getter wishLists
-    public ArrayList<WishList> getWishLists() {
-        return this.wishlists;
-    }
-    /**
-    public void addFollow(User toFollow, boolean pending) { UserDAO.addFollow(toFollow, this, pending); }
-     **/
-
-    public Map<String, Object> getUserInfos() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("first name", this.getFirstname());
-        data.put("last name", this.getLastname());
-        data.put("address", this.getAddress());
-        data.put("color", this.getColor());
-        data.put("shoes size", this.getShoesSize());
-        data.put("t-shirt size", this.getTshirtSize());
-        data.put("username", this.getUsername());
-        data.put("email address", this.getEmail());
-        if (getPrivacy()) {
-            data.put("privacy", "private");
-        } else {
-            data.put("privacy", "public");
-        }
-        data.put("following", getFollowing());
-        data.put("interests", getInterests());
-        data.put("wishlists", getWishLists());
-        return data;
-    }
-
+    
     /**
     public void askFollow(User followed) {
         if (this.getPrivacy()) {
