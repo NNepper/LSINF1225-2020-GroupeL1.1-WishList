@@ -29,6 +29,7 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 public class WishlistFragment extends Fragment {
 
     private FloatingActionButton addWishlistButton;
+    private String newWishListName;
 
     @Nullable
     @Override
@@ -42,8 +43,23 @@ public class WishlistFragment extends Fragment {
         this.addWishlistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragmentNewWishlist addWishlistDialog = new DialogFragmentNewWishlist();
-                addWishlistDialog.show(getActivity().getSupportFragmentManager(), "newWishlist");
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Add a new wishlist");
+                View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_wishlist, (ViewGroup) getView(), false);
+                final EditText wishlistName = (EditText) viewInflated.findViewById(R.id.new_wishlist_name);
+                builder.setView(viewInflated)
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                newWishListName = wishlistName.getText().toString(); // get the name of the new wishlist
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
             }
         });
 
