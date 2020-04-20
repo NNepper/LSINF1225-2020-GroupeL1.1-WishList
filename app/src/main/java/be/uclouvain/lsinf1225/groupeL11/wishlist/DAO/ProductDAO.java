@@ -25,12 +25,17 @@ public class ProductDAO extends DAO<Product>{
 
     @Override
     public boolean create(Product product) {
-        String query = "INSERT INTO Products (name, description, link) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Products (wishlistID, productID, name, description, link, quantity, position, purchased) VALUES (?, ?, ?)";
         try(PreparedStatement pstmt = this.connect.prepareStatement(query)){
-            pstmt.setString(1, product.name);
-            pstmt.setString(2, product.description);
-            pstmt.setString(3, product.description);
+            pstmt.setInt(1, product.wishlist.getId());
+            pstmt.setInt(2, product.getId());
+            pstmt.setString(3, product.name);
+            pstmt.setString(4, product.description);
+            pstmt.setString(5, product.link);
+            pstmt.setInt(6, product.quantity);
+            pstmt.setBoolean(7, product.purchased);
             pstmt.execute();
+
             ResultSet result = this.connect.createStatement().executeQuery("select last_insert_rowid()");
             product.setId(result.getInt("last_insert_rowid()"));
         } catch (SQLException e) {
@@ -99,7 +104,7 @@ public class ProductDAO extends DAO<Product>{
                 while (products.next()) {
                     int productID = products.getInt("productID");
                     Product product = new Product( productID);
-                    product.name = products.getString("name")
+                    product.name = products.getString("name");
                     product.description = products.getString("description");
                     product.link = products.getString("link");
                     product.quantity = products.getInt("quantity");

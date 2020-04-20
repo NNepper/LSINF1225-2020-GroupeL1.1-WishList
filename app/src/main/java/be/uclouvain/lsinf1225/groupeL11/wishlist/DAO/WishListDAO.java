@@ -22,16 +22,27 @@ public class WishListDAO extends DAO<WishList>{
         if(list.user != null && list.user.getId() != -1) {
             String add_to_wishlisttable = "INSERT INTO Wishlist (name, description) VALUES (?, ?)";
             String link_user_to_wishlist = "INSERT INTO User_has_Wishlist (userID, wishlistID) VALUES (?, ?)";
-            try (PreparedStatement query1 = this.connect.prepareStatement(add_to_wishlisttable)) {
-                query1.setString(1, list.getName());
-                query1.setString(2, list.getDescription());
+            try (
+                    PreparedStatement query1 = this.connect.prepareStatement(add_to_wishlisttable);
+                    PreparedStatement query2 = this.connect.prepareStatement(link_user_to_wishlist)
+            ) {
+
+                query1.setString(1, list.name);
+                query1.setString(2, list.description);
                 query1.execute();
                 ResultSet result = this.connect.createStatement().executeQuery("select last_insert_rowid()");
                 list.setId(result.getInt("last_insert_rowid()"));
-                PreparedStatement query2 = this.connect.prepareStatement(link_user_to_wishlist);
+
                 query2.setInt(1, list.user.getId());
                 query2.setInt(2, list.getId());
                 query2.execute();
+
+                if(list.products != null){
+                    ProductDAO p_dao = new ProductDAO(this.connect);
+                    for (Product p: list.products){
+                        p_dao.create(p);
+                    }
+                }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 return false;
@@ -66,21 +77,21 @@ public class WishListDAO extends DAO<WishList>{
         String query = "UPDATE Wishlist SET (name, description) = (?, ?) WHERE wishlistID == ?";
         if(list.getId() != -1) {
             try (PreparedStatement pstmt = this.connect.prepareStatement(query)) {
-                System.out.println(list.getName());
-                pstmt.setString(1, list.getName());
-                pstmt.setString(2, list.getDescription());
+                pstmt.setString(1, list.name);
+                pstmt.setString(2, list.description);
                 pstmt.setInt(3, list.getId());
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 return false;
             }
-
-            //Update every product in list
-            ProductDAO p_dao = new ProductDAO(this.connect);
-            for(Product p : list.getProducts()){
-                if(p_dao.update(p) == false)
-                    return false;
+            if(list.products != null) {
+                //Update every product in list
+                ProductDAO p_dao = new ProductDAO(this.connect);
+                for (Product p : list.products) {
+                    if (p_dao.update(p) == false)
+                        return false;
+                }
             }
             return true;
         }
@@ -101,10 +112,10 @@ public class WishListDAO extends DAO<WishList>{
                 pstmt.setInt(1, user.getId());
                 ResultSet result = pstmt.executeQuery();
                 while(result.next()){
-                    WishList list = new WishList(result.getString("name"),
-                            result.getString("description"),
-                            user);
-                    list.setId(result.getInt("wishlistID"));
+                    WishList list = new WishList(result.getInt("wishlistID"));
+                    list.name = result.getString("name");
+                    list.description = result.getString("description");
+                    list.user = user;
                     a_list.add(list);
                 }
             }catch (SQLException e){

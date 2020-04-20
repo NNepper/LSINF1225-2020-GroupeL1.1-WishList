@@ -17,10 +17,8 @@ public class WishList {
     public ArrayList<Product> products;
     public User user = null;
 
-    public WishList(String name, String description, User user) {
-        this.name = name;
-        this.description = description;
-        this.user = user;
+    public WishList(int id) {
+        this.id = id;
         this.products = new ArrayList<Product>();
     }
 
@@ -28,19 +26,9 @@ public class WishList {
 
     public int getId(){ return this.id; }
 
-    public String getName(){ return this.name; }
-
-    public void setName(String name){ this.name = name; }
-
-    public String getDescription(){ return this.description; }
-
-    public ArrayList<Product> getProducts(){return this.products;}
-
-    public void setProducts(ArrayList<Product> products){this.products=products;}
-
     public void addProduct(Product product){
         this.products.add(product);
-        product.list = this;
+        product.wishlist = this;
     }
 
     /**

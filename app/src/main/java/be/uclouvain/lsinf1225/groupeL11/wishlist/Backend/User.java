@@ -15,6 +15,7 @@ public class User {
     public String username;
     public String color;
     public String tshirtSize;
+    public String trouserSize;
     public int shoeSize;
     public String address;
     public Boolean privacy;
@@ -28,7 +29,10 @@ public class User {
     {
         this.id = id;
     }
-    
+
+    public int getId() { return this.id; }
+
+    public void setId(int id){ this.id = id; }
     /**
     public void askFollow(User followed) {
         if (this.getPrivacy()) {
