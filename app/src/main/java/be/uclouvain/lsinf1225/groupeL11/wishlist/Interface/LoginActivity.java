@@ -6,8 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,10 +44,32 @@ public class LoginActivity extends AppCompatActivity {
         this.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go_to_home = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(go_to_home);
-                finish();
+
             }
         });
     }
+
+    public void LoginActivity() {
+        EditText editText1 = (EditText) findViewById(R.id.Email);
+        String email = editText1.getText().toString();
+
+        EditText editText2 = (EditText) findViewById(R.id.Password);
+        String password = editText2.getText().toString();
+
+        String url = "jdbc:sqlite:db/bdd.sqlite";
+        try(Connection conn = DriverManager.getConnection(url)){
+            UserDAO dao = new UserDAO(conn);
+            User user = dao.find(email);
+            Intent go_to_home = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(go_to_home);
+            finish();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
+
+
+
