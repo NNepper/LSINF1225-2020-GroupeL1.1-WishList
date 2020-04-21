@@ -34,7 +34,7 @@ public class WishlistFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        String[] testItems = {"test", "test1", "test2"};
+        String[] testItems = {"test", "test1", "test2", "test3", "test4"};
         final View view = inflater.inflate(R.layout.fragment_home_wishlists, container, false);
         final ListView wishListView = view.findViewById(R.id.wishlist_list_view);
 

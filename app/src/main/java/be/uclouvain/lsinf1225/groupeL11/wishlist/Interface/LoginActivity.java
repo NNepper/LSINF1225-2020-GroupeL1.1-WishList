@@ -32,8 +32,8 @@ public class LoginActivity extends AppCompatActivity {
 
         // getSupportActionBar().hide(); remove top bar
 
-        this.backArrow = (ImageView) findViewById(R.id.BackHomeArrow);
-        this.submit = findViewById(R.id.button);
+        this.backArrow = (ImageView) findViewById(R.id.login_back_arrow);
+        this.submit = findViewById(R.id.login_submit);
 
         this.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,14 +47,14 @@ public class LoginActivity extends AppCompatActivity {
         this.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                LoginActivity();
             }
         });
     }
 
     public void LoginActivity() {
-        EditText editText1 = (EditText) findViewById(R.id.Email);
-        EditText editText2 = (EditText) findViewById(R.id.Password);
+        EditText editText1 = (EditText) findViewById(R.id.login_email);
+        EditText editText2 = (EditText) findViewById(R.id.login_password);
 
         String email = editText1.getText().toString();
         String password = editText2.getText().toString();
