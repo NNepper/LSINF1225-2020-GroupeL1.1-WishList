@@ -2,11 +2,13 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -65,8 +67,12 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    // Send message: "The two passwords aren't the same"
-                    return;
+                    Context context = getApplicationContext();
+                    CharSequence text = "Recheck the password you entered..";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
             }
         });
