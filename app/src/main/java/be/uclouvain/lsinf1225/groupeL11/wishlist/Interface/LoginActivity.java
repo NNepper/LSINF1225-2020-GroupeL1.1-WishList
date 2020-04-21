@@ -47,47 +47,34 @@ public class LoginActivity extends AppCompatActivity {
         this.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginActivity();
+                Context context = getApplicationContext();
+
+                String email = ((EditText) findViewById(R.id.login_email)).getText().toString();
+                String password = ((EditText) findViewById(R.id.login_password)).getText().toString();
+
+                if (email.length() == 0 || password.length() == 0){
+                    CharSequence toastText = "Please enter all infos";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, toastText, duration);
+                    toast.show();
+                }
+                else {
+                    String url = "jdbc:sqlite:db/bdd.sqlite";
+                    try (Connection conn = DriverManager.getConnection(url)) {
+                        UserDAO dao = new UserDAO(conn);
+                        User mainUser = dao.find(email);
+                    } catch (SQLException e) {
+                        CharSequence toastText = "SQLException";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, toastText, duration);
+                        toast.show();
+                    }
+                }
             }
         });
     }
-
-    public void LoginActivity() {
-        EditText editText1 = (EditText) findViewById(R.id.login_email);
-        EditText editText2 = (EditText) findViewById(R.id.login_password);
-
-        String email = editText1.getText().toString();
-        String password = editText2.getText().toString();
-
-        String url = "jdbc:sqlite:db/bdd.sqlite";
-        try(Connection conn = DriverManager.getConnection(url)){
-            UserDAO dao = new UserDAO(conn);
-            User mainUser = dao.find(email);
-
-            if (mainUser != null) {
-                Bundle data = new Bundle();
-                data.putSerializable("mainUser", (Serializable) mainUser);
-
-                Intent go_to_home = new Intent(getApplicationContext(), HomeActivity.class);
-                go_to_home.putExtras(data);
-                startActivity(go_to_home);
-                finish();
-            }
-            else {
-                Context context = getApplicationContext();
-                CharSequence text = "Password Incorrect! Try harder..";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
-
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
 }
 
 
