@@ -2,13 +2,16 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -51,18 +54,34 @@ public class LoginActivity extends AppCompatActivity {
 
     public void LoginActivity() {
         EditText editText1 = (EditText) findViewById(R.id.Email);
-        String email = editText1.getText().toString();
-
         EditText editText2 = (EditText) findViewById(R.id.Password);
+
+        String email = editText1.getText().toString();
         String password = editText2.getText().toString();
 
         String url = "jdbc:sqlite:db/bdd.sqlite";
         try(Connection conn = DriverManager.getConnection(url)){
             UserDAO dao = new UserDAO(conn);
-            User user = dao.find(email);
-            Intent go_to_home = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(go_to_home);
-            finish();
+            User mainUser = dao.find(email);
+
+            if (mainUser != null) {
+                Bundle data = new Bundle();
+                data.putSerializable("mainUser", (Serializable) mainUser);
+
+                Intent go_to_home = new Intent(getApplicationContext(), HomeActivity.class);
+                go_to_home.putExtras(data);
+                startActivity(go_to_home);
+                finish();
+            }
+            else {
+                Context context = getApplicationContext();
+                CharSequence text = "Password Incorrect! Try harder..";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
