@@ -55,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = ((EditText) findViewById(R.id.Email)).getText().toString();
 
 
-
                 if (username.length() == 0 || password.length() == 0 || confPassword.length() == 0 || email.length() == 0){
                     CharSequence toastText = "Please enter all infos";
                     int duration = Toast.LENGTH_SHORT;
@@ -80,10 +79,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                     // Bundle for easy Object storage
                     Bundle data = new Bundle();
-                    data.putSerializable("mainUser", (Serializable) mainUser);
+                    //data.putSerializable("mainUser", (Serializable) mainUser);
 
                     // Start new Activity and pass data to the next Activity
-                    Intent back_to_home_page = new Intent(getApplicationContext(), MainActivity.class); // change the intent to let the user enter his infos
+                    Intent back_to_home_page = new Intent(getApplicationContext(), ProfileCreationActivity.class); // change the intent to let the user enter his infos
                     back_to_home_page.putExtras(data);
                     startActivity(back_to_home_page);
                     finish();

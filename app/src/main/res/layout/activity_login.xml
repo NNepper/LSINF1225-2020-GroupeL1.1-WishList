@@ -29,6 +29,7 @@
         android:background="@drawable/edit_round_input_text"
         android:gravity="center"
         android:hint="E-mail"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_text" />
@@ -41,6 +42,7 @@
         android:background="@drawable/edit_round_input_text"
         android:gravity="center"
         android:hint="Password"
+        android:maxLines="1"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +69,6 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back_arrow" />
+        app:srcCompat="@drawable/ic_back_arrow"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
