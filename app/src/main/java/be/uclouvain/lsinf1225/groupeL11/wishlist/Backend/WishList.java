@@ -1,11 +1,14 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Backend;
 
+import android.icu.text.PluralRules;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 
@@ -31,18 +34,14 @@ public class WishList {
         product.wishlist = this;
     }
 
-    /**
-    public ArrayList<Product> getProducts(int wishListID) { return WishListDAO.getProducts(wishListID); }
+    public ArrayList<Product> getProducts() { return this.products; }
 
-    public Product getProduct(int i) { return WishListDAO.getProduct(i, this); }
+    public Product getProduct(int i) { return this.products.get(i); }
 
-    public void addProduct(Product product) { WishListDAO.addProduct(product, this); }
-
-    public void addProduct(int i, Product product) { WishListDAO.addProduct(i, product, this); }
-
-    public boolean removeProduct(Product product) { return WishListDAO.removeProduct(product, this); }
-
-    public Product removeProduct(int i) { return WishListDAO.removeProduct(i, this); }
+    public boolean removeProduct(Product product) {
+        // ProductDAO.delete(this); TODO ne fonctionne pas car delete n'est pas static
+        return this.products.remove(product);
+    }
 
     public void sortProductsByPosition() {
         Collections.sort(products, new Comparator<Product>() {
@@ -52,15 +51,12 @@ public class WishList {
             }
         });
     }
-     **/
-    /**
     public Map<String, Object> getWishListInfos() {
         Map<String, Object> data = new HashMap<>();
-        data.put("wishlist name", this.wishListName);
-        data.put("wishlist description", this.wishListDescription);
+        data.put("wishlist name", this.name);
+        data.put("wishlist description", this.description);
         sortProductsByPosition();
         data.put("products", this.products);
         return data;
     }
-     **/
 }
