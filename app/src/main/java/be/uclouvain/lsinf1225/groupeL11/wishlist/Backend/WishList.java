@@ -47,7 +47,7 @@ public class WishList {
         Collections.sort(products, new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {
-                return o2.getPosition() - o1.getPosition();
+                return o2.position - o1.position;
             }
         });
     }
