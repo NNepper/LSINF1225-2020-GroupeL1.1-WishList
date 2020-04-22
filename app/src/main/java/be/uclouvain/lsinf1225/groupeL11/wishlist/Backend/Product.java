@@ -21,48 +21,30 @@ public class Product {
 
     public int getId(){ return this.id; }
 
-    /**
-    public void setWebLink(String newWeblink) { ProductDAO.setWeblink(newWeblink); }
-
-    public void setShipping(String newShipping) { ProductDAO.setShpping(newShipping); }
-
-    public void setPosition(int position) { ProductDAO.setPosition(position); }
-
-    public void setQuantity(int quantity) { ProductDAO.setQuantity(quantity); }
-
-    public String getProductName() {
-        return ProductDAO.getProductName(this);
+    public void setWebLink(String link) {
+        this.link = link;
+        // ProductDAO.update(this); TODO ne fonctionne par car update n'est pas static
     }
 
-    public String getProductDescription() {
-        return ProductDAO.getProductDescription(this);
+    public void setPurchase(boolean purchased) {
+        this.purchased = purchased;
+        // ProductDAO.update(this); TODO ne fonctionne par car update n'est pas static
     }
 
-    public String getWeblink() {
-        return ProductDAO.getWeblink(this);
+    public void setPosition(int position) {
+        this.position = position;
+        // ProductDAO.update(this); TODO ne fonctionne par car update n'est pas static
     }
 
-    public String getProductPicture() {
-        return ProductDAO.getProductPicture(this);
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+        // ProductDAO.update(this); TODO ne fonctionne par car update n'est pas static
     }
 
-    public String getShipping() {
-        return ProductDAO.getShipping(this);
-    }
-
-    public int getPosition() {
-        return ProductDAO.getPosition(this);
-    }
-
-    public int getQuantity() {
-        return ProductDAO.getQuantity(this);
-    }
-
-    public void editProduct(String Weblink, String Shipping, int position, int quantity) {
-        setWebLink(Weblink);
-        setShipping(Shipping);
+    public void editProduct(String link, boolean purchased, int position, int quantity) {
+        setWebLink(link);
+        setPurchase(purchased);
         setPosition(position);
         setQuantity(quantity);
     }
-     **/
 }
