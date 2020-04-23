@@ -34,7 +34,8 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:hint="firstname"
-                android:textColor="@color/green_border"/>
+                android:textColor="@color/green_border"
+                android:maxLines="1"/>
 
             <EditText
                 android:id="@+id/newprofile_lastname"
@@ -46,7 +47,8 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:hint="lastname"
-                android:textColor="@color/green_border"/>
+                android:textColor="@color/green_border"
+                android:maxLines="1"/>
 
             <RelativeLayout
                 android:id="@+id/new_profile_adress"
@@ -63,7 +65,8 @@
                     android:background="@drawable/edit_round_input_text"
                     android:gravity="center"
                     android:hint="Street"
-                    android:textColor="@color/green_border"/>
+                    android:textColor="@color/green_border"
+                    android:maxLines="1"/>
 
                 <EditText
                     android:id="@+id/new_profile_zip"
@@ -74,7 +77,8 @@
                     android:gravity="center"
                     android:hint="zip code"
                     android:layout_below="@id/new_profile_street"
-                    android:textColor="@color/green_border"/>
+                    android:textColor="@color/green_border"
+                    android:maxLines="1"/>
 
                 <EditText
                     android:layout_width="210dp"
@@ -85,7 +89,8 @@
                     android:hint="City"
                     android:layout_below="@id/new_profile_street"
                     android:layout_alignRight="@id/new_profile_street"
-                    android:textColor="@color/green_border"/>
+                    android:textColor="@color/green_border"
+                    android:maxLines="1"/>
 
             </RelativeLayout>
 
