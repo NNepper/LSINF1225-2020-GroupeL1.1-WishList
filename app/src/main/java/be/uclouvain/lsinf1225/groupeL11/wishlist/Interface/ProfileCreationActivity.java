@@ -2,21 +2,30 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 
 public class ProfileCreationActivity extends AppCompatActivity {
 
     Spinner dropdownColor, dropdownShoes, dropdownTshirt, dropdownTrousers;
+    Button submitNewProfil;
 
-    String color, tshirt, trousers, shoes;
+    String color, tshirt, trouser;
+    int shoes;
+
+    User mainUser = getIntent().getExtras().getParcelable("mainUser");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,28 +89,28 @@ public class ProfileCreationActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 1:
-                        shoes = "30";
+                        shoes = 30;
                         break;
                     case 2:
-                        shoes = "31";
+                        shoes = 31;
                         break;
                     case 3:
-                        shoes = "32";
+                        shoes = 32;
                         break;
                     case 4:
-                        shoes = "33";
+                        shoes = 33;
                         break;
                     case 5:
-                        shoes = "34";
+                        shoes = 34;
                         break;
                     case 6:
-                        shoes = "35";
+                        shoes = 35;
                         break;
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { shoes = null; }
+            public void onNothingSelected(AdapterView<?> parent) { shoes = 0; }
         });
 
 
@@ -110,7 +119,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         dropdownTrousers = findViewById(R.id.newprofile_trousers);
 
         // To be completed (Laisser le choix d'ajouter à l'utilisateur ?)(xx/xx la forme ??)
-        String[] trouserItems = {"28", "30", "32", "34", "36"};
+        final String[] trouserItems = {"28", "30", "32", "34", "36"};
 
         dropdownTrousers.setAdapter(new ArrayAdapter<String>(
                 this,
@@ -124,25 +133,25 @@ public class ProfileCreationActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 1:
-                        trousers = "28";
+                        trouser = "28";
                         break;
                     case 2:
-                        trousers = "30";
+                        trouser = "30";
                         break;
                     case 3:
-                        trousers = "32";
+                        trouser = "32";
                         break;
                     case 4:
-                        trousers = "34";
+                        trouser = "34";
                         break;
                     case 5:
-                        trousers = "36";
+                        trouser = "36";
                         break;
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { trousers = null; }
+            public void onNothingSelected(AdapterView<?> parent) { trouser = null; }
         });
 
 
@@ -188,6 +197,55 @@ public class ProfileCreationActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) { tshirt = null; }
         });
+
+        /** Submit informations **/
+        this.submitNewProfil = (Button) findViewById(R.id.newprofile_submit);
+        this.submitNewProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = getApplicationContext();
+
+                String firstname = ((EditText) findViewById(R.id.newprofile_firstname)).getText().toString();
+                String lastname = ((EditText) findViewById(R.id.newprofile_lastname)).getText().toString();
+                String city = ((EditText) findViewById(R.id.new_profile_city)).getText().toString();
+                String street = ((EditText) findViewById(R.id.new_profile_street)).getText().toString();
+                String zip = ((EditText) findViewById(R.id.new_profile_zip)).getText().toString();
+
+                if (firstname.length() == 0 || lastname.length() == 0 || city.length() == 0
+                        || street.length() == 0 || zip.length() == 0){
+
+                    CharSequence toastText = "Please enter all infos";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, toastText, duration);
+                    toast.show();
+                }
+                else {
+                    //Update mainUser Data
+                    mainUser.firstname = firstname;
+                    mainUser.lastname = lastname;
+                    //TODO: Address problem, to be cleared
+                    //mainUser.city = city;
+                    //mainUSer.street = street;
+                    //mainUser.zip = zip;
+                    mainUser.shoeSize = shoes;
+                    mainUser.trouserSize = trouser;
+                    mainUser.tshirtSize = tshirt;
+
+                    //TODO: Update DAO ??
+                }
+
+                // Bundle for easy Object storage
+                Bundle data = new Bundle();
+                data.putParcelable("mainUser", mainUser);
+
+                // Start new Activity and pass data to the next Activity
+                Intent HomeActivity = new Intent(getApplicationContext(), ProfileCreationActivity.class);
+                HomeActivity.putExtras(data);
+                startActivity(HomeActivity);
+            }
+        });
+
 
 
     }

@@ -81,16 +81,17 @@
                     android:maxLines="1"/>
 
                 <EditText
+                    android:id="@+id/new_profile_city"
                     android:layout_width="210dp"
                     android:layout_height="43dp"
+                    android:layout_below="@id/new_profile_street"
+                    android:layout_alignRight="@id/new_profile_street"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/edit_round_input_text"
                     android:gravity="center"
                     android:hint="City"
-                    android:layout_below="@id/new_profile_street"
-                    android:layout_alignRight="@id/new_profile_street"
-                    android:textColor="@color/green_border"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:textColor="@color/green_border" />
 
             </RelativeLayout>
 

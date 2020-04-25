@@ -79,13 +79,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                     // Bundle for easy Object storage
                     Bundle data = new Bundle();
-                    //data.putSerializable("mainUser", (Serializable) mainUser);
+                    data.putParcelable("mainUser", mainUser);
 
                     // Start new Activity and pass data to the next Activity
                     Intent back_to_home_page = new Intent(getApplicationContext(), ProfileCreationActivity.class); // change the intent to let the user enter his infos
                     back_to_home_page.putExtras(data);
                     startActivity(back_to_home_page);
-                    finish();
                 }
                 else {
                     CharSequence text = "Recheck the password you entered..";
