@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 
 public class ProfileCreationActivity extends AppCompatActivity {
 
@@ -25,7 +27,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
     String color, tshirt, trouser;
     int shoes;
 
-    User mainUser = getIntent().getExtras().getParcelable("mainUser");
+    User mainUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,6 +206,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
+                User mainUser = (getIntent().getExtras()).getParcelable("mainUser");
 
                 String firstname = ((EditText) findViewById(R.id.newprofile_firstname)).getText().toString();
                 String lastname = ((EditText) findViewById(R.id.newprofile_lastname)).getText().toString();
@@ -241,6 +244,8 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
                 // Start new Activity and pass data to the next Activity
                 Intent HomeActivity = new Intent(getApplicationContext(), ProfileCreationActivity.class);
+                
+                //TODO: Pass to HomeActivity
                 HomeActivity.putExtras(data);
                 startActivity(HomeActivity);
             }
