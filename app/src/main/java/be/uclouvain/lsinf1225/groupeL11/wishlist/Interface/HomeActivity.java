@@ -22,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         data = savedInstanceState;
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav); //find the bottom navigation bar

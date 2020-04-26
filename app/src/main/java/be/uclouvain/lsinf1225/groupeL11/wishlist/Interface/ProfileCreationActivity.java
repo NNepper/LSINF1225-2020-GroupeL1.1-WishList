@@ -21,13 +21,13 @@ import java.util.Objects;
 
 public class ProfileCreationActivity extends AppCompatActivity {
 
+    private Bundle data;
+
     Spinner dropdownColor, dropdownShoes, dropdownTshirt, dropdownTrousers;
     Button submitNewProfil;
 
     String color, tshirt, trouser;
     int shoes;
-
-    User mainUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_creation);
 
+        data = savedInstanceState;
 
         /** Color **/
 
@@ -206,7 +207,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
-                User mainUser = (getIntent().getExtras()).getParcelable("mainUser");
+                User mainUser = data.getParcelable("mainUser");
 
                 String firstname = ((EditText) findViewById(R.id.newprofile_firstname)).getText().toString();
                 String lastname = ((EditText) findViewById(R.id.newprofile_lastname)).getText().toString();
@@ -239,7 +240,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
                 }
 
                 // Bundle for easy Object storage
-                Bundle data = new Bundle();
                 data.putParcelable("mainUser", mainUser);
 
                 // Start new Activity and pass data to the next Activity

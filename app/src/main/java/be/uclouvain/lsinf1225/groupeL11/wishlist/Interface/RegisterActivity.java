@@ -25,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private ImageView backArrow;
     private Button submitButton;
+    private Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
