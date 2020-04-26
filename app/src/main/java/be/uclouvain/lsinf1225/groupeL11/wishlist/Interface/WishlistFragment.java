@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,8 +21,15 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.WishListItemAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
@@ -34,7 +42,10 @@ public class WishlistFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        String[] testItems = {"test", "test1", "test2", "test3", "test4"};
+
+        User mainUser = savedInstanceState.getParcelable("mainUser");
+        ArrayList<WishList> wishLists = mainUser.wishlists;
+
         final View view = inflater.inflate(R.layout.fragment_home_wishlists, container, false);
         final ListView wishListView = view.findViewById(R.id.wishlist_list_view);
 
@@ -64,11 +75,11 @@ public class WishlistFragment extends Fragment {
         });
 
         //TODO: replace the adapter for user's wishlist using: setAdapter(new WishListItemAdapter([...]));
-        wishListView.setAdapter(new ArrayAdapter<String>(
+        wishListView.setAdapter(new ArrayAdapter<WishList>(
                 getContext(),
                 R.layout.adapter_wishlist_item,
                 R.id.item_wishlist_title,
-                testItems
+                wishLists
         ));
         return view;
     }

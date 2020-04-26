@@ -4,21 +4,25 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 import java.util.List;
 
-public class WishListItemAdapter extends BaseAdapter {
+public class WishListItemAdapter extends ArrayAdapter<WishList> {
 
     private Context context;
     private List<WishList> wishList;
     private LayoutInflater inflater;
+    private int layoutResource;
 
-    public WishListItemAdapter(Context context, List<WishList> wishList){
+    public WishListItemAdapter(Context context, int layoutResource, List<WishList> wishList){
+        super(context, layoutResource, wishList);
         this.context = context;
-        this.wishList = wishList;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -28,7 +32,7 @@ public class WishListItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public WishList getItem(int position) {
         return wishList.get(position);
     }
 
@@ -39,7 +43,21 @@ public class WishListItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = inflater.inflate(R.layout.adapter_wishlist_item, null);
+        View view = convertView;
+
+        if (view == null){
+            view =  inflater.inflate(R.layout.adapter_wishlist_item, parent);
+        }
+
+        WishList x = getItem(position);
+
+        if (x != null){
+            TextView titleView = view.findViewById(R.id.item_wishlist_title);
+
+            if (titleView != null){
+                titleView.setText(x.name);
+            }
+        }
         return view;
     }
 }

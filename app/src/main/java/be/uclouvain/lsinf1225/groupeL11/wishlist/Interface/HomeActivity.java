@@ -9,15 +9,18 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        data = savedInstanceState;
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav); //find the bottom navigation bar
         bottomNav.setOnNavigationItemSelectedListener(navlistener); //give the navigation listener to the navigation bar
