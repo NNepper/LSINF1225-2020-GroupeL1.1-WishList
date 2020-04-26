@@ -62,7 +62,8 @@ public class WishlistFragment extends Fragment {
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                newWishListName = wishlistName.getText().toString(); // get the name of the new wishlist
+                                newWishListName = wishlistName.getText().toString();// get the name of the new wishlist
+                                //TODO: Initialization new WishList in User
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -74,11 +75,9 @@ public class WishlistFragment extends Fragment {
             }
         });
 
-        //TODO: replace the adapter for user's wishlist using: setAdapter(new WishListItemAdapter([...]));
-        wishListView.setAdapter(new ArrayAdapter<WishList>(
+        wishListView.setAdapter(new WishListItemAdapter(
                 getContext(),
                 R.layout.adapter_wishlist_item,
-                R.id.item_wishlist_title,
                 wishLists
         ));
         return view;
