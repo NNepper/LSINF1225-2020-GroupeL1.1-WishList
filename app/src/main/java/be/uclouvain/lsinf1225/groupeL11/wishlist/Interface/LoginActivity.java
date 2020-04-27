@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -60,17 +59,26 @@ public class LoginActivity extends AppCompatActivity {
                     toast.show();
                 }
                 else {
-                    String url = "jdbc:sqlite:db/bdd.sqlite";
-                    try (Connection conn = DriverManager.getConnection(url)) {
-                        UserDAO dao = new UserDAO(conn);
-                        User mainUser = dao.find(email);
+                    UserDAO userDAO = new UserDAO(context);
+                    User mainUser = userDAO.getUser(email);
+                    if (mainUser != null){
+                        if (password == mainUser.password){
+                            // Bundle for easy Object storage
+                            Bundle data = new Bundle();
+                            data.putParcelable("mainUser", mainUser);
 
-                    } catch (SQLException e) {
-                        CharSequence toastText = "SQLException";
-                        int duration = Toast.LENGTH_SHORT;
+                            // Start new Activity and pass data to the next Activity
+                            Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class); // change the intent to let the user enter his infos
+                            HomeActivity.putExtras(data);
+                            startActivity(HomeActivity);
+                        }
+                        else {
+                            CharSequence toastText = "Wrong password!";
+                            int duration = Toast.LENGTH_SHORT;
 
-                        Toast toast = Toast.makeText(context, toastText, duration);
-                        toast.show();
+                            Toast toast = Toast.makeText(context, toastText, duration);
+                            toast.show();
+                        }
                     }
                 }
             }

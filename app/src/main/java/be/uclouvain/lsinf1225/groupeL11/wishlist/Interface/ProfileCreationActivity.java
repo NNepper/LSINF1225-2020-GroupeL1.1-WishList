@@ -3,6 +3,7 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 import androidx.appcompat.app.AppCompatActivity;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 import android.content.Context;
@@ -35,7 +36,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_creation);
 
-        data = savedInstanceState;
+        data = this.getIntent().getExtras();
 
         /** Color **/
 
@@ -242,10 +243,13 @@ public class ProfileCreationActivity extends AppCompatActivity {
                 // Bundle for easy Object storage
                 data.putParcelable("mainUser", mainUser);
 
+                //Save to DB
+                UserDAO userDAO = new UserDAO(context);
+                userDAO.addUser(mainUser);
+
                 // Start new Activity and pass data to the next Activity
-                Intent HomeActivity = new Intent(getApplicationContext(), ProfileCreationActivity.class);
+                Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class);
                 
-                //TODO: Pass to HomeActivity
                 HomeActivity.putExtras(data);
                 startActivity(HomeActivity);
             }

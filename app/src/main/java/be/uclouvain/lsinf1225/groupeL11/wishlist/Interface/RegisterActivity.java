@@ -5,17 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
@@ -65,27 +59,16 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 // TODO check if user doesn't exist in DB
                 else if (password.compareTo(confPassword) == 0) {
-                    User mainUser = new User(-1); // maybe change/add the constructor of User
-                    // User mainUser = new User(-1, email, username, password)
-                    mainUser.firstname = null;
-                    mainUser.lastname = null;
-                    mainUser.email = email;
-                    mainUser.password = password;
-                    mainUser.username = username;
-                    mainUser.color = null;
-                    mainUser.tshirtSize = null;
-                    mainUser.trouserSize = null;
-                    mainUser.shoeSize = 0;
-                    mainUser.address = null;
+                    User mainUser = new User(email, username, password);
 
                     // Bundle for easy Object storage
                     Bundle data = new Bundle();
                     data.putParcelable("mainUser", mainUser);
 
                     // Start new Activity and pass data to the next Activity
-                    Intent back_to_home_page = new Intent(getApplicationContext(), ProfileCreationActivity.class); // change the intent to let the user enter his infos
-                    back_to_home_page.putExtras(data);
-                    startActivity(back_to_home_page);
+                    Intent ProfilCreation = new Intent(getApplicationContext(), ProfileCreationActivity.class); // change the intent to let the user enter his infos
+                    ProfilCreation.putExtras(data);
+                    startActivity(ProfilCreation);
                 }
                 else {
                     CharSequence text = "Recheck the password you entered..";
