@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                     toast.show();
                 }
                 else {
-                    String url = "jdbc:sqlite:db/bdd.sqlite";
+                    String url = "jdbc:sqlite:file:///android_asset/bdd.sqlite";
                     try (Connection conn = DriverManager.getConnection(url)) {
                         UserDAO dao = new UserDAO(conn);
                         User mainUser = dao.find(email);
