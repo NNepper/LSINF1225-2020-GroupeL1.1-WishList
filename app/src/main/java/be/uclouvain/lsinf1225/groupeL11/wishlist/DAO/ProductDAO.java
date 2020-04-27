@@ -1,21 +1,16 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.DAO;
 
-import android.view.accessibility.AccessibilityRecord;
-
 import org.jetbrains.annotations.NotNull;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.DAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 
-import java.sql.SQLClientInfoException;
 import java.util.ArrayList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 
 public class ProductDAO extends DAO<Product>{
 

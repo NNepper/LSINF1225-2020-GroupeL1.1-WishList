@@ -228,7 +228,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
                     //Update mainUser Data
                     mainUser.firstname = firstname;
                     mainUser.lastname = lastname;
-                    //TODO: Address problem, to be cleared
+                    //TODO: Address problem, Make to String
                     //mainUser.city = city;
                     //mainUSer.street = street;
                     //mainUser.zip = zip;

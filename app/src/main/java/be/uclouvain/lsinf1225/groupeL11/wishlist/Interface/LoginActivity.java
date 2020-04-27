@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                     try (Connection conn = DriverManager.getConnection(url)) {
                         UserDAO dao = new UserDAO(conn);
                         User mainUser = dao.find(email);
+
                     } catch (SQLException e) {
                         CharSequence toastText = "SQLException";
                         int duration = Toast.LENGTH_SHORT;

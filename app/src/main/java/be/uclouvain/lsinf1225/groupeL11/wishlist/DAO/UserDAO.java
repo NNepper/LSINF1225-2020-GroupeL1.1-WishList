@@ -1,15 +1,11 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.DAO;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-
-import java.util.HashMap;
 
 public class UserDAO extends DAO<User>{
 

@@ -9,7 +9,6 @@ import java.sql.Connection;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.DAO;
 
 public class WishListDAO extends DAO<WishList>{
 
