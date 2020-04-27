@@ -243,7 +243,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
                 data.putParcelable("mainUser", mainUser);
 
                 // Start new Activity and pass data to the next Activity
-                Intent HomeActivity = new Intent(getApplicationContext(), ProfileCreationActivity.class);
+                Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class);
                 
                 //TODO: Pass to HomeActivity
                 HomeActivity.putExtras(data);

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,30 +49,26 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
 
                 String email = ((EditText) findViewById(R.id.login_email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.login_password)).getText().toString();
 
                 if (email.length() == 0 || password.length() == 0){
                     CharSequence toastText = "Please enter all infos";
-                    int duration = Toast.LENGTH_SHORT;
+
 
                     Toast toast = Toast.makeText(context, toastText, duration);
                     toast.show();
                 }
                 else {
-                    String url = "jdbc:sqlite:file:///android_asset/bdd.sqlite";
-                    try (Connection conn = DriverManager.getConnection(url)) {
-                        UserDAO dao = new UserDAO(conn);
-                        User mainUser = dao.find(email);
-                    } catch (SQLException e) {
-                        CharSequence toastText = "SQLException";
-                        int duration = Toast.LENGTH_SHORT;
-
-                        Toast toast = Toast.makeText(context, toastText, duration);
-                        toast.show();
+                    User mainUser = null;
+                    // TODO login with infos inside DB
+                    Intent go_to_home = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(go_to_home);
+                    finish();
                     }
-                }
+
             }
         });
     }
