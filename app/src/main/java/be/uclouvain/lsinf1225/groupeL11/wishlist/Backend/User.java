@@ -14,7 +14,7 @@ import java.util.Map;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.*;
 
 public class User implements Parcelable {
-    private int id;
+    public int id;
     public String firstname;
     public String lastname;
     public String email;
@@ -25,7 +25,7 @@ public class User implements Parcelable {
     public String trouserSize;
     public int shoeSize;
     public String address;
-    public Boolean privacy = false;
+    public Integer privacy = 0;
     public ArrayList<Interest> interests;
     public ArrayList<User> following;
     public ArrayList<WishList> wishlists;
@@ -35,6 +35,25 @@ public class User implements Parcelable {
     public User(int id)
     {
         this.id = id;
+    }
+
+    public User(String email){
+        this.email = email;
+        // null init to avoid Segfault
+        this.firstname = null;
+        this.lastname = null;
+        this.email = null;
+        this.password = null;
+        this.username = null;
+        this.color = null;
+        this.tshirtSize = null;
+        this.trouserSize = null;
+        this.shoeSize = 0;
+        this.address = null;
+        this.privacy = 0;
+        this.interests = null;
+        this.following = null;
+        this.wishlists = null;
     }
 
     protected User(Parcel in) {
@@ -50,7 +69,7 @@ public class User implements Parcelable {
         shoeSize = in.readInt();
         address = in.readString();
         byte tmpPrivacy = in.readByte();
-        privacy = tmpPrivacy == 0 ? null : tmpPrivacy == 1;
+        privacy = in.readInt();
         interests = in.createTypedArrayList(Interest.CREATOR);
         following = in.createTypedArrayList(User.CREATOR);
         wishlists = in.createTypedArrayList(WishList.CREATOR);
@@ -90,7 +109,7 @@ public class User implements Parcelable {
         dest.writeString(tshirtSize);
         dest.writeString(trouserSize);
         dest.writeInt(shoeSize);
-        dest.writeBoolean(privacy);
+        dest.writeInt(privacy);
         dest.writeTypedList(interests);
         dest.writeTypedList(following);
         dest.writeTypedList(wishlists);
