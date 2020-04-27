@@ -26,7 +26,7 @@ public class UserDAO extends DAO<User>{
             pstmt.setString(2, user.lastname);
             pstmt.setString(3, user.username);
             pstmt.setString(4, user.email);
-            pstmt.setString(5, user.password);
+            pstmt.setString(5, user.getPassword());
             pstmt.setString(6, user.address);
             pstmt.setString(7, user.color);
             pstmt.setInt(8, user.shoeSize);
@@ -70,7 +70,7 @@ public class UserDAO extends DAO<User>{
                 pstmt.setString(2, user.lastname);
                 pstmt.setString(3, user.username);
                 pstmt.setString(4, user.email);
-                pstmt.setString(5, user.password);
+                pstmt.setString(5, user.getPassword());
                 pstmt.setString(6, user.address);
                 pstmt.setString(7, user.color);
                 pstmt.setInt(8, user.shoeSize);
@@ -96,7 +96,7 @@ public class UserDAO extends DAO<User>{
                 user.lastname = result.getString("lastname");
                 user.username = result.getString("username");
                 user.email = email;
-                user.password = result.getString("password");
+                user.setPassword(result.getString("password"));
                 user.color = result.getString("fav_color");
                 user.shoeSize = result.getInt("shoe_size");
                 user.trouserSize = result.getString("trouser_size");
