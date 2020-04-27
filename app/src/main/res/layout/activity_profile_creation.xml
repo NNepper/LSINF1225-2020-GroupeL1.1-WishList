@@ -35,7 +35,9 @@
                 android:gravity="center"
                 android:hint="firstname"
                 android:textColor="@color/green_border"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:inputType="text"
+                android:nextFocusDown="@id/newprofile_lastname"/>
 
             <EditText
                 android:id="@+id/newprofile_lastname"
@@ -48,7 +50,9 @@
                 android:gravity="center"
                 android:hint="lastname"
                 android:textColor="@color/green_border"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:inputType="text"
+                android:nextFocusDown="@id/new_profile_street"/>
 
             <RelativeLayout
                 android:id="@+id/new_profile_adress"
@@ -66,7 +70,9 @@
                     android:gravity="center"
                     android:hint="Street"
                     android:textColor="@color/green_border"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:nextFocusDown="@id/new_profile_zip"/>
 
                 <EditText
                     android:id="@+id/new_profile_zip"
@@ -78,7 +84,9 @@
                     android:hint="zip code"
                     android:layout_below="@id/new_profile_street"
                     android:textColor="@color/green_border"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:nextFocusDown="@id/new_profile_city"/>
 
                 <EditText
                     android:id="@+id/new_profile_city"
