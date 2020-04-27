@@ -82,9 +82,7 @@ public class User implements Parcelable {
         return 0;
     }
 
-    public String getPassword() {
-        return this.password;
-    }
+    public String getPassword(User user) { return user.password; }
 
     public void setPassword(String password) {
         this.password = password;

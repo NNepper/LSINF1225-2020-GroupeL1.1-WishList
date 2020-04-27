@@ -65,18 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 // TODO check if user doesn't exist in DB
                 else if (password.compareTo(confPassword) == 0) {
-                    User mainUser = new User(-1); // maybe change/add the constructor of User
-                    // User mainUser = new User(-1, email, username, password)
-                    mainUser.firstname = null;
-                    mainUser.lastname = null;
-                    mainUser.email = email;
-                    mainUser.password = password;
-                    mainUser.username = username;
-                    mainUser.color = null;
-                    mainUser.tshirtSize = null;
-                    mainUser.trouserSize = null;
-                    mainUser.shoeSize = 0;
-                    mainUser.address = null;
+                    User mainUser = new User(email, username, password);
 
                     // Bundle for easy Object storage
                     Bundle data = new Bundle();
