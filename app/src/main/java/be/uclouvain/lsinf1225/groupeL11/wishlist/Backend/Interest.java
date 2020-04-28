@@ -3,10 +3,6 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Backend;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.InterestDAO;
-
 public class Interest implements Parcelable {
     private int id=-1;
     private String interestname;

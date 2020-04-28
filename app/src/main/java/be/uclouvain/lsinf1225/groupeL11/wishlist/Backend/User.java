@@ -37,6 +37,12 @@ public class User implements Parcelable {
         this.id = id;
     }
 
+    public User(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
     public User(String email){
         this.email = email;
         // null init to avoid Segfault
@@ -86,6 +92,7 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
 
     public int getId() { return this.id; }
 

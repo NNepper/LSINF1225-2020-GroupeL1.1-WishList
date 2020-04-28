@@ -224,11 +224,13 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
                     Toast toast = Toast.makeText(context, toastText, duration);
                     toast.show();
+                    return;
                 }
                 else {
                     //Update mainUser Data
                     mainUser.firstname = firstname;
                     mainUser.lastname = lastname;
+                    mainUser.address = "an adress";
                     //TODO: Address problem, Make to String
                     //mainUser.city = city;
                     //mainUSer.street = street;
@@ -245,7 +247,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
                 //Save to DB
                 UserDAO userDAO = new UserDAO(context);
-                userDAO.addUser(mainUser);
+                userDAO.create(mainUser);
 
                 // Start new Activity and pass data to the next Activity
                 Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class);

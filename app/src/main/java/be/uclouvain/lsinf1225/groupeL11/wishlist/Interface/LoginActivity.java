@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     UserDAO userDAO = new UserDAO(context);
-                    User mainUser = userDAO.getUser(email);
+                    User mainUser = userDAO.read(email);
                     if (mainUser != null){
                         if (password == mainUser.password){
                             // Bundle for easy Object storage
