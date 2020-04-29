@@ -1,5 +1,6 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.DAO;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 
 public class ProductDAO extends MyDatabaseHelper {
@@ -51,6 +53,36 @@ public class ProductDAO extends MyDatabaseHelper {
         }
         finally {
             db.close();
+        }
+    }
+
+    public boolean create(Product prod){
+        SQLiteDatabase db = getWritableDatabase();
+
+        Boolean noError = true;
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(PROD_DESC, prod.description);
+            values.put(PROD_LINK, prod.link);
+            values.put(PROD_NAME, prod.name);
+            values.put(PROD_POSITION, prod.position);
+            values.put(PROD_PURCHASSED, prod.purchased);
+            values.put(PROD_QUANTITY, prod.quantity);
+            values.put(PROD_WISHLIST, prod.wishlist.getId());
+
+            int rows = (int) db.insert(PRODUCT_TABLE, null, values);
+            prod.setId(rows);
+
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            noError = false;
+        } finally {
+            db.endTransaction();
+            db.close();
+            return noError;
         }
     }
 }

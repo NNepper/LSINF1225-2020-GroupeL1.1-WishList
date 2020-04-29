@@ -32,12 +32,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     //Product Table Tags
     protected static final String PRODUCT_TABLE = "User";
     protected static final String PRODUCT_ID = "productID";
-    protected static final String NAME = "name";
+    protected static final String PROD_NAME = "name";
     protected static final String PROD_DESC = "description";
-    protected static final String LINK = "link";
-    protected static final String PURCHASED = "purchased";
-    protected static final String POSITION = "position";
-    protected static final String QUANTITY = "quantity" ;
+    protected static final String PROD_LINK = "link";
+    protected static final String PROD_PURCHASSED = "purchased";
+    protected static final String PROD_POSITION = "position";
+    protected static final String PROD_QUANTITY = "quantity" ;
+    protected static final String PROD_WISHLIST = "wishlistID";
 
 
     //Interests Table Tags

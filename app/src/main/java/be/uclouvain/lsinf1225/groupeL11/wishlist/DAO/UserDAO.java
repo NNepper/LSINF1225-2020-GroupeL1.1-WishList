@@ -21,7 +21,6 @@ public class UserDAO extends MyDatabaseHelper {
      * @param user
      */
     public Boolean create(User user){
-        // The database connection is cached so it's not expensive to call getWriteableDatabase() multiple times.
         SQLiteDatabase db = getWritableDatabase();
 
         Boolean noError = true;
@@ -42,7 +41,6 @@ public class UserDAO extends MyDatabaseHelper {
             values.put(PRIVACY, user.privacy);
 
 
-            // First try to update the user in case the user already exists in the database
             int rows = (int) db.insert(USER_TABLE, null, values);
             user.setId(rows);
 
@@ -143,5 +141,45 @@ public class UserDAO extends MyDatabaseHelper {
     }
 
 
+    // Utility Getter for DAO
+    public User get(int userID) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        WishListDAO wishListDAO = new WishListDAO(context);
+        InterestDAO interestDAO= new InterestDAO(context);
+
+        db.beginTransaction();
+
+        try {
+            String getQuery = String.format("SELECT * FROM User u WHERE u.userID == '%s'", userID);
+            Cursor cursor = db.rawQuery(getQuery, null);
+            db.close();
+
+            User user = new User( cursor.getInt(0) );
+            user.username =  cursor.getString(1);
+            user.lastname = cursor.getString(2);
+            user.username = cursor.getString(3);
+            user.email = cursor.getString(4);
+            user.password = cursor.getString(5);
+            user.address = cursor.getString(6);
+            user.color = cursor.getString(7);
+            user.shoeSize = cursor.getInt(8);
+            user.trouserSize = cursor.getString(9);
+            user.tshirtSize = cursor.getString(10);
+            user.privacy = cursor.getInt(11);
+
+            user.wishlists = wishListDAO.getWishLists(user.getId());
+            user.following = null;                                          //Avoiding charging the whole database
+            user.interests = interestDAO.getInterests(user.getId());
+
+            return user;
+
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return null;
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
+    }
 }
