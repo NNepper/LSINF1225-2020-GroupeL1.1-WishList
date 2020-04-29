@@ -24,7 +24,7 @@ public class UserDAO extends MyDatabaseHelper {
         // The database connection is cached so it's not expensive to call getWriteableDatabase() multiple times.
         SQLiteDatabase db = getWritableDatabase();
         long userId = -1;
-
+        Boolean noError = true;
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
@@ -47,12 +47,13 @@ public class UserDAO extends MyDatabaseHelper {
             user.setId(rows);
 
             db.setTransactionSuccessful();
-            return true;
         } catch (Exception e) {
             Log.d("SQL", "Error while trying to add or update user");
-            return false;
+            noError = false;
         } finally {
+            db.endTransaction();
             db.close();
+            return noError;
         }
     }
 
@@ -88,25 +89,29 @@ public class UserDAO extends MyDatabaseHelper {
         db.beginTransaction();
 
         try {
-            String getQuery = "SELECT * FROM User u WHERE u.email == '" + email + "'";
+            // String getQuery = "SELECT * FROM User u WHERE u.email == '" + email + "'";
+            String getQuery = "SELECT * FROM User";
             Cursor cursor = db.rawQuery(getQuery, null);
-
+            db.close();
             WishListDAO wishListDAO = new WishListDAO(context);
             FollowDAO followDAO = new FollowDAO(context);
             InterestDAO interestDAO= new InterestDAO(context);
             User user = new User(null, null, null);
-            user.setId(cursor.getInt(1));
-            user.username =  cursor.getString(2);
-            user.lastname = cursor.getString(3);
-            user.username = cursor.getString(4);
-            user.email = cursor.getString(5);
-            user.password = cursor.getString(6);
-            user.address = cursor.getString(7);
-            user.color = cursor.getString(8);
-            user.shoeSize = cursor.getInt(9);
-            user.trouserSize = cursor.getString(10);
-            user.tshirtSize = cursor.getString(11);
-            user.privacy = cursor.getInt(12);
+
+            cursor.moveToFirst();
+            user.setId(cursor.getInt(0));
+            user.username =  cursor.getString(1);
+            user.lastname = cursor.getString(2);
+            user.username = cursor.getString(3);
+            user.email = cursor.getString(4);
+            user.password = cursor.getString(5);
+            Log.d("SQL", user.password);
+            user.address = cursor.getString(6);
+            user.color = cursor.getString(7);
+            user.shoeSize = cursor.getInt(8);
+            user.trouserSize = cursor.getString(9);
+            user.tshirtSize = cursor.getString(10);
+            user.privacy = cursor.getInt(11);
 
             user.wishlists = wishListDAO.getWishLists(user.getId());
             user.following = followDAO.getFollowing(user.getId());
@@ -114,12 +119,13 @@ public class UserDAO extends MyDatabaseHelper {
 
             return user;
         } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
             Log.d("SQL", "SQL error");
             return null;
         }
-        finally {
+        /*finally {
             db.close();
-        }
+        }*/
     }
 
     // Delete the specified user

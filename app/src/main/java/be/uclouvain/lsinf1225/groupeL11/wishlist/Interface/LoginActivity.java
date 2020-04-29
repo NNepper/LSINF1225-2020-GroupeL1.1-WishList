@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ImageView backArrow;
     private Button submit;
+    UserDAO userDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
+                if (userDAO == null){
+                    Log.v("debug-gwen", "creating DAO object");
+                    userDAO = new UserDAO(context);
+                    Log.v("debug-gwen", "DAO object created");
+                }
 
                 String email = ((EditText) findViewById(R.id.login_email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.login_password)).getText().toString();
@@ -59,10 +66,11 @@ public class LoginActivity extends AppCompatActivity {
                     toast.show();
                 }
                 else {
-                    UserDAO userDAO = new UserDAO(context);
+                    // crash when user click quickly on login button -> db is locked
                     User mainUser = userDAO.read(email);
+                    userDAO.close();
                     if (mainUser != null){
-                        if (password == mainUser.password){
+                        if (mainUser.password.compareTo(password) == 0){
                             // Bundle for easy Object storage
                             Bundle data = new Bundle();
                             data.putParcelable("mainUser", mainUser);
@@ -79,6 +87,13 @@ public class LoginActivity extends AppCompatActivity {
                             Toast toast = Toast.makeText(context, toastText, duration);
                             toast.show();
                         }
+                    }
+                    else{
+                        CharSequence toastText = "Please check your entered informations";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, toastText, duration);
+                        toast.show();
                     }
                 }
             }

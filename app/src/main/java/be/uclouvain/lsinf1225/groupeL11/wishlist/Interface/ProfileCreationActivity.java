@@ -9,6 +9,7 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -208,6 +209,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
+                UserDAO userDAO = new UserDAO(context);
                 User mainUser = data.getParcelable("mainUser");
 
                 String firstname = ((EditText) findViewById(R.id.newprofile_firstname)).getText().toString();
@@ -238,20 +240,18 @@ public class ProfileCreationActivity extends AppCompatActivity {
                     mainUser.shoeSize = shoes;
                     mainUser.trouserSize = trouser;
                     mainUser.tshirtSize = tshirt;
-
-                    //TODO: Update DAO ??
+                    userDAO.create(mainUser);
+                    userDAO.close();
                 }
+
+
 
                 // Bundle for easy Object storage
                 data.putParcelable("mainUser", mainUser);
 
-                //Save to DB
-                UserDAO userDAO = new UserDAO(context);
-                userDAO.create(mainUser);
-
                 // Start new Activity and pass data to the next Activity
                 Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class);
-                
+
                 HomeActivity.putExtras(data);
                 startActivity(HomeActivity);
             }
