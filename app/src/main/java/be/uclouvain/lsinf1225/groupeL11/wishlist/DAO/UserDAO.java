@@ -23,7 +23,7 @@ public class UserDAO extends MyDatabaseHelper {
     public Boolean create(User user){
         // The database connection is cached so it's not expensive to call getWriteableDatabase() multiple times.
         SQLiteDatabase db = getWritableDatabase();
-        long userId = -1;
+
         Boolean noError = true;
         db.beginTransaction();
         try {
@@ -89,8 +89,7 @@ public class UserDAO extends MyDatabaseHelper {
         db.beginTransaction();
 
         try {
-            // String getQuery = "SELECT * FROM User u WHERE u.email == '" + email + "'";
-            String getQuery = "SELECT * FROM User";
+            String getQuery = "SELECT * FROM User u WHERE u.email == '" + email + "'";
             Cursor cursor = db.rawQuery(getQuery, null);
             db.close();
             WishListDAO wishListDAO = new WishListDAO(context);
@@ -120,12 +119,11 @@ public class UserDAO extends MyDatabaseHelper {
             return user;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
-            Log.d("SQL", "SQL error");
             return null;
         }
-        /*finally {
+        finally {
             db.close();
-        }*/
+        }
     }
 
     // Delete the specified user
@@ -137,9 +135,10 @@ public class UserDAO extends MyDatabaseHelper {
             db.delete(USER_TABLE, USER_ID + "=" + user.id, null);
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            Log.d("SQL", "Error while trying to delete all posts and users");
+            Log.d("SQL", e.getMessage());
         } finally {
             db.endTransaction();
+            db.close();
         }
     }
 
