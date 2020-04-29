@@ -218,6 +218,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
                 String street = ((EditText) findViewById(R.id.new_profile_street)).getText().toString();
                 String zip = ((EditText) findViewById(R.id.new_profile_zip)).getText().toString();
 
+
                 if (firstname.length() == 0 || lastname.length() == 0 || city.length() == 0
                         || street.length() == 0 || zip.length() == 0){
 
@@ -240,6 +241,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
                     mainUser.shoeSize = shoes;
                     mainUser.trouserSize = trouser;
                     mainUser.tshirtSize = tshirt;
+                    mainUser.color = color;
                     userDAO.create(mainUser);
                     userDAO.close();
                 }
