@@ -41,6 +41,17 @@ public class User implements Parcelable {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.firstname = null;
+        this.lastname = null;
+        this.color = null;
+        this.tshirtSize = null;
+        this.trouserSize = null;
+        this.shoeSize = 0;
+        this.address = null;
+        this.privacy = 0;
+        this.interests = null;
+        this.following = null;
+        this.wishlists = null;
     }
 
     public User(String email){
