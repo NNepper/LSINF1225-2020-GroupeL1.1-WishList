@@ -18,7 +18,7 @@ public class User implements Parcelable {
     public String firstname;
     public String lastname;
     public String email;
-    public String password;
+    private String password;
     public String username;
     public String color;
     public String tshirtSize;
@@ -32,8 +32,7 @@ public class User implements Parcelable {
 
 
     /* User's constructor */
-    public User(int id)
-    {
+    public User(int id) {
         this.id = id;
     }
 
@@ -112,6 +111,12 @@ public class User implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public String getPassword() { return this.password; }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)

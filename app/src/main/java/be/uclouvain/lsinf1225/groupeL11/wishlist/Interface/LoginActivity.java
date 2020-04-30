@@ -55,12 +55,13 @@ public class LoginActivity extends AppCompatActivity {
                     Log.v("debug-gwen", "DAO object created");
                 }
 
+
                 String email = ((EditText) findViewById(R.id.login_email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.login_password)).getText().toString();
 
                 if (email.length() == 0 || password.length() == 0){
                     CharSequence toastText = "Please enter all infos";
-                    int duration = Toast.LENGTH_SHORT;
+
 
                     Toast toast = Toast.makeText(context, toastText, duration);
                     toast.show();
