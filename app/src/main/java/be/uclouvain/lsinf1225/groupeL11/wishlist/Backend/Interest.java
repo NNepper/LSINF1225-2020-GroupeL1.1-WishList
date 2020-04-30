@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Interest implements Parcelable {
     private int id=-1;
-    private String interestname;
+    public String interestname;
 
     public Interest(String name) {
         this.interestname = name;
@@ -31,8 +31,6 @@ public class Interest implements Parcelable {
     public int getId() {return this.id;}
 
     public void setId(int id) {this.id = id;}
-
-    public String getInterestName() {return this.interestname;}
 
     @Override
     public int describeContents() {

@@ -15,6 +15,11 @@ public class InterestDAO extends MyDatabaseHelper{
         super(context);
     }
 
+    /**
+     * Utility function for DAO
+     * @param interestID
+     * @return Interest
+     */
     public Interest getInterest(int interestID){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -39,6 +44,11 @@ public class InterestDAO extends MyDatabaseHelper{
         }
     }
 
+    /**
+     * Function returning every interest of the specified User
+     * @param userID
+     * @return ArrayList of interests
+     */
     public ArrayList<Interest> getInterests(int userID){
         ArrayList<Interest> interestList = new ArrayList<>();
 
@@ -71,6 +81,11 @@ public class InterestDAO extends MyDatabaseHelper{
     }
 
 
+    /**
+     * Function for creating
+     * @param interest
+     * @return
+     */
     public boolean create(Interest interest){
         SQLiteDatabase db = getWritableDatabase();
 
@@ -96,6 +111,10 @@ public class InterestDAO extends MyDatabaseHelper{
         }
     }
 
+    /**
+     * Function
+     * @return
+     */
     public ArrayList<Interest> getAllInterests(){
         ArrayList<Interest> interestList = new ArrayList<>();
 

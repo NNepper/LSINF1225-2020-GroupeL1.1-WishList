@@ -15,6 +15,11 @@ public class FollowDAO extends MyDatabaseHelper {
     }
 
 
+    /**
+     * Function returning every user the mainUser follow
+     * @param userID
+     * @return ArrayList of User
+     */
     public ArrayList<User> getFollowing(int userID){
         SQLiteDatabase db = this.getWritableDatabase();
         UserDAO userDAO = new UserDAO(context);
@@ -39,6 +44,7 @@ public class FollowDAO extends MyDatabaseHelper {
                     cursor.moveToNext();
                 }
             }
+            cursor.close();
 
             return followingList;
         } catch (Exception e) {
@@ -50,6 +56,11 @@ public class FollowDAO extends MyDatabaseHelper {
         }
     }
 
+    /**
+     * Function returning every User following the specified user
+     * @param userID
+     * @return ArrayList of User
+     */
     public ArrayList<User> getFollowers(int userID){
         SQLiteDatabase db = this.getWritableDatabase();
         UserDAO userDAO = new UserDAO(context);
