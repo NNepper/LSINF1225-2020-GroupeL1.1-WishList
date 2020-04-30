@@ -253,7 +253,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
                 // Start new Activity and pass data to the next Activity
                 Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class);
-
                 HomeActivity.putExtras(data);
                 startActivity(HomeActivity);
             }
