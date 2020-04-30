@@ -3,22 +3,14 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist;
 import org.junit.Test;
 import junit.framework.TestCase;
 
-import static org.junit.Assert.*;
-
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
-import  be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.ResultSet;
 
 
 public class TestProductDAO extends TestCase{

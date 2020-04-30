@@ -1,7 +1,5 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist;
 
-import android.os.storage.StorageManager;
-
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -11,9 +9,7 @@ import java.sql.SQLException;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 
 

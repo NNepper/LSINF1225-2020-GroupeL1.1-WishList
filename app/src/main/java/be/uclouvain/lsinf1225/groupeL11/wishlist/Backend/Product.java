@@ -3,17 +3,13 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Backend;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
-
 public class Product implements Parcelable {
     private int id = -1;
     public String name;
     public String description;
     public String link;
     public int position;
-    public boolean purchased;
+    public int purchased;
     public int quantity;
 
     public WishList wishlist;
@@ -28,7 +24,7 @@ public class Product implements Parcelable {
         description = in.readString();
         link = in.readString();
         position = in.readInt();
-        purchased = in.readByte() != 0;
+        purchased = in.readInt();
         quantity = in.readInt();
         wishlist = in.readParcelable(WishList.class.getClassLoader());
     }
@@ -54,7 +50,7 @@ public class Product implements Parcelable {
         // ProductDAO.update(this); TODO ne fonctionne par car update n'est pas static
     }
 
-    public void setPurchase(boolean purchased) {
+    public void setPurchase(int purchased) {
         this.purchased = purchased;
         // ProductDAO.update(this); TODO ne fonctionne par car update n'est pas static
     }
@@ -69,7 +65,7 @@ public class Product implements Parcelable {
         // ProductDAO.update(this); TODO ne fonctionne par car update n'est pas static
     }
 
-    public void editProduct(String link, boolean purchased, int position, int quantity) {
+    public void editProduct(String link, int purchased, int position, int quantity) {
         setWebLink(link);
         setPurchase(purchased);
         setPosition(position);
@@ -88,7 +84,7 @@ public class Product implements Parcelable {
         dest.writeString(description);
         dest.writeString(link);
         dest.writeInt(position);
-        dest.writeByte((byte) (purchased ? 1 : 0));
+        dest.writeInt(purchased);
         dest.writeInt(quantity);
         dest.writeParcelable(wishlist, flags);
     }

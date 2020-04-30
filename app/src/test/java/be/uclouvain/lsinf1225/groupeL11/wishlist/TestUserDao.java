@@ -4,13 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**

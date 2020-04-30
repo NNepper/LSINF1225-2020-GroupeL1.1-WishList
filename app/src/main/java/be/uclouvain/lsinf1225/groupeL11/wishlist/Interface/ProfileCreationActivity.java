@@ -3,11 +3,13 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 import androidx.appcompat.app.AppCompatActivity;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,7 +37,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_creation);
 
-        data = savedInstanceState;
+        data = this.getIntent().getExtras();
 
         /** Color **/
 
@@ -207,6 +209,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
+                UserDAO userDAO = new UserDAO(context);
                 User mainUser = data.getParcelable("mainUser");
 
                 String firstname = ((EditText) findViewById(R.id.newprofile_firstname)).getText().toString();
@@ -214,6 +217,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
                 String city = ((EditText) findViewById(R.id.new_profile_city)).getText().toString();
                 String street = ((EditText) findViewById(R.id.new_profile_street)).getText().toString();
                 String zip = ((EditText) findViewById(R.id.new_profile_zip)).getText().toString();
+
 
                 if (firstname.length() == 0 || lastname.length() == 0 || city.length() == 0
                         || street.length() == 0 || zip.length() == 0){
@@ -223,29 +227,32 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
                     Toast toast = Toast.makeText(context, toastText, duration);
                     toast.show();
+                    return;
                 }
                 else {
                     //Update mainUser Data
                     mainUser.firstname = firstname;
                     mainUser.lastname = lastname;
-                    //TODO: Address problem, to be cleared
+                    mainUser.address = "an adress";
+                    //TODO: Address problem, Make to String
                     //mainUser.city = city;
                     //mainUSer.street = street;
                     //mainUser.zip = zip;
                     mainUser.shoeSize = shoes;
                     mainUser.trouserSize = trouser;
                     mainUser.tshirtSize = tshirt;
-
-                    //TODO: Update DAO ??
+                    mainUser.color = color;
+                    userDAO.create(mainUser);
+                    userDAO.close();
                 }
+
+
 
                 // Bundle for easy Object storage
                 data.putParcelable("mainUser", mainUser);
 
                 // Start new Activity and pass data to the next Activity
                 Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class);
-                
-                //TODO: Pass to HomeActivity
                 HomeActivity.putExtras(data);
                 startActivity(HomeActivity);
             }

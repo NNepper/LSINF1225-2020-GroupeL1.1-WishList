@@ -1,123 +1,88 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.DAO;
 
-import android.view.accessibility.AccessibilityRecord;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
-
-import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.DAO;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
-
-import java.sql.SQLClientInfoException;
 import java.util.ArrayList;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 
-public class ProductDAO extends DAO<Product>{
-
-    public ProductDAO(Connection conn) {
-        super(conn);
+public class ProductDAO extends MyDatabaseHelper {
+    public ProductDAO(Context context) {
+        super(context);
     }
 
-    @Override
-    public boolean create(Product product) {
-        String query = "INSERT INTO Products (wishlistID, productID, name, description, link, quantity, position, purchased) VALUES (?, ?, ?)";
-        try(PreparedStatement pstmt = this.connect.prepareStatement(query)){
-            pstmt.setInt(1, product.wishlist.getId());
-            pstmt.setInt(2, product.getId());
-            pstmt.setString(3, product.name);
-            pstmt.setString(4, product.description);
-            pstmt.setString(5, product.link);
-            pstmt.setInt(6, product.quantity);
-            pstmt.setBoolean(7, product.purchased);
-            pstmt.execute();
+    public ArrayList<Product> get(int wishListID){
+        ArrayList<Product> prodList = new ArrayList<>();
 
-            ResultSet result = this.connect.createStatement().executeQuery("select last_insert_rowid()");
-            product.setId(result.getInt("last_insert_rowid()"));
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-        return true;
-    }
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
 
-    @Override
-    public boolean delete(Product product) {
-        if(product.getId() != -1) {
-            String query = " DELETE FROM Products WHERE productID == ?";
-            try (PreparedStatement pstmt = this.connect.prepareStatement(query)) {
-                pstmt.setInt(1, product.getId());
-                pstmt.execute();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return false;
-            }
-            return true;
-        }
-        return false;
+        try {
+            String getQuery = String.format(
+                    "SELECT * FROM Products P \n" +
+                    "WHERE P.wishlistID == '%s'", wishListID);
 
-    }
+            Cursor cursor = db.rawQuery(getQuery, null);
+            db.close();
 
-    @Override
-    public boolean update(Product product){
-        String query = "UPDATE Products " +
-                "SET (wishlistID, productID, name, description, link, quantity, purchased, position) = " +
-                "(?, ?, ?, ?, ?, ?, ?, ?) WHERE productID == ?";
-        if(product.getId() != -1) {
-            try (PreparedStatement pstmt = this.connect.prepareStatement(query)) {
-                pstmt.setInt(1, product.wishlist.getId());
-                pstmt.setInt(2, product.getId());
-                pstmt.setString(3, product.name);
-                pstmt.setString(3, product.link);
-                pstmt.setInt(4, product.quantity);
-                pstmt.setBoolean(5, product.purchased);
-                pstmt.setInt(6, product.position);
-                pstmt.setInt(4, product.getId());
-                pstmt.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    Product prod = new Product(cursor.getInt(0));
+                    prod.name = cursor.getString(1);
+                    prod.description = cursor.getString(2);
+                    prod.link = cursor.getString(4);
+                    prod.purchased = cursor.getInt(5);
+                    prod.position = cursor.getInt(6);
+                    prod.quantity = cursor.getInt(7);
 
-    @Override
-    public Product find(String email) {
-        return null;
-    }
-
-    public ArrayList<Product> findByWishList(@NotNull WishList wishlist){
-        ArrayList<Product> productlist = null;
-        if(wishlist.getId() != -1) {
-            productlist = new ArrayList<Product>();
-            String query1 = "SELECT * FROM Products p WHERE p.productID IN (SELECT productID FROM Wishlist_has_Products WHERE wishlistID == ?)";
-            try (PreparedStatement q1 = this.connect.prepareStatement(query1)) {
-                q1.setInt(1, wishlist.getId());
-                ResultSet products = q1.executeQuery();
-
-                while (products.next()) {
-                    int productID = products.getInt("productID");
-                    Product product = new Product( productID);
-                    product.name = products.getString("name");
-                    product.description = products.getString("description");
-                    product.link = products.getString("link");
-                    product.quantity = products.getInt("quantity");
-                    product.purchased = products.getBoolean("purchased");
-                    product.position = products.getInt("position");
-                    product.wishlist = wishlist;
-                    productlist.add(product);
+                    prodList.add(prod);
+                    cursor.moveToNext();
                 }
-            } catch (SQLException e){
-                System.out.println(e.getMessage());
             }
+
+            return prodList;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return null;
         }
-        return productlist;
+        finally {
+            db.close();
+        }
     }
 
+    public boolean create(Product prod){
+        SQLiteDatabase db = getWritableDatabase();
+
+        Boolean noError = true;
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(PROD_DESC, prod.description);
+            values.put(PROD_LINK, prod.link);
+            values.put(PROD_NAME, prod.name);
+            values.put(PROD_POSITION, prod.position);
+            values.put(PROD_PURCHASSED, prod.purchased);
+            values.put(PROD_QUANTITY, prod.quantity);
+            values.put(PROD_WISHLIST, prod.wishlist.getId());
+
+            int rows = (int) db.insert(PRODUCT_TABLE, null, values);
+            prod.setId(rows);
+
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            noError = false;
+        } finally {
+            db.endTransaction();
+            db.close();
+            return noError;
+        }
+    }
 }

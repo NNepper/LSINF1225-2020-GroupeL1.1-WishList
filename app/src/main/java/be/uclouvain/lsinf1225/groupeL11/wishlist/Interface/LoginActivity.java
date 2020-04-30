@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ImageView backArrow;
     private Button submit;
+    UserDAO userDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
-                int duration = Toast.LENGTH_SHORT;
+                if (userDAO == null){
+                    Log.v("debug-gwen", "creating DAO object");
+                    userDAO = new UserDAO(context);
+                    Log.v("debug-gwen", "DAO object created");
+                }
+
 
                 String email = ((EditText) findViewById(R.id.login_email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.login_password)).getText().toString();
@@ -62,13 +67,36 @@ public class LoginActivity extends AppCompatActivity {
                     toast.show();
                 }
                 else {
-                    User mainUser = null;
-                    // TODO login with infos inside DB
-                    Intent go_to_home = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(go_to_home);
-                    finish();
-                    }
+                    // crash when user click quickly on login button -> db is locked
+                    User mainUser = userDAO.read(email);
+                    userDAO.close();
+                    if (mainUser != null){
+                        if (mainUser.password.compareTo(password) == 0){
+                            // Bundle for easy Object storage
+                            Bundle data = new Bundle();
+                            data.putParcelable("mainUser", mainUser);
 
+                            // Start new Activity and pass data to the next Activity
+                            Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class); // change the intent to let the user enter his infos
+                            HomeActivity.putExtras(data);
+                            startActivity(HomeActivity);
+                        }
+                        else {
+                            CharSequence toastText = "Wrong password!";
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, toastText, duration);
+                            toast.show();
+                        }
+                    }
+                    else{
+                        CharSequence toastText = "Please check your entered informations";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, toastText, duration);
+                        toast.show();
+                    }
+                }
             }
         });
     }
