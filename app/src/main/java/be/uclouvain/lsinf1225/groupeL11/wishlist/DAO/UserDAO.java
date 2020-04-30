@@ -23,7 +23,6 @@ public class UserDAO extends MyDatabaseHelper {
     public Boolean create(User user){
         SQLiteDatabase db = getWritableDatabase();
 
-        Boolean noError = true;
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
@@ -32,7 +31,7 @@ public class UserDAO extends MyDatabaseHelper {
             values.put(LASTNAME, user.lastname);
             values.put(USERNAME, user.username);
             values.put(EMAIL, user.email);
-            values.put(PASSWORD, user.password);
+            values.put(PASSWORD, user.getPassword());
             values.put(ADDRESS, user.address);
             values.put(COLOR, user.color);
             values.put(SHOES, user.shoeSize);
@@ -45,13 +44,12 @@ public class UserDAO extends MyDatabaseHelper {
             user.setId(rows);
 
             db.setTransactionSuccessful();
+            return true;
         } catch (Exception e) {
             Log.d("SQL", "Error while trying to add or update user");
-            noError = false;
+            return false;
         } finally {
             db.endTransaction();
-            db.close();
-            return noError;
         }
     }
 
@@ -64,7 +62,7 @@ public class UserDAO extends MyDatabaseHelper {
         values.put(LASTNAME, user.lastname);
         values.put(USERNAME, user.username);
         values.put(EMAIL, user.email);
-        values.put(PASSWORD, user.password);
+        values.put(PASSWORD, user.getPassword());
         values.put(ADDRESS, user.address);
         values.put(COLOR, user.color);
         values.put(SHOES, user.shoeSize);
@@ -82,6 +80,7 @@ public class UserDAO extends MyDatabaseHelper {
      * @param email
      */
     public User read(String email){
+        User user = null;
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.beginTransaction();
@@ -89,38 +88,37 @@ public class UserDAO extends MyDatabaseHelper {
         try {
             String getQuery = "SELECT * FROM User u WHERE u.email == '" + email + "'";
             Cursor cursor = db.rawQuery(getQuery, null);
-            db.close();
+
             WishListDAO wishListDAO = new WishListDAO(context);
             FollowDAO followDAO = new FollowDAO(context);
             InterestDAO interestDAO= new InterestDAO(context);
-            User user = new User(null, null, null);
 
-            cursor.moveToFirst();
-            user.setId(cursor.getInt(0));
-            user.username =  cursor.getString(1);
-            user.lastname = cursor.getString(2);
-            user.username = cursor.getString(3);
-            user.email = cursor.getString(4);
-            user.password = cursor.getString(5);
-            Log.d("SQL", user.password);
-            user.address = cursor.getString(6);
-            user.color = cursor.getString(7);
-            user.shoeSize = cursor.getInt(8);
-            user.trouserSize = cursor.getString(9);
-            user.tshirtSize = cursor.getString(10);
-            user.privacy = cursor.getInt(11);
-
-            user.wishlists = wishListDAO.getWishLists(user.getId());
-            user.following = followDAO.getFollowing(user.getId());
-            user.interests = interestDAO.getInterests(user.getId());
-
+            if(cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                user = new User(cursor.getString(4), cursor.getString(1), cursor.getString(5));
+                user.setId(cursor.getInt(0));
+                user.username = cursor.getString(1);
+                user.lastname = cursor.getString(2);
+                user.username = cursor.getString(3);
+                user.address = cursor.getString(6);
+                user.color = cursor.getString(7);
+                user.shoeSize = cursor.getInt(8);
+                user.trouserSize = cursor.getString(9);
+                user.tshirtSize = cursor.getString(10);
+                user.privacy = cursor.getInt(11);
+                user.wishlists = wishListDAO.getWishLists(user.getId(), db);
+                user.following = followDAO.getFollowing(user.getId(), db);
+                user.interests = interestDAO.getInterests(user.getId(), db);
+            }
+            db.setTransactionSuccessful();
             return user;
         } catch (Exception e) {
+            Log.d("SQL", "error while getting user");
             Log.d("SQL", e.getMessage());
             return null;
         }
         finally {
-            db.close();
+            db.endTransaction();
         }
     }
 
@@ -136,14 +134,13 @@ public class UserDAO extends MyDatabaseHelper {
             Log.d("SQL", e.getMessage());
         } finally {
             db.endTransaction();
-            db.close();
         }
     }
 
 
     // Utility Getter for DAO
-    public User get(int userID) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public User get(int userID, SQLiteDatabase db) {
+        if(db == null) db = this.getWritableDatabase();
 
         WishListDAO wishListDAO = new WishListDAO(context);
         InterestDAO interestDAO= new InterestDAO(context);
@@ -153,14 +150,10 @@ public class UserDAO extends MyDatabaseHelper {
         try {
             String getQuery = String.format("SELECT * FROM User u WHERE u.userID == '%s'", userID);
             Cursor cursor = db.rawQuery(getQuery, null);
-            db.close();
 
-            User user = new User( cursor.getInt(0) );
+            User user = new User(cursor.getInt(0), cursor.getString(4), cursor.getString(3), cursor.getString(5));
             user.username =  cursor.getString(1);
             user.lastname = cursor.getString(2);
-            user.username = cursor.getString(3);
-            user.email = cursor.getString(4);
-            user.password = cursor.getString(5);
             user.address = cursor.getString(6);
             user.color = cursor.getString(7);
             user.shoeSize = cursor.getInt(8);
@@ -168,18 +161,16 @@ public class UserDAO extends MyDatabaseHelper {
             user.tshirtSize = cursor.getString(10);
             user.privacy = cursor.getInt(11);
 
-            user.wishlists = wishListDAO.getWishLists(user.getId());
+            user.wishlists = wishListDAO.getWishLists(user.getId(), db);
             user.following = null;                                          //Avoiding charging the whole database
-            user.interests = interestDAO.getInterests(user.getId());
-
+            user.interests = interestDAO.getInterests(user.getId(), db);
+            db.setTransactionSuccessful();
             return user;
-
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
         } finally {
             db.endTransaction();
-            db.close();
         }
     }
 }

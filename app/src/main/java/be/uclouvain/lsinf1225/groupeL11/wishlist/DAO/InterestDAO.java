@@ -28,21 +28,21 @@ public class InterestDAO extends MyDatabaseHelper{
             Interest interest = new Interest(cursor.getString(0));
             interest.setId(cursor.getInt(1));
             //TODO: rating si time
-
+            db.setTransactionSuccessful();
             return interest;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
         }
         finally {
-            db.close();
+            db.endTransaction();
         }
     }
 
-    public ArrayList<Interest> getInterests(int userID){
+    public ArrayList<Interest> getInterests(int userID, SQLiteDatabase db){
         ArrayList<Interest> interestList = new ArrayList<>();
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        if(db == null) db = this.getWritableDatabase();
         db.beginTransaction();
 
         try {
@@ -51,7 +51,6 @@ public class InterestDAO extends MyDatabaseHelper{
                             "WHERE uhi.userID == '%s'", userID);
 
             Cursor cursor = db.rawQuery(getQuery, null);
-            db.close();
 
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
@@ -66,7 +65,7 @@ public class InterestDAO extends MyDatabaseHelper{
             return null;
         }
         finally {
-            db.close();
+            db.endTransaction();
         }
     }
 
@@ -74,25 +73,23 @@ public class InterestDAO extends MyDatabaseHelper{
     public boolean create(Interest interest){
         SQLiteDatabase db = getWritableDatabase();
 
-        Boolean noError = true;
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
 
-            values.put(INT_NAME, interest.interestname);
+            values.put(INT_NAME, interest.getInterestname());
 
             // First try to update the user in case the user already exists in the database
             int rows = (int) db.insert(INT_TABLE, null, values);
             interest.setId(rows);
 
             db.setTransactionSuccessful();
+            return true;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
-            noError = false;
+            return false;
         } finally {
             db.endTransaction();
-            db.close();
-            return noError;
         }
     }
 
@@ -107,7 +104,6 @@ public class InterestDAO extends MyDatabaseHelper{
                     "SELECT * FROM Interests uhi");
 
             Cursor cursor = db.rawQuery(getQuery, null);
-            db.close();
 
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
@@ -115,14 +111,14 @@ public class InterestDAO extends MyDatabaseHelper{
                     cursor.moveToNext();
                 }
             }
-
+            db.setTransactionSuccessful();
             return interestList;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
         }
         finally {
-            db.close();
+            db.endTransaction();
         }
     }
 }

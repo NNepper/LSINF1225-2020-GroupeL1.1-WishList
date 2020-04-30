@@ -15,11 +15,10 @@ public class FollowDAO extends MyDatabaseHelper {
     }
 
 
-    public ArrayList<User> getFollowing(int userID){
-        SQLiteDatabase db = this.getWritableDatabase();
+    public ArrayList<User> getFollowing(int userID, SQLiteDatabase db){
+        if(db == null) db = this.getWritableDatabase();
         UserDAO userDAO = new UserDAO(context);
         db.beginTransaction();
-
         ArrayList<User> followingList = new ArrayList<>();
 
         try {
@@ -28,25 +27,23 @@ public class FollowDAO extends MyDatabaseHelper {
                             "WHERE uhf.userID == '%s'", userID);
 
             Cursor cursor = db.rawQuery(getQuery, null);
-            db.close();
-
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     //Check if not pending
                     if (cursor.getInt(2) == 0){
-                        followingList.add( userDAO.get( cursor.getInt(1 )) );
+                        followingList.add( userDAO.get(cursor.getInt(1 ), db) );
                     }
                     cursor.moveToNext();
                 }
             }
-
+            db.setTransactionSuccessful();
             return followingList;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
         }
         finally {
-            db.close();
+            db.endTransaction();
         }
     }
 
@@ -63,25 +60,24 @@ public class FollowDAO extends MyDatabaseHelper {
                             "WHERE uhf.frienduserID == '%s'", userID);
 
             Cursor cursor = db.rawQuery(getQuery, null);
-            db.close();
 
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     //Check if not pending
                     if (cursor.getInt(2) == 0){
-                        followingList.add( userDAO.get( cursor.getInt(0 )) );
+                        followingList.add( userDAO.get( cursor.getInt(0 ), db) );
                     }
                     cursor.moveToNext();
                 }
             }
-
+            db.setTransactionSuccessful();
             return followingList;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
         }
         finally {
-            db.close();
+            db.endTransaction();
         }
     }
 }

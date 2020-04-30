@@ -32,6 +32,8 @@ public class Interest implements Parcelable {
 
     public void setId(int id) {this.id = id;}
 
+    public String getInterestname() {return this.interestname;}
+
     public String getInterestName() {return this.interestname;}
 
     @Override

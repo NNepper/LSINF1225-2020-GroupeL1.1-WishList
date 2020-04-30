@@ -17,10 +17,11 @@ public class ProductDAO extends MyDatabaseHelper {
         super(context);
     }
 
-    public ArrayList<Product> get(int wishListID){
+    public ArrayList<Product> get(int wishListID, SQLiteDatabase db){
         ArrayList<Product> prodList = new ArrayList<>();
 
-        SQLiteDatabase db = this.getWritableDatabase();
+
+        if(db == null)db = this.getWritableDatabase();
         db.beginTransaction();
 
         try {
@@ -29,7 +30,6 @@ public class ProductDAO extends MyDatabaseHelper {
                     "WHERE P.wishlistID == '%s'", wishListID);
 
             Cursor cursor = db.rawQuery(getQuery, null);
-            db.close();
 
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
@@ -45,21 +45,20 @@ public class ProductDAO extends MyDatabaseHelper {
                     cursor.moveToNext();
                 }
             }
-
+            db.setTransactionSuccessful();
             return prodList;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
         }
         finally {
-            db.close();
+            db.endTransaction();
         }
     }
 
     public boolean create(Product prod){
         SQLiteDatabase db = getWritableDatabase();
 
-        Boolean noError = true;
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
@@ -76,13 +75,12 @@ public class ProductDAO extends MyDatabaseHelper {
             prod.setId(rows);
 
             db.setTransactionSuccessful();
+            return true;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
-            noError = false;
+            return false;
         } finally {
             db.endTransaction();
-            db.close();
-            return noError;
         }
     }
 }

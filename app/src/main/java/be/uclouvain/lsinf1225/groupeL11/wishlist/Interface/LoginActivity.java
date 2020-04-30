@@ -56,14 +56,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
+
                 String email = ((EditText) findViewById(R.id.login_email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.login_password)).getText().toString();
 
                 if (email.length() == 0 || password.length() == 0){
                     CharSequence toastText = "Please enter all infos";
+                    int duration = Toast.LENGTH_SHORT;
 
-
-                    Toast toast = Toast.makeText(context, toastText, duration);
+                    Toast toast = Toast.makeText(context, toastText,  duration);
                     toast.show();
                 }
                 else {
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                     User mainUser = userDAO.read(email);
                     userDAO.close();
                     if (mainUser != null){
-                        if (mainUser.password.compareTo(password) == 0){
+                        if (mainUser.getPassword().compareTo(password) == 0){
                             // Bundle for easy Object storage
                             Bundle data = new Bundle();
                             data.putParcelable("mainUser", mainUser);
@@ -92,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
                     else{
                         CharSequence toastText = "Please check your entered informations";
                         int duration = Toast.LENGTH_SHORT;
-
                         Toast toast = Toast.makeText(context, toastText, duration);
                         toast.show();
                     }
