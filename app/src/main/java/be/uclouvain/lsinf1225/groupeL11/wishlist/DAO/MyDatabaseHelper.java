@@ -30,7 +30,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     //Product Table Tags
-    protected static final String PRODUCT_TABLE = "User";
+    protected static final String PRODUCT_TABLE = "Product";
     protected static final String PRODUCT_ID = "productID";
     protected static final String PROD_NAME = "name";
     protected static final String PROD_DESC = "description";
@@ -49,7 +49,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     //Wishlist Table Tags
-    protected static final String WISHLIST_TABLE = "Interests";
+    protected static final String WISHLIST_TABLE = "Wishlist";
     protected static final String WISHLIST_ID = "wishlistID";
     protected static final String WISHLIST_NAME = "name";
     protected static final String WISHLIST_DESC = "description";
