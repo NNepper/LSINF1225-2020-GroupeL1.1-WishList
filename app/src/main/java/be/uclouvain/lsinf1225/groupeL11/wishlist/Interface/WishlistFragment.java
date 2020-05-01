@@ -31,7 +31,7 @@ public class WishlistFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        User mainUser = savedInstanceState.getParcelable("mainUser");
+        User mainUser = ((HomeActivity) getActivity()).mainUser;
         ArrayList<WishList> wishLists = mainUser.wishlists;
 
         final View view = inflater.inflate(R.layout.fragment_home_wishlists, container, false);

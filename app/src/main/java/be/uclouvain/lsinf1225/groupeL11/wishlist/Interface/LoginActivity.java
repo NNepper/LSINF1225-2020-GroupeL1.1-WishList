@@ -50,9 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Context context = getApplicationContext();
                 if (userDAO == null){
-                    Log.v("debug-gwen", "creating DAO object");
                     userDAO = new UserDAO(context);
-                    Log.v("debug-gwen", "DAO object created");
                 }
 
 
@@ -75,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (mainUser.getPassword().compareTo(password) == 0){
                             // Bundle for easy Object storage
                             Bundle data = new Bundle();
-                            data.putParcelable("mainUser", mainUser);
+                            data.putParcelable(getApplicationContext().getString(R.string.mainUserBundleParcable), mainUser);
 
                             // Start new Activity and pass data to the next Activity
                             Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class); // change the intent to let the user enter his infos

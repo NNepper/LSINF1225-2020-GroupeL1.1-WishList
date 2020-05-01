@@ -11,19 +11,21 @@ import android.widget.TextView;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WishListItemAdapter extends ArrayAdapter<WishList> {
 
     private Context context;
-    private List<WishList> wishList;
+    private ArrayList<WishList> wishList;
     private LayoutInflater inflater;
     private int layoutResource;
 
-    public WishListItemAdapter(Context context, int layoutResource, List<WishList> wishList){
+    public WishListItemAdapter(Context context, int layoutResource, ArrayList<WishList> wishList){
         super(context, layoutResource, wishList);
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+        this.wishList = wishList;
     }
 
     @Override
