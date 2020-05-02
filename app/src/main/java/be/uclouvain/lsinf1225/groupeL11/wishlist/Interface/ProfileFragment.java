@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ public class ProfileFragment extends Fragment {
     private TextView usernameTextView;
     private ImageView logOut;
     private ImageView confirm;
+    private Switch privacySwitch;
     private User mainUser;
 
     @Nullable
@@ -48,6 +51,20 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 // TODO get all infos inside textViews and update them inside DB with DAO
                 // TODO when update is done reaload the view with new infos
+            }
+        });
+
+        privacySwitch = view.findViewById(R.id.profilePrivacySwitch);
+        privacySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO change drawable in front of switch
+                // TODO save changes in DB with DAO
+                switch (mainUser.privacy){
+                    case 0: mainUser.privacy = 1;
+                    case 1: mainUser.privacy = 0;
+                    default: privacySwitch.forceLayout();
+                }
             }
         });
 
