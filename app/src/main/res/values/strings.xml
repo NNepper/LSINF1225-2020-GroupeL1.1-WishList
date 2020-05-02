@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WishList</string>
     <string name="mainUserBundleParcable">mainUser</string>
+    <string name="profileViewUsername">username</string>
 </resources>
