@@ -55,6 +55,7 @@ public class ProfileFragment extends Fragment {
         });
 
         privacySwitch = view.findViewById(R.id.profilePrivacySwitch);
+        privacySwitch.setChecked(mainUser.privacy == 1);
         privacySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
