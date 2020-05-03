@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,29 +36,36 @@ public class SearchActivity extends ListActivity {
         }
     }
 
-    private Adapter doMySearch(String query) {
-        // TODO for return type see : https://developer.android.com/guide/topics/search/search-dialog#PresentingTheResults
+    private void doMySearch(String query) {
         Context context = getApplicationContext();
         if (userDAO == null){
             userDAO = new UserDAO(context);
         }
         this.data = getIntent().getExtras(); // getting bundle from other Activity
+        assert data != null;
         this.mainUser = data.getParcelable(getApplicationContext().getString(R.string.mainUserBundleParcable)); // get string form string.xml
 
+        assert mainUser != null;
         ArrayList<User> users = userDAO.getAllUser(mainUser.id);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(
                 this,
                 android.R.layout.simple_list_item_1,
-                getUsername(users) );
-        return arrayAdapter;
+                filter(users, query) );
+        setListAdapter(arrayAdapter);
     }
 
-    private ArrayList<String> getUsername(ArrayList<User> users) {
-        ArrayList<String> usernames = new ArrayList<>();
-        for (int i = 0; i < users.size(); i++) {
-            usernames.add(users.get(i).username);
+    private ArrayList<User> filter(ArrayList<User> users, String query) {
+        ArrayList<User> filtered = new ArrayList<>();
+        for (User user : users) {
+            if (user.username.contains(query)) {
+                filtered.add(user);
+            }
         }
-        return usernames;
+        return filtered;
     }
 
+    @Override
+    public void setListAdapter(ListAdapter adapter) {
+        super.setListAdapter(adapter);
+    }
 }
