@@ -39,10 +39,10 @@ public class InterestDAO extends MyDatabaseHelper{
         }
     }
 
-    public ArrayList<Interest> getInterests(int userID, SQLiteDatabase db){
+    public ArrayList<Interest> getInterests(int userID){
         ArrayList<Interest> interestList = new ArrayList<>();
 
-        if(db == null) db = this.getWritableDatabase();
+        SQLiteDatabase db = getDB();
         db.beginTransaction();
 
         try {
@@ -71,7 +71,7 @@ public class InterestDAO extends MyDatabaseHelper{
 
 
     public boolean create(Interest interest){
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getDB();
 
         db.beginTransaction();
         try {
@@ -96,7 +96,7 @@ public class InterestDAO extends MyDatabaseHelper{
     public ArrayList<Interest> getAllInterests(){
         ArrayList<Interest> interestList = new ArrayList<>();
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getDB();
         db.beginTransaction();
 
         try {

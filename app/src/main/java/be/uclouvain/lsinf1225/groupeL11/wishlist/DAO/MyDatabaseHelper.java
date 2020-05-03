@@ -11,6 +11,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "DB.sqlite";
     private static final int DATABASE_VERSION = 2;
+    private static SQLiteDatabase DB;
     protected Context context;
 
     //User Table Tags
@@ -181,6 +182,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+    //========== SINGLETON ==============
+    public SQLiteDatabase getDB(){
+        if (DB == null){
+            DB = getWritableDatabase();
+        }
+        return DB;
+    }
+    //===================================
 
     // Method is called during creation of the database
     @Override

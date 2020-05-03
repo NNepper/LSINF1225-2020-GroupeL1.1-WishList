@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteTableLockedException;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,11 +18,11 @@ public class ProductDAO extends MyDatabaseHelper {
         super(context);
     }
 
-    public ArrayList<Product> get(int wishListID, SQLiteDatabase db){
+    public ArrayList<Product> get(int wishListID){
         ArrayList<Product> prodList = new ArrayList<>();
 
 
-        if(db == null)db = this.getWritableDatabase();
+        SQLiteDatabase db = getDB();
         db.beginTransaction();
 
         try {
@@ -57,7 +58,7 @@ public class ProductDAO extends MyDatabaseHelper {
     }
 
     public boolean create(Product prod){
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getDB();
 
         db.beginTransaction();
         try {
