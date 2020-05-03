@@ -187,12 +187,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         try {
             database.execSQL(CREATE_USER);
-            database.execSQL(CREATE_WISHLIST);
-            database.execSQL(CREATE_PRODUCTS);
             database.execSQL(CREATE_INTERESTS);
+            database.execSQL(CREATE_PRODUCTS);
+            database.execSQL(CREATE_WISHLIST);
             database.execSQL(CREATE_USER_HAS_FRIENDS);
             database.execSQL(CREATE_USER_HAS_INTERESTS);
-            database.execSQL(CREATE_USER_HAS_WISHLIST);
+
+            for (int i = 0; i < Populate.length; i++){
+                database.execSQL(Populate[i]);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -215,4 +218,33 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         onCreate(database);
     }
+
+
+    protected static final String[] Populate = new String[]{
+            "INSERT INTO Interests (interestname, interestID, rating) VALUES ('Cinema', 9, 5);",
+            "INSERT INTO Interests (interestname, interestID, rating) VALUES ('Sport', 10, 4);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (1, 'Samsung Galaxy 20', 'Smartphone Android 5G', 'https://www.samsung.com/be_fr/smartphones/galaxy-s20/buy/', 1, 1, 2, 1);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (2, 'Cable ethernet', 'Cable ethernet de 10m', 'https://www.amazon.fr/Ethernet-Blindage-Compatible-Nintendo-Routeur/dp/B07DDH9RLK/ref=sr_1_3?keywords=cable+ethernet+10m&qid=1583517691&s=electronics&sr=1-3', 0, 1, 3, 2);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (3, 'Ballon', 'Ballon de Basket signé par Kobe Bryant', 'https://www.ebay.com/itm/Kobe-Bryant-Signed-Full-Size-Basketball-Autograph-Case-Beckett-BAS-LOA-Lakers/383441285983?hash=item5946e1b35f:g:R6IAAOSw1~BeWXDK', 0, 2, 4, 1);\n",
+            "INSERT INTO User (userID, firstname, lastname, username, email, password, address, fav_color, shoe_size, trouser_size, tshirt_size, privacy) VALUES (1, 'corentin', 'bruce', 'clingier', 'new_address@gmail.com', '1234', 'rue il', 'bleu', '42', 'M', 'S', 0);\n",
+            "INSERT INTO User (userID, firstname, lastname, username, email, password, address, fav_color, shoe_size, trouser_size, tshirt_size, privacy) VALUES (2, 'Bruce', 'lingier', 'clingier', 'corentin', 'password', 'Place des Wallons 70, 1348 Louvain-la-Neuve', 'rouge', '42', 'M', 'M', 0);\n",
+            "INSERT INTO User (userID, firstname, lastname, username, email, password, address, fav_color, shoe_size, trouser_size, tshirt_size, privacy) VALUES (26, 'test', 'user', 'testuser', 'testuser@email.com', 'none', 'address', 'color', '42', 'M', 'M', 1);\n",
+            "INSERT INTO User_has_Friends (userID, frienduserID, pending) VALUES (1, 2, 1);\n",
+            "INSERT INTO User_has_Friends (userID, frienduserID, pending) VALUES (2, 1, 0);\n",
+            "INSERT INTO User_has_Friends (userID, frienduserID, pending) VALUES (26, 1, 0);\n",
+            "INSERT INTO User_has_Friends (userID, frienduserID, pending) VALUES (1, 26, 0);\n",
+            "INSERT INTO User_has_Interests (userID, interestID) VALUES (1, 9);\n",
+            "INSERT INTO User_has_Interests (userID, interestID) VALUES (2, 10);\n",
+            "INSERT INTO User_has_Wishlist (userID, wishlistID) VALUES (1, 1);\n",
+            "INSERT INTO User_has_Wishlist (userID, wishlistID) VALUES (2, 2);\n",
+            "INSERT INTO User_has_Wishlist (userID, wishlistID) VALUES (26, 11);\n",
+            "INSERT INTO Wishlist (wishlistID, name, description) VALUES (1, 'High-Tech', 'List des objets connectes qui m interesse');\n",
+            "INSERT INTO Wishlist (wishlistID, name, description) VALUES (2, 'Sport', 'Objets de sports');\n",
+            "INSERT INTO Wishlist (wishlistID, name, description) VALUES (3, 'Test1', 'Wishlist test 1');\n",
+            "INSERT INTO Wishlist (wishlistID, name, description) VALUES (4, 'Test2', 'Wishlist_test2');\n",
+            "INSERT INTO Wishlist (wishlistID, name, description) VALUES (7, 'Test', 'Test Wishlist');\n",
+            "INSERT INTO Wishlist (wishlistID, name, description) VALUES (8, 'Test', 'Test Wishlist');\n",
+            "INSERT INTO Wishlist (wishlistID, name, description) VALUES (11, 'Test update', 'Test Wishlist');\n"};
+
 }
+
