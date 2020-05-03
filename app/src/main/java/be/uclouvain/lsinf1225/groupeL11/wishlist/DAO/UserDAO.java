@@ -21,7 +21,7 @@ public class UserDAO extends MyDatabaseHelper {
      * @param user
      */
     public Boolean create(User user){
-        SQLiteDatabase db = getDB();
+        SQLiteDatabase db = getWritableDatabase();
 
         db.beginTransaction();
         try {
@@ -55,7 +55,7 @@ public class UserDAO extends MyDatabaseHelper {
 
 
     public Boolean update(User user) {
-        SQLiteDatabase db = getDB();
+        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(FIRSTNAME, user.firstname);
@@ -81,7 +81,7 @@ public class UserDAO extends MyDatabaseHelper {
      */
     public User read(String email){
         User user = null;
-        SQLiteDatabase db = getDB();
+        SQLiteDatabase db = this.getWritableDatabase();
 
         db.beginTransaction();
 
@@ -124,7 +124,7 @@ public class UserDAO extends MyDatabaseHelper {
 
     // Delete the specified user
     public void delete(User user) {
-        SQLiteDatabase db = getDB();
+        SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         try {
             // Order of deletions is important when foreign key relationships exist.
@@ -139,8 +139,8 @@ public class UserDAO extends MyDatabaseHelper {
 
 
     // Utility Getter for DAO
-    public User get(int userID) {
-       SQLiteDatabase db = getDB();
+    public User get(int userID, SQLiteDatabase db) {
+        if(db == null) db = this.getWritableDatabase();
 
         WishListDAO wishListDAO = new WishListDAO(context);
         InterestDAO interestDAO= new InterestDAO(context);

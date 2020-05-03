@@ -31,11 +31,11 @@ public class WishListDAO extends MyDatabaseHelper{
         return null;
     }
 
-    public ArrayList<WishList> getWishLists(int userID){
+    public ArrayList<WishList> getWishLists(int userID, SQLiteDatabase db){
         ArrayList<WishList> list = new ArrayList<>();
         ProductDAO productDAO = new ProductDAO(context);
 
-        SQLiteDatabase db = getDB();
+        if(db == null) db = this.getWritableDatabase();
         db.beginTransaction();
         try {
             String getQuery = "SELECT name, description FROM WishList w," +
@@ -48,7 +48,7 @@ public class WishListDAO extends MyDatabaseHelper{
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     WishList wishList = new WishList(cursor.getInt(0));
-                    wishList.products = productDAO.get(cursor.getInt(0));
+                    wishList.products = productDAO.get(cursor.getInt(0), db);
                     wishList.name = cursor.getString(1);
                     wishList.description = cursor.getString(2);
                     list.add(wishList);

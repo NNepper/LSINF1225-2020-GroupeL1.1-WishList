@@ -15,12 +15,11 @@ public class FollowDAO extends MyDatabaseHelper {
     }
 
 
-    public ArrayList<User> getFollowing(int userID){
+    public ArrayList<User> getFollowing(int userID, SQLiteDatabase db){
+        if(db == null) db = this.getWritableDatabase();
         UserDAO userDAO = new UserDAO(context);
-        ArrayList<User> followingList = new ArrayList<>();
-
-        SQLiteDatabase db = getDB();
         db.beginTransaction();
+        ArrayList<User> followingList = new ArrayList<>();
 
         try {
             String getQuery = String.format(
@@ -32,7 +31,7 @@ public class FollowDAO extends MyDatabaseHelper {
                 while (!cursor.isAfterLast()) {
                     //Check if not pending
                     if (cursor.getInt(2) == 0){
-                        followingList.add( userDAO.get(cursor.getInt(1 )) );
+                        followingList.add( userDAO.get(cursor.getInt(1 ), db) );
                     }
                     cursor.moveToNext();
                 }
@@ -49,7 +48,7 @@ public class FollowDAO extends MyDatabaseHelper {
     }
 
     public ArrayList<User> getFollowers(int userID){
-        SQLiteDatabase db = getDB();
+        SQLiteDatabase db = this.getWritableDatabase();
         UserDAO userDAO = new UserDAO(context);
         db.beginTransaction();
 
@@ -66,7 +65,7 @@ public class FollowDAO extends MyDatabaseHelper {
                 while (!cursor.isAfterLast()) {
                     //Check if not pending
                     if (cursor.getInt(2) == 0){
-                        followingList.add( userDAO.get( cursor.getInt(0 )) );
+                        followingList.add( userDAO.get( cursor.getInt(0 ), db) );
                     }
                     cursor.moveToNext();
                 }
