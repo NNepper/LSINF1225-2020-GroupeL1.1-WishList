@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 
 public class UserDAO extends MyDatabaseHelper {
@@ -170,6 +172,46 @@ public class UserDAO extends MyDatabaseHelper {
             Log.d("SQL", e.getMessage());
             return null;
         } finally {
+            db.endTransaction();
+        }
+    }
+
+    // Utility Getter for search
+    public ArrayList<User> getAllUser(int UserID){
+        ArrayList<User> userList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            String getQuery = String.format(
+                    "SELECT * FROM User U WHERE U.userID != '%s'", UserID);
+
+            Cursor cursor = db.rawQuery(getQuery, null);
+
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    User user = new User(cursor.getInt(0), cursor.getString(4), cursor.getString(3), cursor.getString(5));
+                    user.username =  cursor.getString(1);
+                    user.lastname = cursor.getString(2);
+                    user.address = cursor.getString(6);
+                    user.color = cursor.getString(7);
+                    user.shoeSize = cursor.getInt(8);
+                    user.trouserSize = cursor.getString(9);
+                    user.tshirtSize = cursor.getString(10);
+                    user.privacy = cursor.getInt(11);
+
+                    userList.add(user);
+                    cursor.moveToNext();
+                }
+            }
+            db.setTransactionSuccessful();
+            return userList;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return null;
+        }
+        finally {
             db.endTransaction();
         }
     }
