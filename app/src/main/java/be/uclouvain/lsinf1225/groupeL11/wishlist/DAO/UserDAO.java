@@ -241,7 +241,7 @@ public class UserDAO extends MyDatabaseHelper {
             values.put(UHF_ID, main.getId());
             values.put(UHF_FRIEND, friend.getId());
 
-            db.insert(USER_TABLE, null, values);
+            db.insert(UHF_TABLE, null, values);
             db.setTransactionSuccessful();
             return true;
         } catch (Exception e) {
