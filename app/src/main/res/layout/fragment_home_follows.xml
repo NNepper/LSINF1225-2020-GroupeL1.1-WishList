@@ -28,16 +28,17 @@
         android:layout_marginTop="65dp"
         android:padding="4dp" />
 
-    <Button
-        android:id="@+id/button"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/search_button"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="91dp"
         android:background="@drawable/custom_red_button"
-        android:text="Search user"
+        android:text="Search an user"
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp" />
+
 
 </RelativeLayout>
