@@ -1,5 +1,6 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -119,6 +123,7 @@ public class FollowsFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     public ArrayList<User> doMySearch(String query) {
         UserDAO userDAO = new UserDAO(getContext());
         ArrayList<User> users = userDAO.getFollowable(mainUser.id);
@@ -132,6 +137,13 @@ public class FollowsFragment extends Fragment {
             if (user.username.contains(query)) {
                 filtered.add(user);
             }
+        }
+        if (filtered.size() != 0) {
+            TextView disableNoMatch= getView().findViewById(R.id.noResultMatched);
+            disableNoMatch.setText("");
+        } else {
+            TextView disableNoMatch= getView().findViewById(R.id.noResultMatched);
+            disableNoMatch.setText("No result matched your search");
         }
         return filtered;
     }
