@@ -20,25 +20,27 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/follow_list_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="592dp"
+        android:layout_height="651dp"
         android:layout_below="@+id/TextView"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="6dp"
         android:padding="4dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/search_button"
-        android:layout_width="320dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="91dp"
-        android:background="@drawable/custom_red_button"
-        android:text="Search an user"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="18sp" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:scaleType="center"
+        app:backgroundTint="@color/primary"
+        app:backgroundTintMode="src_in"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_add_black_24dp"/>
 
 
 </RelativeLayout>
