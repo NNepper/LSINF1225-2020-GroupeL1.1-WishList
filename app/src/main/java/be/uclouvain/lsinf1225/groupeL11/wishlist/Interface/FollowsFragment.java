@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.FollowListAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
@@ -95,8 +96,7 @@ public class FollowsFragment extends Fragment {
                 .setPositiveButton("Search", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SearchActivity searcher = new SearchActivity();
-                        Adapter searchUsersResultList = searcher.doMySearch(query.getText().toString());
+                        ArrayList<User> searchUsersResultList = doMySearch(query.getText().toString());
                         Intent searchUsersResult = new Intent(getContext(), SearchUsersResultFragment.class);
                         //searchUsersResult.putExtras(searchUsersResultList); // TODO Passer la liste de résultat vers la prochaine activité
                         startActivity(searchUsersResult);
@@ -112,6 +112,18 @@ public class FollowsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public ArrayList<User> doMySearch(String query) {
+        UserDAO userDAO = new UserDAO(getContext());
+        ArrayList<User> users = userDAO.getAllUser(mainUser.id);
+        ArrayList<User> filtered = new ArrayList<>();
+        for (User user : users) {
+            if (user.username.contains(query)) {
+                filtered.add(user);
+            }
+        }
+        return filtered;
     }
 
 }
