@@ -245,7 +245,8 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
 
                 // Bundle for easy Object storage
-                data.putParcelable("mainUser", mainUser);
+                Bundle data = new Bundle();
+                data.putString("mainUser", mainUser.email);
 
                 // Start new Activity and pass data to the next Activity
                 Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class);

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.SearchUsersResultAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
@@ -26,18 +27,13 @@ public class SearchUsersResultFragment extends Fragment {
     private SearchUsersResultAdapter searchUsersResultsListAdapter;
     private RecyclerView.LayoutManager searchUsersResultsListLayoutManager;
     private User mainUser;
-    private Bundle data;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
-
-        // TODO récupérer les extras pour avoir la lite des comptes à afficher
-
-        final ArrayList<User> searchUsersResultsList = new ArrayList<>(); // TODO mettre la liste des résultats
-
+        final ArrayList<User> searchUsersResultsList = ((HomeActivity) getActivity()).searchUsersResult;
         final View view = inflater.inflate(R.layout.fragment_search_users_result, container, false);
 
         searchUsersResultsListRecyclerView = view.findViewById(R.id.search_result_recycler_view);
@@ -57,13 +53,13 @@ public class SearchUsersResultFragment extends Fragment {
             @Override
             public void onAddClick(final int position) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Unfollow");
-                builder.setMessage("Are you sure you want to unfollow " + searchUsersResultsList.get(position).username + "?");
+                builder.setTitle("Follow");
+                builder.setMessage("Do you want to follow " + searchUsersResultsList.get(position).username + "?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        searchUsersResultsList.remove(position);
-                        searchUsersResultsListAdapter.notifyItemRemoved(position);
+                        UserDAO userDAO = new UserDAO(getContext());
+                        userDAO.addFollow(mainUser, searchUsersResultsList.get(position));
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
