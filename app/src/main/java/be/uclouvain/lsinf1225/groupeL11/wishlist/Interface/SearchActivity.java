@@ -5,11 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -36,7 +32,7 @@ public class SearchActivity extends ListActivity {
         }
     }
 
-    private void doMySearch(String query) {
+    public ArrayAdapter<User> doMySearch(String query) {
         Context context = getApplicationContext();
         if (userDAO == null){
             userDAO = new UserDAO(context);
@@ -51,7 +47,7 @@ public class SearchActivity extends ListActivity {
                 this,
                 android.R.layout.simple_list_item_1,
                 filter(users, query) );
-        setListAdapter(arrayAdapter);
+        return arrayAdapter;
     }
 
     private ArrayList<User> filter(ArrayList<User> users, String query) {
@@ -62,10 +58,5 @@ public class SearchActivity extends ListActivity {
             }
         }
         return filtered;
-    }
-
-    @Override
-    public void setListAdapter(ListAdapter adapter) {
-        super.setListAdapter(adapter);
     }
 }

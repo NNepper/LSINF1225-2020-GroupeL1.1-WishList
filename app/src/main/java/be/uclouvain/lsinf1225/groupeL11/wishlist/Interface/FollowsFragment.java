@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,24 +84,24 @@ public class FollowsFragment extends Fragment {
         this.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Search an user");
-                View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_search_user, (ViewGroup) getView(), false);
-                final EditText query = (EditText) viewInflated.findViewById(R.id.search_button);
-                builder.setView(viewInflated)
-                        .setPositiveButton("Search", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                query.getText().toString();// get the name of the query
-                                //TODO: Search and return result
-                            }
-                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Search an user");
+            View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_search_user, (ViewGroup) getView(), false);
+            final EditText query = (EditText) viewInflated.findViewById(R.id.search_button);
+            builder.setView(viewInflated)
+                .setPositiveButton("Search", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
+                    SearchActivity searcher = new SearchActivity();
+                    searcher.doMySearch(query.getText().toString()); // TODO envoyer sur la nouvelle page avec la liste retournée
                     }
-                });
-                builder.show();
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                }
+            });
+            builder.show();
             }
         });
 
