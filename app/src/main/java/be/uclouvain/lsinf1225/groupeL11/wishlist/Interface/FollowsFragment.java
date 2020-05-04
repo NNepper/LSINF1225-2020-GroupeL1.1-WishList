@@ -1,11 +1,14 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.SearchView;
 
@@ -92,8 +95,11 @@ public class FollowsFragment extends Fragment {
                 .setPositiveButton("Search", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    SearchActivity searcher = new SearchActivity();
-                    searcher.doMySearch(query.getText().toString()); // TODO envoyer sur la nouvelle page avec la liste retournée
+                        SearchActivity searcher = new SearchActivity();
+                        Adapter searchUsersResultList = searcher.doMySearch(query.getText().toString());
+                        Intent searchUsersResult = new Intent(getContext(), SearchUsersResultFragment.class);
+                        //searchUsersResult.putExtras(searchUsersResultList); // TODO Passer la liste de résultat vers la prochaine activité
+                        startActivity(searchUsersResult);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
