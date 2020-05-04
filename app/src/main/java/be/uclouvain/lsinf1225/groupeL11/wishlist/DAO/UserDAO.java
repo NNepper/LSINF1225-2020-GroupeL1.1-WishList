@@ -256,9 +256,12 @@ public class UserDAO extends MyDatabaseHelper {
     public Boolean unfollow(User main, User friend){
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
+
+        String whereClauses = UHF_ID + "=" + main.getId() + " AND " + UHF_FRIEND + "=" + friend.getId();
         try {
-            // Order of deletions is important when foreign key relationships exist.
-            db.delete(USER_TABLE, null , null);
+
+
+            db.delete(UHF_TABLE, whereClauses , null);
             db.setTransactionSuccessful();
             return true;
         } catch (Exception e) {
