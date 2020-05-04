@@ -120,7 +120,22 @@ public class WishListDAO extends MyDatabaseHelper{
     }
 
     public Boolean delete(int wishlistID){
-        return true;
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+
+
+            db.delete(WISHLIST_TABLE, WISHLIST_ID + "=" + wishlistID, null);
+            db.delete(UHF_TABLE, UHW_ID + "=" + wishlistID, null);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return false;
+        } finally {
+            db.endTransaction();
+        }
     }
 
 }
