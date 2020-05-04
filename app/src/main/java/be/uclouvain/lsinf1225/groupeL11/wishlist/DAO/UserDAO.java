@@ -231,7 +231,28 @@ public class UserDAO extends MyDatabaseHelper {
         }
     }
 
-    public Boolean addFollow(User main, User Friend){
-        return false;
+    public Boolean addFollow(User main, User friend){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(UHF_ID, main.getId());
+            values.put(UHF_FRIEND, friend.getId());
+
+            db.insert(USER_TABLE, null, values);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", "Error while trying to add or update user");
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public ArrayList<User> getFollowable(int userID){
+        return null;
     }
 }
