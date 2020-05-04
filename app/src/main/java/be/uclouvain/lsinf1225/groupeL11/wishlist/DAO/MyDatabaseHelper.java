@@ -45,7 +45,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     protected static final String INT_TABLE = "Interests";
     protected static final String INT_NAME = "interestname";
     protected static final String INT_ID = "interestID";
-    protected static final String RATING = "rating";
 
 
     //Wishlist Table Tags
@@ -59,13 +58,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     protected static final String UHF_TABLE = "User_has_Friends";
     protected static final String UHF_ID = "userID";
     protected static final String UHF_FRIEND = "frienduserID";
-    protected static final String PENDING = "pending";
+    protected static final String UHF_PENDING = "pending";
 
 
     //User_has_Interests
     protected static final String UHI_TABLE = "User_has_Interests";
     protected static final String UHI_USERID = "userID";
     protected static final String UHI_ID = "interestID";
+    protected static final String UHI_RATING = "rating";
 
 
     //User_has_Wishlist
@@ -118,7 +118,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "    interestname VARCHAR (45)             UNIQUE" +
             "                                          NOT NULL," +
             "    interestID   [INTEGER AUTO_INCREMENT]," +
-            "    rating       INTEGER," +
             "    PRIMARY KEY (" +
             "        interestID" +
             "    )" +
@@ -140,24 +139,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "                             ON UPDATE NO ACTION" +
             ");";
 
-    private static final String CREATE_USER_HAS_INTERESTS = "CREATE TABLE User_has_Interests (" +
-            "    userID     INT NOT NULL," +
-            "    interestID INT NOT NULL," +
-            "    PRIMARY KEY (" +
-            "        userID," +
-            "        interestID" +
-            "    )," +
-            "    CONSTRAINT fk_User_has_Interests_User1 FOREIGN KEY (" +
-            "        userID" +
-            "    )" +
-            "    REFERENCES User (userID) ON DELETE CASCADE" +
-            "                             ON UPDATE NO ACTION," +
-            "    CONSTRAINT fk_User_has_Interests_Interests1 FOREIGN KEY (" +
-            "        interestID" +
-            "    )" +
-            "    REFERENCES Interests (interestID) ON DELETE CASCADE" +
-            "                                      ON UPDATE NO ACTION" +
-            ");";
+    private static final String CREATE_USER_HAS_INTERESTS = "CREATE TABLE User_has_Interests (\n" +
+            "    userID     INT     NOT NULL,\n" +
+            "    interestID INT     NOT NULL,\n" +
+            "    rating     INTEGER NOT NULL,\n" +
+            "    PRIMARY KEY (\n" +
+            "        userID,\n" +
+            "        interestID\n" +
+            "    ),\n" +
+            "    CONSTRAINT fk_User_has_Interests_User1 FOREIGN KEY (\n" +
+            "        userID\n" +
+            "    )\n" +
+            "    REFERENCES User (userID) ON DELETE CASCADE\n" +
+            "                             ON UPDATE NO ACTION,\n" +
+            "    CONSTRAINT fk_User_has_Interests_Interests1 FOREIGN KEY (\n" +
+            "        interestID\n" +
+            "    )\n" +
+            "    REFERENCES Interests (interestID) ON DELETE CASCADE\n" +
+            "                                      ON UPDATE NO ACTION\n" +
+            ");\n ";
 
     private static final String CREATE_USER_HAS_WISHLIST = "CREATE TABLE User_has_Wishlist (" +
             "    userID     INT NOT NULL," +
@@ -222,8 +222,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     protected static final String[] Populate = new String[]{
-            "INSERT INTO Interests (interestname, interestID, rating) VALUES ('Cinema', 9, 5);",
-            "INSERT INTO Interests (interestname, interestID, rating) VALUES ('Sport', 10, 4);\n",
+            "INSERT INTO Interests (interestname, interestID) VALUES ('Cinema', 9);",
+            "INSERT INTO Interests (interestname, interestID) VALUES ('Sport', 10);\n",
             "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (1, 'Samsung Galaxy 20', 'Smartphone Android 5G', 'https://www.samsung.com/be_fr/smartphones/galaxy-s20/buy/', 1, 1, 2, 1);\n",
             "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (2, 'Cable ethernet', 'Cable ethernet de 10m', 'https://www.amazon.fr/Ethernet-Blindage-Compatible-Nintendo-Routeur/dp/B07DDH9RLK/ref=sr_1_3?keywords=cable+ethernet+10m&qid=1583517691&s=electronics&sr=1-3', 0, 1, 3, 2);\n",
             "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (3, 'Ballon', 'Ballon de Basket signé par Kobe Bryant', 'https://www.ebay.com/itm/Kobe-Bryant-Signed-Full-Size-Basketball-Autograph-Case-Beckett-BAS-LOA-Lakers/383441285983?hash=item5946e1b35f:g:R6IAAOSw1~BeWXDK', 0, 2, 4, 1);\n",
@@ -234,8 +234,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "INSERT INTO User_has_Friends (userID, frienduserID, pending) VALUES (2, 1, 0);\n",
             "INSERT INTO User_has_Friends (userID, frienduserID, pending) VALUES (26, 1, 0);\n",
             "INSERT INTO User_has_Friends (userID, frienduserID, pending) VALUES (1, 26, 0);\n",
-            "INSERT INTO User_has_Interests (userID, interestID) VALUES (1, 9);\n",
-            "INSERT INTO User_has_Interests (userID, interestID) VALUES (2, 10);\n",
+            "INSERT INTO User_has_Interests (userID, interestID, rating) VALUES (1, 9, 4);\n",
+            "INSERT INTO User_has_Interests (userID, interestID, rating) VALUES (2, 10, 2);\n",
             "INSERT INTO User_has_Wishlist (userID, wishlistID) VALUES (1, 1);\n",
             "INSERT INTO User_has_Wishlist (userID, wishlistID) VALUES (2, 2);\n",
             "INSERT INTO User_has_Wishlist (userID, wishlistID) VALUES (26, 11);\n",

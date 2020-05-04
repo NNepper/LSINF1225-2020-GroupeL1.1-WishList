@@ -240,12 +240,29 @@ public class UserDAO extends MyDatabaseHelper {
 
             values.put(UHF_ID, main.getId());
             values.put(UHF_FRIEND, friend.getId());
+            values.put(UHF_PENDING, 0);
 
             db.insert(UHF_TABLE, null, values);
             db.setTransactionSuccessful();
             return true;
         } catch (Exception e) {
             Log.d("SQL", "Error while trying to add or update user");
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public Boolean unfollow(User main, User friend){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try {
+            // Order of deletions is important when foreign key relationships exist.
+            db.delete(USER_TABLE, null , null);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
             return false;
         } finally {
             db.endTransaction();
@@ -260,7 +277,7 @@ public class UserDAO extends MyDatabaseHelper {
 
         try {
             String getQuery = String.format(
-                    "SELECT * FROM User u" +
+                    "SELECT * FROM User u " +
                             "WHERE u.userID != '%s' AND u.userID NOT IN " +
                             "    (SELECT frienduserID FROM User_has_Friends uhf WHERE uhf.userID == '%s')"
                     , userID, userID);
@@ -270,8 +287,8 @@ public class UserDAO extends MyDatabaseHelper {
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     User user = new User(cursor.getInt(0), cursor.getString(4), cursor.getString(3), cursor.getString(5));
-                    user.username =  cursor.getString(1);
                     user.lastname = cursor.getString(2);
+                    user.firstname = cursor.getString(1);
                     user.address = cursor.getString(6);
                     user.color = cursor.getString(7);
                     user.shoeSize = cursor.getInt(8);
