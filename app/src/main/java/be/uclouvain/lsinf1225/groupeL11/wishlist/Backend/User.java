@@ -102,7 +102,6 @@ public class User implements Parcelable {
         trouserSize = in.readString();
         shoeSize = in.readInt();
         address = in.readString();
-        byte tmpPrivacy = in.readByte();
         privacy = in.readInt();
         interests = in.createTypedArrayList(Interest.CREATOR);
         following = in.createTypedArrayList(User.CREATOR);

@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (mainUser.getPassword().compareTo(password) == 0){
                             // Bundle for easy Object storage
                             Bundle data = new Bundle();
-                            data.putParcelable(getApplicationContext().getString(R.string.mainUserBundleParcable), mainUser);
+                            data.putParcelable("mainUser", mainUser);
 
                             // Start new Activity and pass data to the next Activity
                             Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class); // change the intent to let the user enter his infos

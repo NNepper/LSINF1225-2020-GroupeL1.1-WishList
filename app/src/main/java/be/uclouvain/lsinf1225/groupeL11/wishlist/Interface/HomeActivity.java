@@ -26,7 +26,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         this.data = getIntent().getExtras(); // getting bundle from other Activity
-        this.mainUser = data.getParcelable(getApplicationContext().getString(R.string.mainUserBundleParcable)); // get string form string.xml
+        this.mainUser = data.getParcelable("mainUser"); // get string form string.xml
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav); //find the bottom navigation bar
         bottomNav.setOnNavigationItemSelectedListener(navlistener); //give the navigation listener to the navigation bar
