@@ -230,4 +230,8 @@ public class UserDAO extends MyDatabaseHelper {
             db.endTransaction();
         }
     }
+
+    public Boolean addFollow(User main, User Friend){
+        return false;
+    }
 }
