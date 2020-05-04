@@ -124,7 +124,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         dropdownTrousers = findViewById(R.id.newprofile_trousers);
 
         // To be completed (Laisser le choix d'ajouter à l'utilisateur ?)(xx/xx la forme ??)
-        final String[] trouserItems = {"28", "30", "32", "34", "36"};
+        final String[] trouserItems = {"XS", "S", "M", "L", "XL", "XXL"};
 
         dropdownTrousers.setAdapter(new ArrayAdapter<String>(
                 this,
@@ -233,11 +233,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
                     //Update mainUser Data
                     mainUser.firstname = firstname;
                     mainUser.lastname = lastname;
-                    mainUser.address = "an adress";
-                    //TODO: Address problem, Make to String
-                    //mainUser.city = city;
-                    //mainUSer.street = street;
-                    //mainUser.zip = zip;
+                    mainUser.address = street + " " + zip + " " + city;
                     mainUser.shoeSize = shoes;
                     mainUser.trouserSize = trouser;
                     mainUser.tshirtSize = tshirt;

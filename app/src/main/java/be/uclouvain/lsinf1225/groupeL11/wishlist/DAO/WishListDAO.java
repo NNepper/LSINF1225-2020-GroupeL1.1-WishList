@@ -31,7 +31,7 @@ public class WishListDAO extends MyDatabaseHelper{
         return null;
     }
 
-    public ArrayList<WishList> getWishLists(int userID, SQLiteDatabase db){
+    ArrayList<WishList> getWishLists(int userID, SQLiteDatabase db){
         ArrayList<WishList> list = new ArrayList<>();
         ProductDAO productDAO = new ProductDAO(context);
 
