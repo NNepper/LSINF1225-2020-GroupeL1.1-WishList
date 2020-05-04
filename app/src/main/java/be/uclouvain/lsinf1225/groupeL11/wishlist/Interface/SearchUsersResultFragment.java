@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,52 +17,53 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.FollowListAdapter;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.SearchUsersResultAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class SearchUsersResultFragment extends Fragment {
 
-    private RecyclerView followListRecyclerView;
-    private FollowListAdapter followListAdapter;
-    private RecyclerView.LayoutManager followListLayoutManager;
+    private RecyclerView searchUsersResultsListRecyclerView;
+    private SearchUsersResultAdapter searchUsersResultsListAdapter;
+    private RecyclerView.LayoutManager searchUsersResultsListLayoutManager;
     private User mainUser;
+    private Bundle data;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
-        FollowDAO followDAO = new FollowDAO(getContext());
-        mainUser.following = followDAO.getFollowing(mainUser.id, null);
-        final ArrayList<User> followList = mainUser.following;
 
-        final View view = inflater.inflate(R.layout.fragment_home_follows, container, false);
+        // TODO récupérer les extras pour avoir la lite des comptes à afficher
 
-        followListRecyclerView = view.findViewById(R.id.follow_list_recycler_view);
-        followListRecyclerView.setHasFixedSize(true);
-        followListLayoutManager = new LinearLayoutManager(view.getContext());
-        followListAdapter = new FollowListAdapter(followList);
+        final ArrayList<User> searchUsersResultsList = new ArrayList<>(); // TODO mettre la liste des résultats
 
-        followListRecyclerView.setLayoutManager(followListLayoutManager);
-        followListRecyclerView.setAdapter(followListAdapter);
+        final View view = inflater.inflate(R.layout.fragment_search_users_result, container, false);
 
-        followListAdapter.setOnItemClickLister(new FollowListAdapter.onItemClickListener() { // set the on click listener for the card inside the recycler view
+        searchUsersResultsListRecyclerView = view.findViewById(R.id.search_result_recycler_view);
+        searchUsersResultsListRecyclerView.setHasFixedSize(true);
+        searchUsersResultsListLayoutManager = new LinearLayoutManager(view.getContext());
+        searchUsersResultsListAdapter = new SearchUsersResultAdapter(searchUsersResultsList);
+
+        searchUsersResultsListRecyclerView.setLayoutManager(searchUsersResultsListLayoutManager);
+        searchUsersResultsListRecyclerView.setAdapter(searchUsersResultsListAdapter);
+
+        searchUsersResultsListAdapter.setOnItemClickLister(new SearchUsersResultAdapter.onItemClickListener() { // set the on click listener for the card inside the recycler view
             @Override
             public void onItemClick(int position) {
-                // TODO show follow profile
+                // TODO show follow profile ?
             }
 
             @Override
-            public void onDeleteClick(final int position) {
+            public void onAddClick(final int position) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Unfollow");
-                builder.setMessage("Are you sure you want to unfollow " + followList.get(position).username + "?");
+                builder.setMessage("Are you sure you want to unfollow " + searchUsersResultsList.get(position).username + "?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        followList.remove(position);
-                        followListAdapter.notifyItemRemoved(position);
+                        searchUsersResultsList.remove(position);
+                        searchUsersResultsListAdapter.notifyItemRemoved(position);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
