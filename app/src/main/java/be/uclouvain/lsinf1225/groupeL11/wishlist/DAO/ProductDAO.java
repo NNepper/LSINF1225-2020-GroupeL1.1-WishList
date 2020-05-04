@@ -78,4 +78,20 @@ public class ProductDAO extends MyDatabaseHelper {
             db.endTransaction();
         }
     }
+
+    public boolean delete(int productID){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try {
+            // Order of deletions is important when foreign key relationships exist.
+            db.delete(PRODUCT_TABLE, PRODUCT_ID + "=" + productID, null);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+    }
 }
