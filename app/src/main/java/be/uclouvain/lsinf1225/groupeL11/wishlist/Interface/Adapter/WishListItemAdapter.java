@@ -1,65 +1,90 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
-import java.util.ArrayList;
-import java.util.List;
+public class WishListItemAdapter extends RecyclerView.Adapter<WishListItemAdapter.WishListItemHolder> {
 
-public class WishListItemAdapter extends ArrayAdapter<WishList> {
+    private ArrayList<WishList> wishLists;
+    private onItemClickListener wishListClickListener;
 
-    private Context context;
-    private ArrayList<WishList> wishList;
-    private LayoutInflater inflater;
-    private int layoutResource;
-
-    public WishListItemAdapter(Context context, int layoutResource, ArrayList<WishList> wishList){
-        super(context, layoutResource, wishList);
-        this.context = context;
-        this.inflater = LayoutInflater.from(context);
-        this.wishList = wishList;
+    public interface onItemClickListener{
+        void onItemClick(int position);
+        void onDeleteClick(int position);
     }
 
-    @Override
-    public int getCount() {
-        return wishList.size();
+    public void setOnItemClickLister(onItemClickListener listener){
+        wishListClickListener = listener;
     }
 
-    @Override
-    public WishList getItem(int position) {
-        return wishList.get(position);
-    }
+    public static class WishListItemHolder extends RecyclerView.ViewHolder{
 
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
+        public ImageView deleteWishListButton;
+        public TextView name;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
+        public WishListItemHolder(@NonNull View itemView, final onItemClickListener listener) {
+            super(itemView);
+            deleteWishListButton = itemView.findViewById(R.id.wishlist_delete);
+            name = itemView.findViewById(R.id.item_wishlist_title);
 
-        if (view == null){
-            view =  inflater.inflate(R.layout.adapter_wishlist_item, parent, false);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
+            deleteWishListButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
         }
+    }
 
-        WishList x = getItem(position);
+    public WishListItemAdapter(ArrayList<WishList> wishlists) {
+        this.wishLists = wishlists;
+    }
 
-        if (x != null){
-            TextView titleView = view.findViewById(R.id.item_wishlist_title);
+    @NonNull
+    @Override
+    public WishListItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_wishlist_item, parent, false);
+        WishListItemHolder wlih = new WishListItemHolder(view, wishListClickListener);
+        return wlih;
+    }
 
-            if (titleView != null){
-                titleView.setText(x.name);
-            }
-        }
-        return view;
+    @Override
+    public void onBindViewHolder(@NonNull WishListItemAdapter.WishListItemHolder holder, int position) {
+        WishList currentWL = wishLists.get(position);
+
+        holder.name.setText(currentWL.name);
+    }
+
+    @Override
+    public int getItemCount() {
+        return wishLists.size();
     }
 }

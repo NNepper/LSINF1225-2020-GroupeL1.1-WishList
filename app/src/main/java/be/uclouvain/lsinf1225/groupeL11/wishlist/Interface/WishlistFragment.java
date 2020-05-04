@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -30,6 +32,10 @@ public class WishlistFragment extends Fragment {
     private FloatingActionButton addWishlistButton;
     private String newWishListName;
 
+    private RecyclerView wishListRecyclerView;
+    private WishListItemAdapter wishListAdapter;
+    private RecyclerView.LayoutManager wishListLayoutManager;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,24 +46,60 @@ public class WishlistFragment extends Fragment {
         mainUser.wishlists = wishListDAO.readWishLists(mainUser.id);
 
         final View view = inflater.inflate(R.layout.fragment_home_wishlists, container, false);
-        final ListView wishListView = view.findViewById(R.id.wishlist_list_view);
+
+        wishListRecyclerView = view.findViewById(R.id.wishlist_recycler_view);
+        wishListRecyclerView.setHasFixedSize(true);
+        wishListLayoutManager = new LinearLayoutManager(view.getContext());
+        wishListAdapter = new WishListItemAdapter(mainUser.wishlists);
+
+        wishListRecyclerView.setLayoutManager(wishListLayoutManager);
+        wishListRecyclerView.setAdapter(wishListAdapter);
+
+        wishListAdapter.setOnItemClickLister(new WishListItemAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //TODO: goes to wishlist detail
+            }
+
+            @Override
+            public void onDeleteClick(final int position) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Delete WishList");
+                builder.setMessage("Are you sure you want to delete" + mainUser.wishlists.get(position)+ "?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(wishListDAO.delete(mainUser.wishlists.get(position).getId())) {
+                            mainUser.wishlists.remove(position);
+                            wishListAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
 
         this.addWishlistButton = (FloatingActionButton) view.findViewById(R.id.addWishlistButton) ;
-
         this.addWishlistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Add a new wishlist");
                 View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_wishlist, (ViewGroup) getView(), false);
-                final EditText wishlistName = (EditText) viewInflated.findViewById(R.id.new_wishlist_name);
+                final EditText wishListName = (EditText) viewInflated.findViewById(R.id.new_wishlist_name);
                 builder.setView(viewInflated)
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                WishList newWishList = new WishList(wishlistName.getText().toString()); //create new wishlist with the given name
+                                WishList newWishList = new WishList(wishListName.getText().toString()); //create new wishlist with the given name
                                 if(wishListDAO.create(newWishList, mainUser)){
                                     mainUser.wishlists.add(newWishList);
+                                    wishListRecyclerView.getAdapter().notifyDataSetChanged();
                                 }
                                 else {
                                     CharSequence text = "Error while creating the wishlist";
@@ -77,11 +119,6 @@ public class WishlistFragment extends Fragment {
             }
         });
 
-        wishListView.setAdapter(new WishListItemAdapter(
-                this.getActivity().getApplicationContext(),
-                R.layout.adapter_wishlist_item,
-                mainUser.wishlists
-        ));
         return view;
     }
 }
