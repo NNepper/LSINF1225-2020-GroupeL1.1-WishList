@@ -114,9 +114,10 @@ public class FollowsFragment extends Fragment {
 
     public ArrayList<User> doMySearch(String query) {
         UserDAO userDAO = new UserDAO(getContext());
-        ArrayList<User> users = userDAO.getAllUser(mainUser.id);
+        ArrayList<User> users = userDAO.getFollowable(mainUser.id);
         ArrayList<User> filtered = new ArrayList<>();
         for (User user : users) {
+            Log.d("User", user.username);
             if (user.username.contains(query)) {
                 filtered.add(user);
             }
