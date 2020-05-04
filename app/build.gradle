@@ -4,6 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "be.uclouvain.lsinf1225.groupeL11.wishlist"
         minSdkVersion 19
         targetSdkVersion 29

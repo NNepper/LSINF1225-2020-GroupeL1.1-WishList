@@ -56,12 +56,12 @@
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/custom_profile_info_bar"
                 android:maxLines="1"
-                android:nextFocusDown="@id/profilePhoneNumber"
+                android:nextFocusDown="@id/profileAddress"
                 android:paddingStart="10dp"
                 android:text="@string/profileViewEmail" />
 
             <EditText
-                android:id="@+id/profilePhoneNumber"
+                android:id="@+id/profileAddress"
                 android:layout_width="310dp"
                 android:layout_height="50dp"
                 android:layout_below="@+id/profileEmail"
@@ -81,7 +81,7 @@
                 android:id="@+id/profileSpinnerShoeSize"
                 android:layout_width="310dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/profilePhoneNumber"
+                android:layout_below="@+id/profileAddress"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="31dp"
@@ -105,7 +105,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="31dp"
                     android:background="@drawable/custom_profile_info_bar"
-                    android:spinnerMode="dropdown" />
+                    android:spinnerMode="dropdown"
+                    android:popupBackground="@android:color/transparent"/>
 
                 <Spinner
                     android:id="@+id/profileSpinnerTrouserSize"
@@ -115,12 +116,13 @@
                     android:layout_marginEnd="31dp"
                     android:layout_marginBottom="0dp"
                     android:background="@drawable/custom_profile_info_bar"
-                    android:spinnerMode="dropdown" />
+                    android:spinnerMode="dropdown"
+                    android:popupBackground="@android:color/transparent"/>
 
             </RelativeLayout>
 
             <Spinner
-                android:id="@+id/profileColor"
+                android:id="@+id/profileSpinnerColor"
                 android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:layout_below="@+id/relLayTshirtTrouser"
@@ -131,12 +133,13 @@
                 android:layout_marginEnd="31dp"
                 android:layout_marginBottom="0dp"
                 android:background="@drawable/custom_profile_info_bar"
+                android:popupBackground="@android:color/transparent"
                 android:spinnerMode="dropdown" />
 
             <Button
                 android:layout_width="310dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/profileColor"
+                android:layout_below="@+id/profileSpinnerColor"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="31dp"

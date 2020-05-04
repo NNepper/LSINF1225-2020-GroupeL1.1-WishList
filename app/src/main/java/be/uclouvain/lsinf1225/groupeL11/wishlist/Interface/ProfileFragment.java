@@ -1,9 +1,7 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +18,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.util.List;
-
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class ProfileFragment extends Fragment {
 
-    private TextView usernameTextView;
+    private TextView usernameTextView, emailTextView, addressTextView;
     private ImageView logOut;
     private ImageView confirm;
     private Switch privacySwitch;
     private User mainUser;
-    private Spinner shoeSizeSpinner, trouserSizeSpinner, tShirtSizeSpinner;
+    private Spinner shoeSizeSpinner, trouserSizeSpinner, tShirtSizeSpinner, colorSpinner;
     private Button interestButton;
 
     @Nullable
@@ -43,7 +39,12 @@ public class ProfileFragment extends Fragment {
 
         usernameTextView = view.findViewById(R.id.profileUsername);
         usernameTextView.setText(mainUser.username);
-        // TODO do the same thing as the line above to set Email address and phone number TextViews with user info
+
+        emailTextView = view.findViewById(R.id.profileEmail);
+        emailTextView.setText(mainUser.email);
+
+        addressTextView = view.findViewById(R.id.profileAddress);
+        addressTextView.setText(mainUser.address);
 
         logOut = view.findViewById(R.id.profileLogOut);
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +73,6 @@ public class ProfileFragment extends Fragment {
         privacySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO change drawable in front of switch
                 // TODO save changes in DB with DAO
                 switch (mainUser.privacy){
                     case 0: mainUser.privacy = 1;
@@ -81,6 +81,8 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+
+        // Setting spinner for the shoes sizes
 
         shoeSizeSpinner = view.findViewById(R.id.profileSpinnerShoeSize);
 
@@ -100,7 +102,7 @@ public class ProfileFragment extends Fragment {
         shoeSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mainUser.shoeSize = 34 + position;
+                if(position> 0) mainUser.shoeSize = 34+position;
             }
 
             @Override
@@ -109,9 +111,84 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        // TODO add spinner for TShirt size
-        // TODO add spinner for trouser size
+        // Setting spinner for the Tshirt sizes
+
+        tShirtSizeSpinner = view.findViewById(R.id.profileSpinnerTshirtSize);
+
+        final String[] tShirtSize = {"", "XS", "S", "M", "L", "XL", "XXL"};
+        tShirtSize[0] = "Tshirt size: " + mainUser.tshirtSize;
+
+        tShirtSizeSpinner.setAdapter(new ArrayAdapter<String>(
+                getContext(),
+                R.layout.adapter_dropdown_profile,
+                R.id.dropdown_title,
+                tShirtSize
+        ));
+
+        tShirtSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position>0) mainUser.tshirtSize = tShirtSize[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Nothing here since user didn't change his shoe size
+            }
+        });
+
+        // Setting spinner for the trouser sizes
+
+        trouserSizeSpinner = view.findViewById(R.id.profileSpinnerTrouserSize);
+
+        final String[] trouserSizes = {"", "XS", "S", "M", "L", "XL", "XXL"};
+        trouserSizes[0] = "Tshirt size: " + mainUser.tshirtSize;
+
+        trouserSizeSpinner.setAdapter(new ArrayAdapter<String>(
+                getContext(),
+                R.layout.adapter_dropdown_profile,
+                R.id.dropdown_title,
+                trouserSizes
+        ));
+
+        trouserSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position>0) mainUser.trouserSize = trouserSizes[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Nothing here since user didn't change his shoe size
+            }
+        });
+
         // TODO add spinner for color
+        // Setting Spinner for color
+
+        colorSpinner = view.findViewById(R.id.profileSpinnerColor);
+
+        final String[] colors = {"", "Red", "Green", "Blue"};
+        colors[0] = "Color: " + mainUser.color;
+
+        colorSpinner.setAdapter(new ArrayAdapter<String>(
+                getContext(),
+                R.layout.adapter_dropdown_profile,
+                R.id.dropdown_title,
+                colors
+        ));
+
+        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position>0) mainUser.trouserSize = colors[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Nothing here since user didn't change his shoe size
+            }
+        });
 
         return view;
     }
