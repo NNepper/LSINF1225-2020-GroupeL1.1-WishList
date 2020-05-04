@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.FollowListAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
@@ -31,6 +32,8 @@ public class FollowsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
+        FollowDAO followDAO = new FollowDAO(getContext());
+        mainUser.following = followDAO.getFollowing(mainUser.id, null);
         final ArrayList<User> followList = mainUser.following;
 
         final View view = inflater.inflate(R.layout.fragment_home_follows, container, false);

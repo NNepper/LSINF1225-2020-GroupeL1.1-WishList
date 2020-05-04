@@ -108,9 +108,9 @@ public class UserDAO extends MyDatabaseHelper {
                 user.trouserSize = cursor.getString(9);
                 user.tshirtSize = cursor.getString(10);
                 user.privacy = cursor.getInt(11);
-                user.following = followDAO.getFollowing(user.getId(), db);
-                user.wishlists = wishListDAO.getWishLists(user.getId(), db);
-                user.interests = interestDAO.getInterests(user.getId(), db);
+                // user.following = followDAO.getFollowing(user.getId(), db);
+                // user.wishlists = wishListDAO.getWishLists(user.getId(), db);
+                // user.interests = interestDAO.getInterests(user.getId(), db);
             }
             return user;
         } catch (Exception e) {
