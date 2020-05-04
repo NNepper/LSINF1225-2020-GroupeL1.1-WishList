@@ -119,4 +119,8 @@ public class WishListDAO extends MyDatabaseHelper{
         }
     }
 
+    public Boolean delete(int wishlistID){
+        return true;
+    }
+
 }
