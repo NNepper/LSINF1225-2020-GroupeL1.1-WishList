@@ -2,6 +2,7 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class ProfileFragment extends Fragment {
@@ -30,10 +32,12 @@ public class ProfileFragment extends Fragment {
     private User mainUser;
     private Spinner shoeSizeSpinner, trouserSizeSpinner, tShirtSizeSpinner, colorSpinner;
     private Button interestButton;
+    private UserDAO userDAO;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        userDAO = new UserDAO(getContext());
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
         final View view = inflater.inflate(R.layout.fragment_home_profile, container, false);
 
@@ -73,12 +77,11 @@ public class ProfileFragment extends Fragment {
         privacySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO save changes in DB with DAO
-                switch (mainUser.privacy){
-                    case 0: mainUser.privacy = 1;
-                    case 1: mainUser.privacy = 0;
-                    default: privacySwitch.forceLayout();
-                }
+                Log.v("debug-gwen", "User privacy before : " + mainUser.privacy);
+                mainUser.privacy = mainUser.privacy == 0 ? 1 : 0;
+                privacySwitch.forceLayout();
+                userDAO.updatePrivacy(mainUser); // don't update
+                Log.v("debug-gwen", "User privacy after : " + mainUser.privacy); // TODO fix update in DAO
             }
         });
 
@@ -163,7 +166,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        // TODO add spinner for color
         // Setting Spinner for color
 
         colorSpinner = view.findViewById(R.id.profileSpinnerColor);

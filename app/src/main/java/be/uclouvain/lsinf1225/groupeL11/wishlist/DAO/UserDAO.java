@@ -63,13 +63,25 @@ public class UserDAO extends MyDatabaseHelper {
         values.put(FIRSTNAME, user.firstname);
         values.put(LASTNAME, user.lastname);
         values.put(USERNAME, user.username);
-        values.put(EMAIL, user.email);
-        values.put(PASSWORD, user.getPassword());
+        // Provisional fix for the unicity error
+        // values.put(EMAIL, user.email);
+        // values.put(PASSWORD, user.getPassword());
         values.put(ADDRESS, user.address);
         values.put(COLOR, user.color);
         values.put(SHOES, user.shoeSize);
         values.put(TROUSERS, user.trouserSize);
         values.put(TSHIRT, user.tshirtSize);
+        values.put(PRIVACY, user.privacy);
+
+        // Updating profile picture url for user with that userName
+        user.id = (int) db.update(USER_TABLE, values, USER_ID + " = " + user.id,null);
+        return user.id > 0;
+    }
+
+    public Boolean updatePrivacy(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
         values.put(PRIVACY, user.privacy);
 
         // Updating profile picture url for user with that userName
