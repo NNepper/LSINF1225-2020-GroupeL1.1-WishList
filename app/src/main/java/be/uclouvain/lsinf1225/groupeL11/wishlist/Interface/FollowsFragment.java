@@ -15,6 +15,7 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,7 +59,14 @@ public class FollowsFragment extends Fragment {
         followListAdapter.setOnItemClickLister(new FollowListAdapter.onItemClickListener(){ // set the on click listener for the card inside the recycler view
             @Override
             public void onItemClick(int position) {
-                // TODO show follow profile
+                User followingUser = followList.get(position);
+                Bundle data = new Bundle();
+                data.putInt("followingUserID", followingUser.id);
+                data.putString("followingUsername", followingUser.username);
+
+                Fragment followingFragment = new FollowingWishlistFragment();
+                followingFragment.setArguments(data);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,followingFragment).commit(); //display the clicked fragment
             }
 
             @Override
