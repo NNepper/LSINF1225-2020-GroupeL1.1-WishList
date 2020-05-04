@@ -116,6 +116,10 @@ public class FollowsFragment extends Fragment {
         UserDAO userDAO = new UserDAO(getContext());
         ArrayList<User> users = userDAO.getFollowable(mainUser.id);
         ArrayList<User> filtered = new ArrayList<>();
+        if (users == null) {
+            Log.d("User", "No users followable");
+            return filtered;
+        }
         for (User user : users) {
             Log.d("User", user.username);
             if (user.username.contains(query)) {
