@@ -14,10 +14,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.HashMap;
+import java.util.LinkedList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
@@ -33,6 +37,8 @@ public class ProfileFragment extends Fragment {
     private Spinner shoeSizeSpinner, trouserSizeSpinner, tShirtSizeSpinner, colorSpinner;
     private Button interestButton;
     private UserDAO userDAO;
+    private String tShirtSizeChanged, trouserSizeChanged, colorChanged;
+    private int shoeSizeChanged;
 
     @Nullable
     @Override
@@ -67,8 +73,12 @@ public class ProfileFragment extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO get all infos inside textViews and update them inside DB with DAO
-                // TODO when update is done reaload the view with new infos
+                updateMainUser();
+                userDAO.update(mainUser);
+                CharSequence toastText = "Infos updated";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(getContext(), toastText,  duration);
+                toast.show();
             }
         });
 
@@ -77,11 +87,9 @@ public class ProfileFragment extends Fragment {
         privacySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.v("debug-gwen", "User privacy before : " + mainUser.privacy);
                 mainUser.privacy = mainUser.privacy == 0 ? 1 : 0;
                 privacySwitch.forceLayout();
                 userDAO.updatePrivacy(mainUser); // don't update
-                Log.v("debug-gwen", "User privacy after : " + mainUser.privacy); // TODO fix update in DAO
             }
         });
 
@@ -105,7 +113,7 @@ public class ProfileFragment extends Fragment {
         shoeSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position> 0) mainUser.shoeSize = 34+position;
+                if(position> 0) shoeSizeChanged = 34+position;
             }
 
             @Override
@@ -131,7 +139,7 @@ public class ProfileFragment extends Fragment {
         tShirtSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position>0) mainUser.tshirtSize = tShirtSize[position];
+                if (position>0) tShirtSizeChanged = tShirtSize[position];
             }
 
             @Override
@@ -145,7 +153,7 @@ public class ProfileFragment extends Fragment {
         trouserSizeSpinner = view.findViewById(R.id.profileSpinnerTrouserSize);
 
         final String[] trouserSizes = {"", "XS", "S", "M", "L", "XL", "XXL"};
-        trouserSizes[0] = "Tshirt size: " + mainUser.tshirtSize;
+        trouserSizes[0] = "Trouser size: " + mainUser.tshirtSize;
 
         trouserSizeSpinner.setAdapter(new ArrayAdapter<String>(
                 getContext(),
@@ -157,7 +165,7 @@ public class ProfileFragment extends Fragment {
         trouserSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position>0) mainUser.trouserSize = trouserSizes[position];
+                if (position>0) trouserSizeChanged = trouserSizes[position];
             }
 
             @Override
@@ -183,7 +191,7 @@ public class ProfileFragment extends Fragment {
         colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position>0) mainUser.trouserSize = colors[position];
+                if (position>0) colorChanged = colors[position];
             }
 
             @Override
@@ -193,5 +201,15 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void updateMainUser(){
+        if(tShirtSizeChanged != null && mainUser.tshirtSize.compareTo(tShirtSizeChanged) != 0) mainUser.tshirtSize = tShirtSizeChanged;
+        if(trouserSizeChanged != null && mainUser.trouserSize.compareTo(trouserSizeChanged) != 0) mainUser.trouserSize = trouserSizeChanged;
+        if(shoeSizeChanged != 0 && mainUser.shoeSize != shoeSizeChanged) mainUser.shoeSize = shoeSizeChanged;
+        if(mainUser.color != colorChanged) mainUser.color = colorChanged;
+        if(mainUser.username.compareTo(usernameTextView.getText().toString()) != 0) mainUser.username = usernameTextView.getText().toString();
+        if(mainUser.email.compareTo(emailTextView.getText().toString()) != 0) mainUser.email = emailTextView.getText().toString();
+        if(mainUser.address.compareTo(addressTextView.getText().toString()) != 0) mainUser.address = addressTextView.getText().toString();
     }
 }
