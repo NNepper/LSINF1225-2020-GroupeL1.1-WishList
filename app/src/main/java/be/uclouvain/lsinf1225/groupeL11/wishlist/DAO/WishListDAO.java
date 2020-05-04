@@ -125,9 +125,8 @@ public class WishListDAO extends MyDatabaseHelper{
 
         try {
 
-
             db.delete(WISHLIST_TABLE, WISHLIST_ID + "=" + wishlistID, null);
-            db.delete(UHF_TABLE, UHW_ID + "=" + wishlistID, null);
+            db.delete(UHW_TABLE, UHW_ID + "=" + wishlistID, null);
             db.setTransactionSuccessful();
             return true;
         } catch (Exception e) {
