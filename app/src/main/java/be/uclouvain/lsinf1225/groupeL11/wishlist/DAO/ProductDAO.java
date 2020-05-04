@@ -22,7 +22,6 @@ public class ProductDAO extends MyDatabaseHelper {
 
 
         if(db == null)db = this.getWritableDatabase();
-        db.beginTransaction();
 
         try {
             String getQuery = String.format(
@@ -45,14 +44,10 @@ public class ProductDAO extends MyDatabaseHelper {
                     cursor.moveToNext();
                 }
             }
-            db.setTransactionSuccessful();
             return prodList;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
-        }
-        finally {
-            db.endTransaction();
         }
     }
 

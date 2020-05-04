@@ -15,27 +15,21 @@ public class InterestDAO extends MyDatabaseHelper{
         super(context);
     }
 
-    public Interest getInterest(int interestID){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        db.beginTransaction();
+    public Interest getInterest(int interestID, SQLiteDatabase db){
+        if(db == null) db = this.getWritableDatabase();
 
         try {
-            String getQuery = "SELECT * FROM Interest i WHERE i.interestID == '" + interestID + "'";
+            String getQuery = "SELECT * FROM InterestS i WHERE i.interestID == '" + interestID + "'";
             Cursor cursor = db.rawQuery(getQuery, null);
 
             cursor.moveToFirst();
             Interest interest = new Interest(cursor.getString(0));
             interest.setId(cursor.getInt(1));
             //TODO: rating si time
-            db.setTransactionSuccessful();
             return interest;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
-        }
-        finally {
-            db.endTransaction();
         }
     }
 
@@ -43,7 +37,6 @@ public class InterestDAO extends MyDatabaseHelper{
         ArrayList<Interest> interestList = new ArrayList<>();
 
         if(db == null) db = this.getWritableDatabase();
-        db.beginTransaction();
 
         try {
             String getQuery = String.format(
@@ -54,7 +47,7 @@ public class InterestDAO extends MyDatabaseHelper{
 
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
-                    interestList.add( getInterest( cursor.getInt(1) ) );
+                    interestList.add( getInterest( cursor.getInt(1), db));
                     cursor.moveToNext();
                 }
             }
@@ -63,9 +56,6 @@ public class InterestDAO extends MyDatabaseHelper{
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
-        }
-        finally {
-            db.endTransaction();
         }
     }
 
@@ -88,8 +78,6 @@ public class InterestDAO extends MyDatabaseHelper{
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return false;
-        } finally {
-            db.endTransaction();
         }
     }
 
@@ -107,7 +95,7 @@ public class InterestDAO extends MyDatabaseHelper{
 
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
-                    interestList.add( getInterest( cursor.getInt(1) ) );
+                    interestList.add( getInterest( cursor.getInt(1), db ) );
                     cursor.moveToNext();
                 }
             }
@@ -116,9 +104,6 @@ public class InterestDAO extends MyDatabaseHelper{
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
-        }
-        finally {
-            db.endTransaction();
         }
     }
 }

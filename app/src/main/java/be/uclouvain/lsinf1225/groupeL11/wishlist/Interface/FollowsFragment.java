@@ -24,20 +24,14 @@ public class FollowsFragment extends Fragment {
     private RecyclerView followListRecyclerView;
     private FollowListAdapter followListAdapter;
     private RecyclerView.LayoutManager followListLayoutManager;
+    private User mainUser;
 
-    private void generateFollowList(ArrayList<User> friendList, int followNbr){
-        // remove this method when DB connection is fixed and use real user's friends
-        for (int i=0;i<followNbr;i++){
-            User friend = new User("mailOfFriend","Follow "+ i, "1234");
-            friendList.add(friend);
-        }
-    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final ArrayList<User> followList = new ArrayList<User>();
-        generateFollowList(followList, 10); // remove this when DB connection is fixed
+        this.mainUser = ((HomeActivity) getActivity()).mainUser;
+        final ArrayList<User> followList = mainUser.following;
 
         final View view = inflater.inflate(R.layout.fragment_home_follows, container, false);
 

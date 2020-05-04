@@ -18,7 +18,7 @@ public class FollowDAO extends MyDatabaseHelper {
     public ArrayList<User> getFollowing(int userID, SQLiteDatabase db){
         if(db == null) db = this.getWritableDatabase();
         UserDAO userDAO = new UserDAO(context);
-        db.beginTransaction();
+
         ArrayList<User> followingList = new ArrayList<>();
 
         try {
@@ -36,14 +36,10 @@ public class FollowDAO extends MyDatabaseHelper {
                     cursor.moveToNext();
                 }
             }
-            db.setTransactionSuccessful();
             return followingList;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
-        }
-        finally {
-            db.endTransaction();
         }
     }
 

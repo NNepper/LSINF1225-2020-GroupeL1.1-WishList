@@ -36,11 +36,10 @@ public class WishListDAO extends MyDatabaseHelper{
         ProductDAO productDAO = new ProductDAO(context);
 
         if(db == null) db = this.getWritableDatabase();
-        db.beginTransaction();
         try {
-            String getQuery = "SELECT name, description FROM WishList w," +
+            String getQuery = "SELECT wishlistID, name, description FROM WishList w," +
                     "    (SELECT wishlistID AS ID FROM User_has_Wishlist uhw " +
-                    "    WHERE uhw.userID == 1)" +
+                    "    WHERE uhw.userID == '" + userID + "')" +
                     "WHERE w.wishlistID == ID";
 
             Cursor cursor = db.rawQuery(getQuery, null);
@@ -55,14 +54,12 @@ public class WishListDAO extends MyDatabaseHelper{
                     cursor.moveToNext();
                 }
             }
-            db.setTransactionSuccessful();
             return list;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
         }
         finally {
-            db.endTransaction();
             productDAO.close();
         }
     }
