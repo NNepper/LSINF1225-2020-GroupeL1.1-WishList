@@ -241,7 +241,7 @@ public class UserDAO extends MyDatabaseHelper {
             values.put(UHF_ID, main.getId());
             values.put(UHF_FRIEND, friend.getId());
 
-            db.insert(USER_TABLE, null, values);
+            db.insert(UHF_TABLE, null, values);
             db.setTransactionSuccessful();
             return true;
         } catch (Exception e) {
@@ -253,6 +253,44 @@ public class UserDAO extends MyDatabaseHelper {
     }
 
     public ArrayList<User> getFollowable(int userID){
-        return null;
+        ArrayList<User> userList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            String getQuery = String.format(
+                    "SELECT * FROM User u" +
+                            "WHERE u.userID != '%s' AND u.userID NOT IN " +
+                            "    (SELECT frienduserID FROM User_has_Friends uhf WHERE uhf.userID == '%s')"
+                    , userID, userID);
+
+            Cursor cursor = db.rawQuery(getQuery, null);
+
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    User user = new User(cursor.getInt(0), cursor.getString(4), cursor.getString(3), cursor.getString(5));
+                    user.username =  cursor.getString(1);
+                    user.lastname = cursor.getString(2);
+                    user.address = cursor.getString(6);
+                    user.color = cursor.getString(7);
+                    user.shoeSize = cursor.getInt(8);
+                    user.trouserSize = cursor.getString(9);
+                    user.tshirtSize = cursor.getString(10);
+                    user.privacy = cursor.getInt(11);
+
+                    userList.add(user);
+                    cursor.moveToNext();
+                }
+            }
+            db.setTransactionSuccessful();
+            return userList;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return null;
+        }
+        finally {
+            db.endTransaction();
+        }
     }
 }

@@ -1,16 +1,14 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.EditText;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -99,15 +97,14 @@ public class FollowsFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Search an user");
             View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_search_user, (ViewGroup) getView(), false);
-            final EditText query = (EditText) viewInflated.findViewById(R.id.search_button);
+            final EditText query = (EditText) viewInflated.findViewById(R.id.query);
             builder.setView(viewInflated)
                 .setPositiveButton("Search", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ArrayList<User> searchUsersResultList = doMySearch(query.getText().toString());
-                        Intent searchUsersResult = new Intent(getContext(), SearchUsersResultFragment.class);
-                        //searchUsersResult.putExtras(searchUsersResultList); // TODO Passer la liste de résultat vers la prochaine activité
-                        startActivity(searchUsersResult);
+                        ((HomeActivity) getActivity()).searchUsersResult = doMySearch(query.getText().toString());
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container, new SearchUsersResultFragment()).commit(); //display the clicked fragment
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -124,9 +121,14 @@ public class FollowsFragment extends Fragment {
 
     public ArrayList<User> doMySearch(String query) {
         UserDAO userDAO = new UserDAO(getContext());
-        ArrayList<User> users = userDAO.getAllUser(mainUser.id);
+        ArrayList<User> users = userDAO.getFollowable(mainUser.id);
         ArrayList<User> filtered = new ArrayList<>();
+        if (users == null) {
+            Log.d("User", "No users followable");
+            return filtered;
+        }
         for (User user : users) {
+            Log.d("User", user.username);
             if (user.username.contains(query)) {
                 filtered.add(user);
             }

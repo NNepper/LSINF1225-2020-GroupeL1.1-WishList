@@ -29,13 +29,13 @@ public class SearchUsersResultAdapter extends RecyclerView.Adapter<SearchUsersRe
 
     public static class SearchUsersResultViewHolder extends RecyclerView.ViewHolder{
 
-        public ImageView searchUsersResultProfilPic;
+        public ImageView searchUsersResultProfilePic;
         public TextView searchUsersResultUsername;
         public ImageView addFollowButton;
 
         public SearchUsersResultViewHolder(@NonNull View itemView, final onItemClickListener listener) {
             super(itemView);
-            searchUsersResultProfilPic = itemView.findViewById(R.id.search_users_result_profil_pic);
+            searchUsersResultProfilePic = itemView.findViewById(R.id.search_users_result_profil_pic);
             searchUsersResultUsername = itemView.findViewById(R.id.search_users_result_username);
             addFollowButton = itemView.findViewById(R.id.follow_item_add_friend);
 
@@ -81,7 +81,7 @@ public class SearchUsersResultAdapter extends RecyclerView.Adapter<SearchUsersRe
     public void onBindViewHolder(@NonNull SearchUsersResultViewHolder holder, int position) {
         User currentFriend = searchUsersResult.get(position);
 
-        holder.searchUsersResultProfilPic.setImageResource(R.drawable.ic_default_image_profile); // get the default profile pic
+        holder.searchUsersResultProfilePic.setImageResource(R.drawable.ic_default_image_profile); // get the default profile pic
         holder.searchUsersResultUsername.setText(currentFriend.username);
 
     }

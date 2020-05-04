@@ -4,5 +4,5 @@
     <string name="profileViewUsername">Username</string>
     <string name="profileViewEmail">Email Address</string>
     <string name="profileViewPhoneNumber">Phone Number</string>
-    <string name="queryTile">Recherche pour :</string>
+    <string name="queryTitle">Recherche pour :</string>
 </resources>

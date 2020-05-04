@@ -12,6 +12,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
@@ -20,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Bundle data;
     public User mainUser;
+    public ArrayList<User> searchUsersResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
