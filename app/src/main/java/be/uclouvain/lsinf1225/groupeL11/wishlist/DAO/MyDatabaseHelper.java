@@ -10,7 +10,7 @@ import android.util.Log;
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "DB.sqlite";
-    private static final int DATABASE_VERSION = 2;
+    private static int DATABASE_VERSION = 2;
     protected Context context;
 
     //User Table Tags

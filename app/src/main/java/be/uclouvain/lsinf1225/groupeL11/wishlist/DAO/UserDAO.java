@@ -80,13 +80,15 @@ public class UserDAO extends MyDatabaseHelper {
 
     public Boolean updatePrivacy(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
 
         ContentValues values = new ContentValues();
         values.put(PRIVACY, user.privacy);
 
-        // Updating profile picture url for user with that userName
-        user.id = (int) db.update(USER_TABLE, values, USER_ID + " = " + user.id,null);
-        return user.id > 0;
+        db.update(USER_TABLE, values, USER_ID + " = " + user.id,null);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        return true;
     }
 
     /**
