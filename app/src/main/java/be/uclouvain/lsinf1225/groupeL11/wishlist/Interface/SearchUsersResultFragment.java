@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -24,13 +23,12 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.FollowListAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
-public class FollowsFragment extends Fragment {
+public class SearchUsersResultFragment extends Fragment {
 
     private RecyclerView followListRecyclerView;
     private FollowListAdapter followListAdapter;
     private RecyclerView.LayoutManager followListLayoutManager;
     private User mainUser;
-    private FloatingActionButton searchButton;
 
 
     @Nullable
