@@ -1,5 +1,6 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.DAO;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,18 +19,6 @@ public class WishListDAO extends MyDatabaseHelper{
         super(context);
     }
 
-    public void updateWishList(int wishListID){
-
-        return;
-    }
-
-    public Boolean addWishList(WishList wishList){
-        return true;
-    }
-
-    private WishList getWishList(int wishListID){
-        return null;
-    }
 
     ArrayList<WishList> getWishLists(int userID, SQLiteDatabase db){
         ArrayList<WishList> list = new ArrayList<>();
@@ -101,8 +90,33 @@ public class WishListDAO extends MyDatabaseHelper{
         }
     }
 
-    public Boolean create(WishList wishList){
-        return true;
+    public Boolean create(WishList wishList, User user){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues val1 = new ContentValues();
+
+            val1.put(WISHLIST_NAME, wishList.name);
+            val1.put(WISHLIST_DESC, wishList.description);
+
+            int rows = (int) db.insert(WISHLIST_TABLE, null, val1);
+            wishList.setId(rows);
+
+            ContentValues val2 = new ContentValues();
+
+            val2.put(UHW_ID, wishList.getId());
+            val2.put(UHW_USERID, user.getId());
+            db.insert(UHW_TABLE, null, val2);
+
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return false;
+        } finally {
+            db.endTransaction();
+        }
     }
 
 }
