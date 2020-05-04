@@ -15,7 +15,6 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class SearchUsersResultAdapter extends RecyclerView.Adapter<SearchUsersResultAdapter.SearchUsersResultViewHolder> {
-
     private ArrayList<User> searchUsersResult;
     private onItemClickListener searchUsersResultClickListener;
 
