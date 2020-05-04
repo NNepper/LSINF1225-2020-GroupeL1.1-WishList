@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -25,8 +26,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        UserDAO userDAO = new UserDAO(getApplicationContext());
+
         this.data = getIntent().getExtras(); // getting bundle from other Activity
-        this.mainUser = data.getParcelable("mainUser"); // get string form string.xml
+        this.mainUser = userDAO.read( data.getString("mainUser") ); // get string form string.xml
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav); //find the bottom navigation bar
         bottomNav.setOnNavigationItemSelectedListener(navlistener); //give the navigation listener to the navigation bar
