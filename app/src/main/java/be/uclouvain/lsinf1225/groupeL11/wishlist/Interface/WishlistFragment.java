@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.WishListItemAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
@@ -32,8 +34,10 @@ public class WishlistFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        final WishListDAO wishListDAO = new WishListDAO(getActivity().getApplicationContext());
+
         final User mainUser = ((HomeActivity) getActivity()).mainUser;
-        ArrayList<WishList> wishLists = mainUser.wishlists;
+        mainUser.wishlists = wishListDAO.readWishLists(mainUser.id);
 
         final View view = inflater.inflate(R.layout.fragment_home_wishlists, container, false);
         final ListView wishListView = view.findViewById(R.id.wishlist_list_view);
@@ -51,8 +55,17 @@ public class WishlistFragment extends Fragment {
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                newWishListName = wishlistName.getText().toString();// get the name of the new wishlist
-                                //TODO: Initialization new WishList in User
+                                WishList newWishList = new WishList(wishlistName.getText().toString()); //create new wishlist with the given name
+                                if(wishListDAO.create(newWishList, mainUser)){
+                                    mainUser.wishlists.add(newWishList);
+                                }
+                                else {
+                                    CharSequence text = "Error while creating the wishlist";
+                                    int duration = Toast.LENGTH_SHORT;
+
+                                    Toast toast = Toast.makeText(getContext(), text, duration);
+                                    toast.show();
+                                }
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -65,9 +78,9 @@ public class WishlistFragment extends Fragment {
         });
 
         wishListView.setAdapter(new WishListItemAdapter(
-                getContext(),
+                this.getActivity().getApplicationContext(),
                 R.layout.adapter_wishlist_item,
-                wishLists
+                mainUser.wishlists
         ));
         return view;
     }

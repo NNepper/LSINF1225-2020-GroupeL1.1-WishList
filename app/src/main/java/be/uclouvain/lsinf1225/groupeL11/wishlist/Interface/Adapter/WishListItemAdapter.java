@@ -48,7 +48,7 @@ public class WishListItemAdapter extends ArrayAdapter<WishList> {
         View view = convertView;
 
         if (view == null){
-            view =  inflater.inflate(R.layout.adapter_wishlist_item, parent);
+            view =  inflater.inflate(R.layout.adapter_wishlist_item, parent, false);
         }
 
         WishList x = getItem(position);
