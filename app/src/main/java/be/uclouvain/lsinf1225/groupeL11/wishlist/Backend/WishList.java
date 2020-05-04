@@ -22,6 +22,11 @@ public class WishList implements Parcelable {
         this.products = new ArrayList<Product>();
     }
 
+    public WishList(String name){
+        this.name = name;
+        this.products = new ArrayList<Product>();
+    }
+
     protected WishList(Parcel in) {
         id = in.readInt();
         name = in.readString();

@@ -101,4 +101,8 @@ public class WishListDAO extends MyDatabaseHelper{
         }
     }
 
+    public Boolean create(WishList wishList){
+        return true;
+    }
+
 }
