@@ -84,9 +84,15 @@ public class SearchUsersResultFragment extends Fragment {
 
             @Override
             public void onAddClick(final int position) {
+                String message;
+                if (searchUsersResultsList.get(position).privacy == 0) {
+                    message = "Do you want to follow " + searchUsersResultsList.get(position).username + "?";
+                } else {
+                    message = searchUsersResultsList.get(position).username + " account's is private.\nDo you want to send a follow request ?";
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Follow");
-                builder.setMessage("Do you want to follow " + searchUsersResultsList.get(position).username + "?");
+                builder.setTitle("New follow");
+                builder.setMessage(message);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -95,7 +101,7 @@ public class SearchUsersResultFragment extends Fragment {
                         searchUsersResultsList.remove(position);
                         searchUsersResultsListAdapter.notifyItemRemoved(position);
                     }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
