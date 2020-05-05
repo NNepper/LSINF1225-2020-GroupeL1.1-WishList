@@ -3,7 +3,7 @@
     <string name="mainUserBundleParcable">mainUser</string>
     <string name="profileViewUsername">Username</string>
     <string name="profileViewEmail">Email Address</string>
-    <string name="profileViewPhoneNumber">Phone Number</string>
-    <string name="noResultMatched"/>
+    <string name="profileAddress">Address</string>
+    <string name="noResultMatched" />
     <string name="users_search_result">Users search result</string>
 </resources>

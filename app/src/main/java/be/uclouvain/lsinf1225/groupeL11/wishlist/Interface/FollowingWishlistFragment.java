@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,12 +30,12 @@ public class FollowingWishlistFragment extends Fragment {
     private RecyclerView.LayoutManager followingWishlistLayoutManager;
     private User followingUser;
 
-    private TextView headerTitle;
+    private ImageView profilePic;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
-        Bundle bundle = this.getArguments();
+        final Bundle bundle = this.getArguments();
         UserDAO userDAO = new UserDAO(getContext());
         WishListDAO wishListDAO = new WishListDAO(getContext());
         final ArrayList<WishList> wishLists = wishListDAO.readWishLists(bundle.getInt("followingUserID"));
@@ -56,8 +57,17 @@ public class FollowingWishlistFragment extends Fragment {
             }
         });
 
-        this.headerTitle = view.findViewById(R.id.following_wishlist_header_title);
-        headerTitle.setText(bundle.getString("followingUsername")+ "'s wishlists");
+        this.profilePic = view.findViewById(R.id.following_profil_pic);
+        profilePic.setImageResource(R.drawable.ic_default_image_profile); // TODO change into real user profile pic when implemented in DB
+
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment followUserProfile = new FollowProfile();
+                followUserProfile.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,followUserProfile).commit(); //display the clicked fragment
+            }
+        });
 
         return view;
     }

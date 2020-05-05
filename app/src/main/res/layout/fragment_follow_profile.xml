@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Interface.FollowProfile"
+    android:background="@color/background">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="368dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@drawable/custom_profile_top_bar" />
+
+    <ImageView
+        android:id="@+id/following_profileF_profile_pic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-40dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/custon_round_profile_pic"
+        app:srcCompat="@drawable/ic_default_image_profile" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="651dp"
+        android:layout_below="@id/imageView2">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/follow_profile_username"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="31dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/custom_profile_info_bar"
+                android:paddingStart="10dp"
+                android:text="@string/profileViewUsername"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/follow_profile_address"
+                android:layout_width="310dp"
+                android:layout_height="100dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/follow_profile_username"
+                android:gravity="center_vertical"
+                android:background="@drawable/custom_profile_info_bar"
+                android:paddingStart="10dp"
+                android:text="@string/profileAddress"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/follow_profile_shoes_size"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/follow_profile_address"
+                android:gravity="center_vertical"
+                android:background="@drawable/custom_profile_info_bar"
+                android:nextFocusDown="@id/profileEmail"
+                android:paddingStart="10dp"
+                android:text="Tshirt Size"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/follow_profile_thsirt_size"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/follow_profile_shoes_size"
+                android:gravity="center_vertical"
+                android:background="@drawable/custom_profile_info_bar"
+                android:paddingStart="10dp"
+                android:text="Tshirt Size"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/follow_profile_trouser_size"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/follow_profile_thsirt_size"
+                android:gravity="center_vertical"
+                android:background="@drawable/custom_profile_info_bar"
+                android:paddingStart="10dp"
+                android:text="Trouser Size"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/follow_profile_fav_color"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/follow_profile_trouser_size"
+                android:gravity="center_vertical"
+                android:background="@drawable/custom_profile_info_bar"
+                android:paddingStart="10dp"
+                android:text="Favorite Color"
+                android:textColor="@android:color/black"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

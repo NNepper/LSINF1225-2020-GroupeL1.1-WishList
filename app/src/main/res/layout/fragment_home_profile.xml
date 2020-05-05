@@ -63,7 +63,7 @@
             <EditText
                 android:id="@+id/profileAddress"
                 android:layout_width="310dp"
-                android:layout_height="50dp"
+                android:layout_height="100dp"
                 android:layout_below="@+id/profileEmail"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
@@ -72,9 +72,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/custom_profile_info_bar"
-                android:maxLines="1"
                 android:paddingStart="10dp"
-                android:text="@string/profileViewPhoneNumber" />
+                android:text="@string/profileAddress" />
 
 
             <Spinner
@@ -101,7 +100,7 @@
                 <Spinner
                     android:id="@+id/profileSpinnerTshirtSize"
                     android:layout_width="140dp"
-                    android:layout_height="50dp"
+                    android:layout_height="75dp"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="31dp"
                     android:background="@drawable/custom_profile_info_bar"
@@ -111,7 +110,7 @@
                 <Spinner
                     android:id="@+id/profileSpinnerTrouserSize"
                     android:layout_width="140dp"
-                    android:layout_height="50dp"
+                    android:layout_height="75dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="31dp"
                     android:layout_marginBottom="0dp"
