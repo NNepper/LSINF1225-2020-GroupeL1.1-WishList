@@ -54,7 +54,7 @@ public class FollowDAO extends MyDatabaseHelper {
         try {
             String getQuery = String.format(
                     "SELECT * FROM User_has_Friends uhf " +
-                            "WHERE uhf.frienduserID == '%s'", userID);
+                            "WHERE uhf.frienduserID == '%s' AND uhf.pending == 0", userID);
 
             Cursor cursor = db.rawQuery(getQuery, null);
 
