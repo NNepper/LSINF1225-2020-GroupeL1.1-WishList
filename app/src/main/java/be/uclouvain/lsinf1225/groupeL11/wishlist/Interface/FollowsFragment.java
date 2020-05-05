@@ -38,7 +38,6 @@ public class FollowsFragment extends Fragment {
     private RecyclerView.LayoutManager followListLayoutManager;
     private User mainUser;
     private FloatingActionButton searchButton;
-    private TextView disableNoMatch;
 
 
     @Nullable
@@ -132,8 +131,6 @@ public class FollowsFragment extends Fragment {
         ArrayList<User> filtered = new ArrayList<>();
         if (users == null) {
             Log.d("User", "No users followable");
-            //disableNoMatch= getView().findViewById(R.id.noResultMatched);
-            //disableNoMatch.setText("No result matched your search");
             return filtered;
         }
         for (User user : users) {
@@ -142,14 +139,6 @@ public class FollowsFragment extends Fragment {
                 filtered.add(user);
             }
         }
-        /*
-        if (filtered.size() != 0) {
-            disableNoMatch= getView().findViewById(R.id.noResultMatched);
-            disableNoMatch.setText(""); // TODO Plante
-        } else {
-            disableNoMatch= getView().findViewById(R.id.noResultMatched);
-            disableNoMatch.setText("No result matched your search"); // TODO plante
-        }*/
         return filtered;
     }
 

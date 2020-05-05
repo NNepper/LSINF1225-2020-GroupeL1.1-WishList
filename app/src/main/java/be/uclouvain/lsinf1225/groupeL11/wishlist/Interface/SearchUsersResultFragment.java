@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
@@ -33,6 +35,7 @@ public class SearchUsersResultFragment extends Fragment {
     private SearchUsersResultAdapter searchUsersResultsListAdapter;
     private RecyclerView.LayoutManager searchUsersResultsListLayoutManager;
     private User mainUser;
+    private TextView disableNoMatch;
 
 
     @Nullable
@@ -46,6 +49,16 @@ public class SearchUsersResultFragment extends Fragment {
         searchUsersResultsListRecyclerView.setHasFixedSize(true);
         searchUsersResultsListLayoutManager = new LinearLayoutManager(view.getContext());
         searchUsersResultsListAdapter = new SearchUsersResultAdapter(searchUsersResultsList);
+
+        if (searchUsersResultsList.size() != 0) {
+            this.disableNoMatch= view.findViewById(R.id.noResultMatched);
+            Log.d("disableNoMatch", disableNoMatch.toString());
+            this.disableNoMatch.setText(""); // TODO Plante
+        } else {
+            this.disableNoMatch= view.findViewById(R.id.noResultMatched);
+            Log.d("disableNoMatch", disableNoMatch.toString());
+            this.disableNoMatch.setText("No result matched your search"); // TODO plante
+        }
 
         searchUsersResultsListRecyclerView.setLayoutManager(searchUsersResultsListLayoutManager);
         searchUsersResultsListRecyclerView.setAdapter(searchUsersResultsListAdapter);
