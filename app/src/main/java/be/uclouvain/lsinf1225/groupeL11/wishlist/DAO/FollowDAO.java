@@ -15,7 +15,12 @@ public class FollowDAO extends MyDatabaseHelper {
         super(context);
     }
 
-
+    /**
+     * Function returning a list of every user the mainUser follow
+     * @param userID
+     * @param db
+     * @return ArrayList of User
+     */
     public ArrayList<User> getFollowing(int userID, SQLiteDatabase db){
         if(db == null) db = this.getWritableDatabase();
         UserDAO userDAO = new UserDAO(context);
@@ -121,8 +126,8 @@ public class FollowDAO extends MyDatabaseHelper {
 
         try {
             String getQuery = String.format(
-                    "SELECT * FROM User u" +
-                            "WHERE u.userID != '%s' AND u.userID IN" +
+                    "SELECT * FROM User u " +
+                            "WHERE u.userID != '%s' AND u.userID IN " +
                             "    (SELECT frienduserID FROM User_has_Friends uhf WHERE uhf.userID == '%s' AND uhf.pending == 1)"
                     , main.getId(), main.getId());
 
