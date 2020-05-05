@@ -92,8 +92,11 @@ public class SearchUsersResultFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         UserDAO userDAO = new UserDAO(getContext());
                         userDAO.addFollow(mainUser, searchUsersResultsList.get(position));
+                        searchUsersResultsList.remove(position);
+                        searchUsersResultsListAdapter = new SearchUsersResultAdapter(searchUsersResultsList);
+                        searchUsersResultsListRecyclerView.setAdapter(searchUsersResultsListAdapter);
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
