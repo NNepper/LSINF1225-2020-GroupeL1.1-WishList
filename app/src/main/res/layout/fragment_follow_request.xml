@@ -28,16 +28,18 @@
         android:layout_marginTop="6dp"
         android:padding="4dp" />
 
+
     <TextView
         android:id="@+id/noRequest"
-        android:layout_width="wrap_content"
+        android:layout_width="341dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="148dp"
         android:text="@string/noFollowRequest"
+        android:textColor="@color/green_border"
         android:textSize="20sp"
-        android:textColor="@color/green_border"/>
+        android:textAlignment="center"/>
 
     <ImageView
         android:id="@+id/follow_request_back_arrow"
