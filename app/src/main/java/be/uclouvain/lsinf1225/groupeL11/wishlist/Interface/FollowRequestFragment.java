@@ -57,8 +57,10 @@ public class FollowRequestFragment extends Fragment {
         } else {
             this.disableNoMatch= view.findViewById(R.id.noRequest);
             Log.d("disableNoMatch", disableNoMatch.toString());
-            this.disableNoMatch.setText("You don't have any follow request for the moment");
+            this.disableNoMatch.setText("You don't have any follow request for the moment !\nWe will notify you when you get one.");
         }
+
+        this.backArrow = view.findViewById(R.id.follow_request_back_arrow);
 
         this.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override

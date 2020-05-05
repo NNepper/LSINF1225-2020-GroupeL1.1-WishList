@@ -19,12 +19,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.SearchUsersResultAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class ProfileFragment extends Fragment {
@@ -35,7 +37,7 @@ public class ProfileFragment extends Fragment {
     private Switch privacySwitch;
     private User mainUser;
     private Spinner shoeSizeSpinner, trouserSizeSpinner, tShirtSizeSpinner, colorSpinner;
-    private Button interestButton;
+    private Button interestButton, followRequestButton;
     private UserDAO userDAO;
     private String tShirtSizeChanged, trouserSizeChanged, colorChanged;
     private int shoeSizeChanged;
@@ -197,6 +199,16 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Nothing here since user didn't change his shoe size
+            }
+        });
+
+        this.followRequestButton = view.findViewById(R.id.see_requests);
+        Log.d("noRequestButton", followRequestButton.toString());
+        this.followRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new FollowRequestFragment()).commit();
             }
         });
 
