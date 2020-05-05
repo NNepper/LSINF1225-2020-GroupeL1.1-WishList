@@ -26,6 +26,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.SearchUsersResultAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
@@ -96,8 +97,8 @@ public class SearchUsersResultFragment extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        UserDAO userDAO = new UserDAO(getContext());
-                        userDAO.addFollow(mainUser, searchUsersResultsList.get(position));
+                        FollowDAO followDAO = new FollowDAO(getContext());
+                        followDAO.addFollow(mainUser, searchUsersResultsList.get(position));
                         searchUsersResultsList.remove(position);
                         searchUsersResultsListAdapter.notifyItemRemoved(position);
                     }

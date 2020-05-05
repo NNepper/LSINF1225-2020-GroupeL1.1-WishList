@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
@@ -32,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         UserDAO userDAO = new UserDAO(getApplicationContext());
+        FollowDAO followDAO = new FollowDAO(getApplicationContext());
 
         this.data = getIntent().getExtras(); // getting bundle from other Activity
         this.mainUser = userDAO.read( data.getString("mainUser") ); // get string form string.xml
@@ -45,19 +47,16 @@ public class HomeActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new FollowsFragment()).commit();
 
-        /*for (User user : mainUser.following) { TODO uncomment when getPending is implemented
-            if (UserDAO.getPending(mainUser, user)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Follow request");
-                builder.setMessage("Hi ! What's up ?\nSome people want to follow you !\nYou can decide to accept or decline from your follow view.");
-                builder.setNeutralButton("Great !", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) { return; }
-                });
-                builder.show();
-                break;
-            }
-        }*/
+        if (! followDAO.getPending(mainUser).isEmpty()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Follow request");
+            builder.setMessage("Hi ! What's up ?\nSome people want to follow you !\nYou can decide to accept or decline from your follow view.");
+            builder.setNeutralButton("Great !", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) { return; }
+            });
+            builder.show();
+        }
     }
 
 

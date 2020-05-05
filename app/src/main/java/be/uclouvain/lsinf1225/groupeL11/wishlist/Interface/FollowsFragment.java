@@ -79,8 +79,8 @@ public class FollowsFragment extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        UserDAO userDAO = new UserDAO(getContext());
-                        userDAO.unfollow(mainUser, followList.get(position));
+                        FollowDAO followDAO = new FollowDAO(getContext());
+                        followDAO.unfollow(mainUser, followList.get(position));
                         followList.remove(position);
                         followListAdapter.notifyItemRemoved(position);
                     }
@@ -128,8 +128,8 @@ public class FollowsFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     public ArrayList<User> doMySearch(String query) {
         Log.d("query", query);
-        UserDAO userDAO = new UserDAO(getContext());
-        ArrayList<User> users = userDAO.getFollowable(mainUser.id);
+        FollowDAO followDAO = new FollowDAO(getContext());
+        ArrayList<User> users = followDAO.getFollowable(mainUser.id);
         ArrayList<User> filtered = new ArrayList<>();
         if (users == null) {
             Log.d("User", "No users followable");
