@@ -93,8 +93,7 @@ public class SearchUsersResultFragment extends Fragment {
                         UserDAO userDAO = new UserDAO(getContext());
                         userDAO.addFollow(mainUser, searchUsersResultsList.get(position));
                         searchUsersResultsList.remove(position);
-                        searchUsersResultsListAdapter = new SearchUsersResultAdapter(searchUsersResultsList);
-                        searchUsersResultsListRecyclerView.setAdapter(searchUsersResultsListAdapter);
+                        searchUsersResultsListAdapter.notifyItemRemoved(position);
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
