@@ -3,13 +3,11 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,22 +18,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.SearchUsersResultAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
-public class SearchUsersResultFragment extends Fragment {
+public class FollowRequestFragment extends Fragment {
 
-    private RecyclerView searchUsersResultsListRecyclerView;
-    private SearchUsersResultAdapter searchUsersResultsListAdapter;
-    private RecyclerView.LayoutManager searchUsersResultsListLayoutManager;
+    private RecyclerView followRequestListRecyclerView;
+    private SearchUsersResultAdapter followRequestListAdapter;
+    private RecyclerView.LayoutManager followRequestListLayoutManager;
     private User mainUser;
     private TextView disableNoMatch;
     private ImageView backArrow;
@@ -46,14 +40,15 @@ public class SearchUsersResultFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
-        final ArrayList<User> searchUsersResultsList = ((HomeActivity) getActivity()).searchUsersResult;
-        final View view = inflater.inflate(R.layout.fragment_search_users_result, container, false);
-        this.backArrow = (ImageView) view.findViewById(R.id.search_users_back_arrow);
+        FollowDAO followDAO = new FollowDAO(getContext());
+        final ArrayList<User> followRequest = followDAO.getPending(mainUser);
+        final View view = inflater.inflate(R.layout., container, false);
+        this.backArrow = (ImageView) view.findViewById(R.id.);
 
-        searchUsersResultsListRecyclerView = view.findViewById(R.id.search_result_recycler_view);
-        searchUsersResultsListRecyclerView.setHasFixedSize(true);
-        searchUsersResultsListLayoutManager = new LinearLayoutManager(view.getContext());
-        searchUsersResultsListAdapter = new SearchUsersResultAdapter(searchUsersResultsList);
+        followRequestListRecyclerView = view.findViewById(R.id.);
+        followRequestListRecyclerView.setHasFixedSize(true);
+        followRequestListLayoutManager = new LinearLayoutManager(view.getContext());
+        followRequestListAdapter = new SearchUsersResultAdapter(searchUsersResultsList);
 
         if (searchUsersResultsList.size() != 0) {
             this.disableNoMatch= view.findViewById(R.id.noResultMatched);
@@ -74,10 +69,10 @@ public class SearchUsersResultFragment extends Fragment {
             }
         });
 
-        searchUsersResultsListRecyclerView.setLayoutManager(searchUsersResultsListLayoutManager);
-        searchUsersResultsListRecyclerView.setAdapter(searchUsersResultsListAdapter);
+        followRequestListRecyclerView.setLayoutManager(followRequestListLayoutManager);
+        followRequestListRecyclerView.setAdapter(followRequestListAdapter);
 
-        searchUsersResultsListAdapter.setOnItemClickLister(new SearchUsersResultAdapter.onItemClickListener() { // set the on click listener for the card inside the recycler view
+        followRequestListAdapter.setOnItemClickLister(new SearchUsersResultAdapter.onItemClickListener() { // set the on click listener for the card inside the recycler view
             @Override
             public void onItemClick(int position) {
                 // TODO show follow profile ?
@@ -100,7 +95,7 @@ public class SearchUsersResultFragment extends Fragment {
                         FollowDAO followDAO = new FollowDAO(getContext());
                         followDAO.addFollow(mainUser, searchUsersResultsList.get(position));
                         searchUsersResultsList.remove(position);
-                        searchUsersResultsListAdapter.notifyItemRemoved(position);
+                        followRequestListAdapter.notifyItemRemoved(position);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
