@@ -43,7 +43,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
         dropdownColor = findViewById(R.id.newprofile_color);
 
-        // TODO: Extract every color from DB
         String[] testItems = {"Choose color","Color: Red", "Color: Blue", "Color: Green"};
 
         dropdownColor.setAdapter(new ArrayAdapter<String>(
@@ -53,7 +52,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
                 testItems
         ));
 
-        //TODO: To be adapted for every data from DB (@DAO)
         dropdownColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -72,7 +70,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {  color = null;  }
+            public void onNothingSelected(AdapterView<?> parent) {  color = "Red";  }
         });
 
         /** Shoes size **/
@@ -80,7 +78,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         dropdownShoes = findViewById(R.id.newprofile_shoe);
 
         // To be completed
-        String[] shoesItems = {"30", "31", "32", "33", "34", "35"};
+        String[] shoesItems = {"Shoe size: 35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"};
 
         dropdownShoes.setAdapter(new ArrayAdapter<String>(
                 this,
@@ -92,30 +90,11 @@ public class ProfileCreationActivity extends AppCompatActivity {
         dropdownShoes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 1:
-                        shoes = 30;
-                        break;
-                    case 2:
-                        shoes = 31;
-                        break;
-                    case 3:
-                        shoes = 32;
-                        break;
-                    case 4:
-                        shoes = 33;
-                        break;
-                    case 5:
-                        shoes = 34;
-                        break;
-                    case 6:
-                        shoes = 35;
-                        break;
-                }
+                shoes = 35+position;
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { shoes = 0; }
+            public void onNothingSelected(AdapterView<?> parent) { shoes = 35; }
         });
 
 
@@ -124,7 +103,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         dropdownTrousers = findViewById(R.id.newprofile_trousers);
 
         // To be completed (Laisser le choix d'ajouter à l'utilisateur ?)(xx/xx la forme ??)
-        final String[] trouserItems = {"XS", "S", "M", "L", "XL", "XXL"};
+        final String[] trouserItems = {"Trouser Size: XS", "S", "M", "L", "XL", "XXL"};
 
         dropdownTrousers.setAdapter(new ArrayAdapter<String>(
                 this,
@@ -136,27 +115,12 @@ public class ProfileCreationActivity extends AppCompatActivity {
         dropdownTrousers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 1:
-                        trouser = "28";
-                        break;
-                    case 2:
-                        trouser = "30";
-                        break;
-                    case 3:
-                        trouser = "32";
-                        break;
-                    case 4:
-                        trouser = "34";
-                        break;
-                    case 5:
-                        trouser = "36";
-                        break;
-                }
+                if (position == 0) trouser = "XS";
+                else trouser = trouserItems[position];
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { trouser = null; }
+            public void onNothingSelected(AdapterView<?> parent) { trouser = "XS"; }
         });
 
 
@@ -165,7 +129,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         dropdownTshirt = findViewById(R.id.newprofile_tshirt);
 
         // To be completed (Laisser le choix d'ajouter à l'utilisateur ?)(xx/xx la forme ??)
-        String[] tshirtItems = {"XS", "S", "M", "L", "XL", "XXL"};
+        final String[] tshirtItems = {"TShirt Size: XS", "S", "M", "L", "XL", "XXL"};
 
         dropdownTshirt.setAdapter(new ArrayAdapter<String>(
                 this,
@@ -177,30 +141,12 @@ public class ProfileCreationActivity extends AppCompatActivity {
         dropdownTshirt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 1:
-                        tshirt = "XS";
-                        break;
-                    case 2:
-                        tshirt = "S";
-                        break;
-                    case 3:
-                        tshirt = "M";
-                        break;
-                    case 4:
-                        tshirt = "L";
-                        break;
-                    case 5:
-                        tshirt = "XL";
-                        break;
-                    case 6:
-                        tshirt = "XXL";
-                        break;
-                }
+                if (position == 0) tshirt = "XS";
+                else tshirt = tshirtItems[position];
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { tshirt = null; }
+            public void onNothingSelected(AdapterView<?> parent) { tshirt = "XS"; }
         });
 
         /** Submit informations **/

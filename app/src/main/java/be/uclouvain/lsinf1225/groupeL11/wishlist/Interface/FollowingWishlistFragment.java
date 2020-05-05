@@ -35,6 +35,7 @@ public class FollowingWishlistFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
+        // TODO find a place to show the username of the followed user
         final Bundle bundle = this.getArguments();
         UserDAO userDAO = new UserDAO(getContext());
         WishListDAO wishListDAO = new WishListDAO(getContext());
@@ -53,7 +54,7 @@ public class FollowingWishlistFragment extends Fragment {
         followingWishListItemAdapter.setOnItemClickListener(new FollowingWishListItemAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                // TODO Show items of following user's wishlists
+                // TODO Show items of following user's wishlists items
             }
         });
 

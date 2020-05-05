@@ -57,9 +57,12 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(context, toastText, duration);
                     toast.show();
                 }
-                // TODO check if user doesn't exist in DB
+
                 else if (password.compareTo(confPassword) == 0) {
                     User mainUser = new User(email, username, password);
+                    UserDAO userDAO = new UserDAO(getApplicationContext());
+
+                    // TODO check if user doesn't exist in DB
 
                     // Bundle for easy Object storage
                     Bundle data = new Bundle();
