@@ -79,6 +79,8 @@ public class FollowsFragment extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        UserDAO userDAO = new UserDAO(getContext());
+                        userDAO.unfollow(mainUser, followList.get(position));
                         followList.remove(position);
                         followListAdapter.notifyItemRemoved(position);
                     }
