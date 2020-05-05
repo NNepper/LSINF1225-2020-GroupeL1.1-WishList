@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -42,6 +44,20 @@ public class HomeActivity extends AppCompatActivity {
         // Creating mainFragment and replacing with the Follow's Fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new FollowsFragment()).commit();
+
+        /*for (User user : mainUser.following) { TODO uncomment when getPending is implemented
+            if (UserDAO.getPending(mainUser, user)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Follow request");
+                builder.setMessage("Hi ! What's up ?\nSome people want to follow you !\nYou can decide to accept or decline from your follow view.");
+                builder.setNeutralButton("Great !", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) { return; }
+                });
+                builder.show();
+                break;
+            }
+        }*/
     }
 
 
