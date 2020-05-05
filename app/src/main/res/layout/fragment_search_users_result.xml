@@ -10,10 +10,10 @@
         android:id="@+id/search_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Users search result"
+        android:text="@string/users_search_result"
         android:textSize="30sp"
         android:textColor="@color/green_border"
-        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/search_users_back_arrow"
         android:layout_marginVertical="20dp"
         />
 
@@ -38,5 +38,15 @@
         android:text="@string/noResultMatched"
         android:textSize="20sp"
         android:textColor="@color/green_border"/>
+
+    <ImageView
+        android:id="@+id/search_users_back_arrow"
+        android:layout_width="73dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back_arrow"/>
 
 </RelativeLayout>

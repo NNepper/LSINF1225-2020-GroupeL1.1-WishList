@@ -1,5 +1,6 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,14 +37,17 @@ public class SearchUsersResultFragment extends Fragment {
     private RecyclerView.LayoutManager searchUsersResultsListLayoutManager;
     private User mainUser;
     private TextView disableNoMatch;
+    private ImageView backArrow;
 
 
+    @SuppressLint("SetTextI18n")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
         final ArrayList<User> searchUsersResultsList = ((HomeActivity) getActivity()).searchUsersResult;
         final View view = inflater.inflate(R.layout.fragment_search_users_result, container, false);
+        this.backArrow = (ImageView) view.findViewById(R.id.search_users_back_arrow);
 
         searchUsersResultsListRecyclerView = view.findViewById(R.id.search_result_recycler_view);
         searchUsersResultsListRecyclerView.setHasFixedSize(true);
@@ -53,12 +57,21 @@ public class SearchUsersResultFragment extends Fragment {
         if (searchUsersResultsList.size() != 0) {
             this.disableNoMatch= view.findViewById(R.id.noResultMatched);
             Log.d("disableNoMatch", disableNoMatch.toString());
-            this.disableNoMatch.setText(""); // TODO Plante
+            this.disableNoMatch.setText("");
         } else {
             this.disableNoMatch= view.findViewById(R.id.noResultMatched);
             Log.d("disableNoMatch", disableNoMatch.toString());
-            this.disableNoMatch.setText("No result matched your search"); // TODO plante
+            this.disableNoMatch.setText("No result matched your search");
         }
+
+        this.backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Status", "Clicked !!");
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new FollowsFragment()).commit();
+            }
+        });
 
         searchUsersResultsListRecyclerView.setLayoutManager(searchUsersResultsListLayoutManager);
         searchUsersResultsListRecyclerView.setAdapter(searchUsersResultsListAdapter);
