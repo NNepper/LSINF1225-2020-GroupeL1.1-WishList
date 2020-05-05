@@ -58,7 +58,14 @@ public class WishlistFragment extends Fragment {
         wishListAdapter.setOnItemClickLister(new WishListItemAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //TODO: goes to wishlist detail
+                WishList clickedWishList= mainUser.wishlists.get(position);
+                Bundle data = new Bundle();
+                data.putInt("wishListID", clickedWishList.getId());
+                data.putString("wishListName", clickedWishList.name);
+
+                Fragment productListFragment = new ProductListFragment();
+                productListFragment.setArguments(data);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,productListFragment).commit(); //display the clicked fragment
             }
 
             @Override
