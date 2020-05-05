@@ -51,13 +51,13 @@ public class FollowRequestFragment extends Fragment {
         followRequestListAdapter = new SearchUsersResultAdapter(followRequest);
 
         if (followRequest.size() != 0) {
-            this.disableNoMatch= view.findViewById(R.id.noResultMatched);
+            this.disableNoMatch= view.findViewById(R.id.noRequest);
             Log.d("disableNoMatch", disableNoMatch.toString());
             this.disableNoMatch.setText("");
         } else {
-            this.disableNoMatch= view.findViewById(R.id.noResultMatched);
+            this.disableNoMatch= view.findViewById(R.id.noRequest);
             Log.d("disableNoMatch", disableNoMatch.toString());
-            this.disableNoMatch.setText("No result matched your search");
+            this.disableNoMatch.setText("You don't have any follow request for the moment");
         }
 
         this.backArrow.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +65,7 @@ public class FollowRequestFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("Status", "Clicked !!");
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new FollowsFragment()).commit();
+                transaction.replace(R.id.fragment_container, new ProfileFragment()).commit();
             }
         });
 
@@ -93,14 +93,22 @@ public class FollowRequestFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         FollowDAO followDAO = new FollowDAO(getContext());
-                        followDAO.addFollow(mainUser, followRequest.get(position));
+                        followDAO.setPending(mainUser, followRequest.get(position), true);
                         followRequest.remove(position);
                         followRequestListAdapter.notifyItemRemoved(position);
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                    }
+                }).setNegativeButton("No, thanks", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FollowDAO followDAO = new FollowDAO(getContext());
+                        followDAO.setPending(mainUser, followRequest.get(position), false);
+                        followRequest.remove(position);
+                        followRequestListAdapter.notifyItemRemoved(position);
                     }
                 });
                 builder.show();
