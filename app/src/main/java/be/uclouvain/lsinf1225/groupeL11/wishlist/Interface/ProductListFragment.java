@@ -28,7 +28,6 @@ public class ProductListFragment extends Fragment {
     private ProductListAdapter productItemAdapter;
     private RecyclerView.LayoutManager productLayoutManager;
 
-    TextView title;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class ProductListFragment extends Fragment {
 
         final  View view = inflater.inflate(R.layout.fragment_product, container, false);
 
-        title = view.findViewById(R.id.product_list_title);
+        TextView title = view.findViewById(R.id.product_list_title);
         title.setText(bundle.getString("wishListName"));
 
         productView = view.findViewById(R.id.product_recycler_view);

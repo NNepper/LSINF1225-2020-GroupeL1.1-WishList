@@ -91,7 +91,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @NonNull
     @Override
     public ProductListItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_wishlist_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_product_item, parent, false);
         ProductListItemHolder plih = new ProductListItemHolder(view, productListClickListener);
         return plih;
     }
@@ -102,7 +102,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         //TODO: change picture ?
         //holder.picture.setImageBitmap(bm); --> bm must be the picture
 
-        if(currentProduct.purchased == 1){
+        if(currentProduct.purchased == 0){
             holder.checkBox.setChecked(true);
         }
         holder.name.setText(currentProduct.name);
