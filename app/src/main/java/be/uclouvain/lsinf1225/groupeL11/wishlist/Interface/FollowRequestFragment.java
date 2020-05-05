@@ -42,15 +42,15 @@ public class FollowRequestFragment extends Fragment {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
         FollowDAO followDAO = new FollowDAO(getContext());
         final ArrayList<User> followRequest = followDAO.getPending(mainUser);
-        final View view = inflater.inflate(R.layout., container, false);
-        this.backArrow = (ImageView) view.findViewById(R.id.);
+        final View view = inflater.inflate(R.layout.fragment_follow_request, container, false);
+        this.backArrow = (ImageView) view.findViewById(R.id.search_users_back_arrow);
 
-        followRequestListRecyclerView = view.findViewById(R.id.);
+        followRequestListRecyclerView = view.findViewById(R.id.follow_request_recycler_view);
         followRequestListRecyclerView.setHasFixedSize(true);
         followRequestListLayoutManager = new LinearLayoutManager(view.getContext());
-        followRequestListAdapter = new SearchUsersResultAdapter(searchUsersResultsList);
+        followRequestListAdapter = new SearchUsersResultAdapter(followRequest);
 
-        if (searchUsersResultsList.size() != 0) {
+        if (followRequest.size() != 0) {
             this.disableNoMatch= view.findViewById(R.id.noResultMatched);
             Log.d("disableNoMatch", disableNoMatch.toString());
             this.disableNoMatch.setText("");
@@ -81,10 +81,10 @@ public class FollowRequestFragment extends Fragment {
             @Override
             public void onAddClick(final int position) {
                 String message;
-                if (searchUsersResultsList.get(position).privacy == 0) {
-                    message = "Do you want to follow " + searchUsersResultsList.get(position).username + "?";
+                if (followRequest.get(position).privacy == 0) {
+                    message = "Do you want to follow " + followRequest.get(position).username + "?";
                 } else {
-                    message = searchUsersResultsList.get(position).username + " account's is private.\nDo you want to send a follow request ?";
+                    message = followRequest.get(position).username + " account's is private.\nDo you want to send a follow request ?";
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("New follow");
@@ -93,8 +93,8 @@ public class FollowRequestFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         FollowDAO followDAO = new FollowDAO(getContext());
-                        followDAO.addFollow(mainUser, searchUsersResultsList.get(position));
-                        searchUsersResultsList.remove(position);
+                        followDAO.addFollow(mainUser, followRequest.get(position));
+                        followRequest.remove(position);
                         followRequestListAdapter.notifyItemRemoved(position);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
