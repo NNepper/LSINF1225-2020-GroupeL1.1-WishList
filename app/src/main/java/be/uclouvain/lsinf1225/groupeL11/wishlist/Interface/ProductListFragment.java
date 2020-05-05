@@ -37,18 +37,35 @@ public class ProductListFragment extends Fragment {
         ProductDAO productDAO = new ProductDAO(getContext());
         ArrayList<Product> products = productDAO.get(bundle.getInt("wishListID"), null);
 
-        final  View view = inflater.inflate(R.layout.fragment_home_wishlists, container, false);
+        final  View view = inflater.inflate(R.layout.fragment_product, container, false);
 
-        title = view.findViewById(R.id.title_wishlist);
+        title = view.findViewById(R.id.product_list_title);
         title.setText(bundle.getString("wishListName"));
 
-        productView = view.findViewById(R.id.wishlist_recycler_view);
+        productView = view.findViewById(R.id.product_recycler_view);
         productView.setHasFixedSize(true);
         productLayoutManager = new LinearLayoutManager(view.getContext());
         productItemAdapter = new ProductListAdapter(products);
 
         productView.setLayoutManager(productLayoutManager);
         productView.setAdapter(productItemAdapter);
+
+        productItemAdapter.setOnItemClickLister(new ProductListAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //TODO
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                //TODO
+            }
+
+            @Override
+            public void onCheckClick(int position) {
+                //TODO
+            }
+        });
 
         return view;
     }
