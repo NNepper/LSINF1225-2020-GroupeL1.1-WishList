@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Interface.ProfileCreationActivity"></activity>
+        <activity android:name=".Interface.FollowWishlistItemsFragment"></activity>
+        <activity android:name=".Interface.ProfileCreationActivity" />
         <activity android:name=".Interface.HomeActivity" />
         <activity android:name=".Interface.RegisterActivity" />
         <activity android:name=".Interface.MainActivity">
@@ -20,14 +21,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".Interface.LoginActivity" />
-        <activity android:name="Interface.SearchActivity" >
+        <activity android:name="Interface.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@layout/activity_search_user"/>
-        </activity>
 
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@layout/activity_search_user" />
+        </activity>
     </application>
 
 </manifest>

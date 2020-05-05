@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.internal.VisibilityAwareImageButton;
+
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
@@ -19,6 +21,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private ArrayList<Product> products;
     private onItemClickListener productListClickListener;
+    private Boolean isMainUser;
 
     public interface onItemClickListener{
         void onItemClick(int position);
@@ -84,14 +87,17 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
     }
 
-    public ProductListAdapter(ArrayList<Product> products) {
+    public ProductListAdapter(ArrayList<Product> products, Boolean notMainUser) {
         this.products = products;
+        this.isMainUser = notMainUser;
     }
 
     @NonNull
     @Override
     public ProductListItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_product_item, parent, false);
+        ImageView trash = view.findViewById(R.id.product_item_delete);
+        if(!this.isMainUser) trash.setVisibility(View.GONE);
         ProductListItemHolder plih = new ProductListItemHolder(view, productListClickListener);
         return plih;
     }

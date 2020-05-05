@@ -55,6 +55,14 @@ public class FollowingWishlistFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 // TODO Show items of following user's wishlists items
+                WishList wishListToShow = wishLists.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("wishlistName", wishListToShow.name);
+                bundle.putInt("wishlistID", wishListToShow.getId());
+
+                Fragment followWishlistItemsFragment = new FollowWishlistItemsFragment();
+                followWishlistItemsFragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, followWishlistItemsFragment).commit();
             }
         });
 

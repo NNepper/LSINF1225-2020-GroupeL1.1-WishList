@@ -1,54 +1,62 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.ProductListAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
-public class ProductListFragment extends Fragment {
+public class FollowWishlistItemsFragment extends Fragment {
+
     private RecyclerView productView;
     private ProductListAdapter productItemAdapter;
     private RecyclerView.LayoutManager productLayoutManager;
 
+    private TextView wishlistName;
+    private FloatingActionButton addWishListFAB;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_home_wishlists, container, false);
         Bundle bundle = this.getArguments();
-        final User mainUser = ((HomeActivity) getActivity()).mainUser;
         ProductDAO productDAO = new ProductDAO(getContext());
-        ArrayList<Product> products = productDAO.get(bundle.getInt("wishListID"), null);
+        ArrayList<Product> wishlisItems = productDAO.get(bundle.getInt("wishlistID"), null);
 
-        final  View view = inflater.inflate(R.layout.fragment_product, container, false);
+        wishlistName = view.findViewById(R.id.title_wishlist);
+        wishlistName.setText(bundle.getString("wishlistName"));
 
-        TextView title = view.findViewById(R.id.product_list_title);
-        title.setText(bundle.getString("wishListName"));
+        addWishListFAB = view.findViewById(R.id.addWishlistButton);
+        addWishListFAB.hide();
 
-        productView = view.findViewById(R.id.product_recycler_view);
+        productView = view.findViewById(R.id.wishlist_recycler_view);
         productView.setHasFixedSize(true);
         productLayoutManager = new LinearLayoutManager(view.getContext());
-        productItemAdapter = new ProductListAdapter(products, true);
+        productItemAdapter = new ProductListAdapter(wishlisItems, false);
 
         productView.setLayoutManager(productLayoutManager);
         productView.setAdapter(productItemAdapter);
 
+        // TODO set on clickListerners
         productItemAdapter.setOnItemClickLister(new ProductListAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
