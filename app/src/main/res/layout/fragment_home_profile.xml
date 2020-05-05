@@ -137,6 +137,7 @@
                 android:spinnerMode="dropdown" />
 
             <Button
+                android:id="@+id/my_interests_button"
                 android:layout_width="310dp"
                 android:layout_height="50dp"
                 android:layout_below="@+id/profileSpinnerColor"
@@ -147,6 +148,19 @@
                 android:layout_marginEnd="31dp"
                 android:background="@drawable/custom_profile_info_bar"
                 android:text="My interests" />
+
+            <Button
+                android:id="@+id/see_requests"                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/my_interests_button"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="31dp"
+                android:background="@drawable/custom_profile_info_bar"
+                android:text="See follow requests">
+            </Button>
 
         </RelativeLayout>
 
