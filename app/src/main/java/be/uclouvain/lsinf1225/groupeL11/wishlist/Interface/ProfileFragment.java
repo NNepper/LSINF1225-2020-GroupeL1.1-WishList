@@ -76,7 +76,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 updateMainUser();
-                userDAO.update(mainUser);
                 CharSequence toastText = "Infos updated";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(getContext(), toastText,  duration);
