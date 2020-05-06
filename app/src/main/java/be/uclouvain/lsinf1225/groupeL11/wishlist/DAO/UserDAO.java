@@ -240,4 +240,36 @@ public class UserDAO extends MyDatabaseHelper {
             db.endTransaction();
         }
     }
+
+    /**
+     * Function checking if a specified email is valid regarding the unicity constraint
+     * @param email
+     * @return true if can be created else return false
+     */
+    public Boolean check(String email){
+        User user = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+            String getQuery = "SELECT * FROM User u WHERE u.email == '" + email + "'";
+            Cursor cursor = db.rawQuery(getQuery, null);
+            db.setTransactionSuccessful();
+
+            if(cursor.getCount() > 0) {
+                return false;
+            }
+            else {
+
+                return true;
+            }
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return false;
+        }
+        finally {
+            db.endTransaction();
+        }
+    }
 }
