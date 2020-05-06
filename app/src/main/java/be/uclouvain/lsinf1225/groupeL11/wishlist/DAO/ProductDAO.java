@@ -35,10 +35,10 @@ public class ProductDAO extends MyDatabaseHelper {
                     Product prod = new Product(cursor.getInt(0));
                     prod.name = cursor.getString(1);
                     prod.description = cursor.getString(2);
-                    prod.link = cursor.getString(4);
-                    prod.purchased = cursor.getInt(5);
-                    prod.position = cursor.getInt(6);
-                    prod.quantity = cursor.getInt(7);
+                    prod.link = cursor.getString(3);
+                    prod.purchased = cursor.getInt(4);
+                    prod.position = cursor.getInt(5);
+                    prod.quantity = cursor.getInt(6);
 
                     prodList.add(prod);
                     cursor.moveToNext();
