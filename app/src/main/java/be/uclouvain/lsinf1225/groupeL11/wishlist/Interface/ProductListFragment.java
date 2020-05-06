@@ -88,8 +88,9 @@ public class ProductListFragment extends Fragment {
 
             @Override
             public void onCheckClick(int position) {
-                if(productDAO.updatePurchased(products.get(position))){
-                    CharSequence text = "Check !";
+                products.get(position).purchased = products.get(position).purchased == 0? 1 : 0;
+                if(! productDAO.updatePurchased(products.get(position))){
+                    CharSequence text = "Error DB update";
                     int duration = Toast.LENGTH_SHORT;
 
                     Toast toast = Toast.makeText(getContext(), text, duration);

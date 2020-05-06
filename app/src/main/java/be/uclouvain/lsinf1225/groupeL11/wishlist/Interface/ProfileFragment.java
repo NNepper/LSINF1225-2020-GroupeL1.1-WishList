@@ -238,7 +238,14 @@ public class ProfileFragment extends Fragment {
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
             }
         });
-
+        this.interestButton = view.findViewById(R.id.my_interests_button);
+        this.interestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new InterestsFragment()).commit();
+            }
+        });
 
         return view;
     }

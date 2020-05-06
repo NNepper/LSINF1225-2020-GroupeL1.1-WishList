@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -56,11 +57,16 @@ public class FollowWishlistItemsFragment extends Fragment {
         productView.setLayoutManager(productLayoutManager);
         productView.setAdapter(productItemAdapter);
 
-        // TODO set on clickListerners
         productItemAdapter.setOnItemClickLister(new ProductListAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //TODO
+                Product clickedProduct= wishlisItems.get(position);
+                Bundle data = new Bundle();
+                data.putInt("productID", clickedProduct.getId());
+
+                Fragment productDetailFragment = new ProductDetailFragment();
+                productDetailFragment.setArguments(data);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,productDetailFragment).commit(); //display the clicked fragment
             }
 
             @Override
@@ -70,10 +76,14 @@ public class FollowWishlistItemsFragment extends Fragment {
 
             @Override
             public void onCheckClick(int position){
-                // TODO check if works when DAO is updated
-                Product product = wishlisItems.get(position);
-                product.purchased = product.purchased == 0? 1 : 0;
-                productDAO.update(product);
+                wishlisItems.get(position).purchased = wishlisItems.get(position).purchased == 0? 1 : 0;
+                if(! productDAO.updatePurchased(wishlisItems.get(position))){
+                    CharSequence text = "Error DB update";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(getContext(), text, duration);
+                    toast.show();
+                }
             }
         });
 
