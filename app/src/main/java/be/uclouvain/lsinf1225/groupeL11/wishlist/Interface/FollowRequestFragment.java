@@ -96,7 +96,7 @@ public class FollowRequestFragment extends Fragment {
                         followDAO.setPending(mainUser, followRequest.get(position), true);
                         followRequest.remove(position);
                         followRequestListAdapter.notifyItemRemoved(position);
-                        followBackProcess(acceptedUser);
+                        if (mainDoesNotFollowAccepted(acceptedUser)) { followBackProcess(acceptedUser); }
                     }
                 }).setNeutralButton("I'm not sure yet.", new DialogInterface.OnClickListener() {
                     @Override
@@ -120,19 +120,27 @@ public class FollowRequestFragment extends Fragment {
         return view;
     }
 
-    // Dialog to followBack
-
+    
+    private boolean mainDoesNotFollowAccepted(User accepted) {
+        for (User user : mainUser.following) {
+            Log.d("User", user.email);
+            if (user.email.equals(accepted.email)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     private void followBackProcess(final User acceptedUser) {
-        Log.d("followBackProcess", "IM GETTING INNNN");
         AlertDialog.Builder followBackDialog = new AlertDialog.Builder(getContext());
         followBackDialog.setTitle("Follow back");
         String followBackMessage;
-        if (acceptedUser.privacy == 1) {
-            followBackMessage = "You have just allowed " + acceptedUser + " follow you!\n" +
+        if (acceptedUser.privacy == 0) {
+            followBackMessage = "You have just allowed " + acceptedUser.username + " follow you!\n" +
                     "Do you want to follow this user too?";
         } else {
-            followBackMessage = "You have just allowed " + acceptedUser + " follow you!\n" +
-                    "Do you want to follow this user too? " + acceptedUser + "'s account is private too." +
+            followBackMessage = "You have just allowed " + acceptedUser.username + " follow you!\n" +
+                    "Do you want to follow this user too? " + acceptedUser.username + "'s account is private." +
                     "You will then send a follow request and once you will have sent it you won't be able to go back.";
         }
         followBackDialog.setMessage(followBackMessage);
@@ -148,6 +156,7 @@ public class FollowRequestFragment extends Fragment {
                 dialog.cancel();
             }
         });
+        followBackDialog.show();
     }
 
 }
