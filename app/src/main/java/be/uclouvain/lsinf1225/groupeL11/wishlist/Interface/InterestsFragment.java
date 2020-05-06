@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Interest;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.InterestDAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.InterestsListAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.SearchUsersResultAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
@@ -38,7 +40,7 @@ public class InterestsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
-        InterestDAO interestDAO = new InterestDAO(getContext());
+        final InterestDAO interestDAO = new InterestDAO(getContext());
         final ArrayList<Interest> interestsList = interestDAO.getAllInterests();
         final View view = inflater.inflate(R.layout.fragment_interests, container, false);
         this.backArrow = (ImageView) view.findViewById(R.id.interests_back_arrow);
@@ -69,9 +71,23 @@ public class InterestsFragment extends Fragment {
             @Override
             public void onCheckClick(int position) {
                 // TODO gérer ce qu'il se passe quand on check la box !!!
+                Interest interest = interestsList.get(position);
+                ArrayList<Interest> userInterests = interestDAO.readInterests(mainUser.getId());
+                UserDAO userDAO = new UserDAO(getContext());
+                // Inverse le status de l'intérêt
+                userDAO.setInterest(mainUser, interest, ! isActiveInterest(interest, interestsList, mainUser));
             }
         });
 
         return view;
+    }
+
+    private boolean isActiveInterest(Interest interest, ArrayList<Interest> interests, User user) {
+        for (Interest current : interests) {
+            if (current.getInterestName().equals(interest.getInterestName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
