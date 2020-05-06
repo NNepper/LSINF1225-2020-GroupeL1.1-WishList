@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String confPassword = ((EditText) findViewById(R.id.ConfirmPassword)).getText().toString();
                 String email = ((EditText) findViewById(R.id.Email)).getText().toString();
 
+                UserDAO userDAO = new UserDAO(getApplicationContext());
+
 
                 if (username.length() == 0 || password.length() == 0 || confPassword.length() == 0 || email.length() == 0){
                     CharSequence toastText = "Please enter all infos";
@@ -57,12 +60,15 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(context, toastText, duration);
                     toast.show();
                 }
+                else if(!userDAO.check(email)){
+                    CharSequence text = "This email address is already used";
+                    int duration = Toast.LENGTH_SHORT;
 
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
                 else if (password.compareTo(confPassword) == 0) {
                     User mainUser = new User(email, username, password);
-                    UserDAO userDAO = new UserDAO(getApplicationContext());
-
-                    // TODO check if user doesn't exist in DB
 
                     // Bundle for easy Object storage
                     Bundle data = new Bundle();

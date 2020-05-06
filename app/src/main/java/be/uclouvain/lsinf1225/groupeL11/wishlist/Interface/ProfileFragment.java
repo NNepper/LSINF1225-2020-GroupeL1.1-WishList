@@ -41,6 +41,7 @@ public class ProfileFragment extends Fragment {
     private UserDAO userDAO;
     private String tShirtSizeChanged, trouserSizeChanged, colorChanged;
     private int shoeSizeChanged;
+    private ImageView profilePicture;
 
     @Nullable
     @Override
@@ -208,6 +209,14 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, new FollowRequestFragment()).commit();
+            }
+        });
+
+        this.profilePicture = view.findViewById(R.id.profilePic);
+        this.profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: profile pic save
             }
         });
 
