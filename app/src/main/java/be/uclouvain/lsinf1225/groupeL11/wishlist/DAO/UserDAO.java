@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.util.Log;
 import android.widget.Toast;
@@ -269,5 +270,21 @@ public class UserDAO extends MyDatabaseHelper {
         finally {
             db.endTransaction();
         }
+    }
+
+    public Boolean createImage(User mainUser, Bitmap image){
+        return true;
+    }
+
+    public Boolean changeImage(User mainUser, Bitmap image){
+        return true;
+    }
+
+    public Boolean checkImage(User mainUser){
+        return true;
+    }
+
+    public Bitmap getImage(User mainuser){
+        return null;
     }
 }

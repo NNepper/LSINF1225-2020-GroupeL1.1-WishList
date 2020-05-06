@@ -1,6 +1,7 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,12 +9,19 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
@@ -26,6 +34,8 @@ public class HomeActivity extends AppCompatActivity {
     private Bundle data;
     public User mainUser;
     public ArrayList<User> searchUsersResult;
+
+    private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +69,32 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 0:
+                if (resultCode == RESULT_OK) {
+                    Uri targetUri = data.getData();
+                    Bitmap bitmap;
+                    try {
+                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+
+                        UserDAO userDAO = new UserDAO(getApplicationContext());
+                        if (userDAO.checkImage(mainUser)) {
+                            userDAO.createImage(mainUser, bitmap);
+                        } else {
+                            userDAO.changeImage(mainUser, bitmap);
+                        }
+
+                    } catch (FileNotFoundException e) {
+                        Log.d("Image Retrival", e.getMessage());
+                    }
+                    break;
+                }
+        }
+    }
 
     //create the navigation lister
     private BottomNavigationView.OnNavigationItemSelectedListener navlistener =
