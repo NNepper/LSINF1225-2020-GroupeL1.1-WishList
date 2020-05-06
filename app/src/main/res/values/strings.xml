@@ -7,4 +7,5 @@
     <string name="noResultMatched" />
     <string name="users_search_result">Users search result</string>
     <string name="noFollowRequest"/>
+    <string name="choose_interests">Choose interests</string>
 </resources>
