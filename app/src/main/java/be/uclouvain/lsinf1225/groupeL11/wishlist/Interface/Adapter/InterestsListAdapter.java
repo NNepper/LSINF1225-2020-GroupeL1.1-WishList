@@ -1,6 +1,7 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,8 +100,8 @@ public class InterestsListAdapter extends RecyclerView.Adapter<InterestsListAdap
     }
 
     private boolean isActiveInterest(Interest interest, InterestDAO interestDAO) {
-        for (Interest current : interestDAO.getInterests(mainUser.getId())) {
-            if (interest.getInterestName() == current.getInterestName()) {
+        for (Interest current : interestDAO.readInterests(mainUser.getId())) {
+            if (interest.getInterestName().equals(current.getInterestName())) {
                 return true;
             }
         }
