@@ -94,4 +94,8 @@ public class ProductDAO extends MyDatabaseHelper {
             db.endTransaction();
         }
     }
+
+    public boolean update(Product product){
+        return true;
+    }
 }
