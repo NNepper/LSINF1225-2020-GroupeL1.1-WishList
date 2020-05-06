@@ -108,7 +108,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         //TODO: change picture ?
         //holder.picture.setImageBitmap(bm); --> bm must be the picture
 
-        if(currentProduct.purchased == 0){
+        if(currentProduct.purchased == 1){
             holder.checkBox.setChecked(true);
         }
         holder.name.setText(currentProduct.name);
