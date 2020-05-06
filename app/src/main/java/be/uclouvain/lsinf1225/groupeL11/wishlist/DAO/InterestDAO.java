@@ -104,6 +104,8 @@ public class InterestDAO extends MyDatabaseHelper{
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return null;
+        } finally {
+            db.endTransaction();
         }
     }
 }
