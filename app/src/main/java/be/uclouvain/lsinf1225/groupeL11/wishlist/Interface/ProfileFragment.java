@@ -1,7 +1,9 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,9 @@ public class ProfileFragment extends Fragment {
     private String tShirtSizeChanged, trouserSizeChanged, colorChanged;
     private int shoeSizeChanged;
     private ImageView profilePicture;
+
+    private static final int RESULT_LOAD_IMG = 1;
+
 
     @Nullable
     @Override
@@ -215,14 +220,22 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        this.profilePicture = view.findViewById(R.id.profilePic);
+        final UserDAO userDAO = new UserDAO(getContext());
+        if (userDAO.checkImage(mainUser)){
+            profilePicture.setImageBitmap(userDAO.getImage(mainUser));
+        }
+        else {
+            this.profilePicture = view.findViewById(R.id.profilePic);
+        }
         this.profilePicture.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                //TODO: profile pic save
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
             }
         });
-
         this.interestButton = view.findViewById(R.id.my_interests_button);
         this.interestButton.setOnClickListener(new View.OnClickListener() {
             @Override

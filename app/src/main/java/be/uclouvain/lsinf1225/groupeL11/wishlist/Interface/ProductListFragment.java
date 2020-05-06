@@ -55,7 +55,13 @@ public class ProductListFragment extends Fragment {
         productItemAdapter.setOnItemClickLister(new ProductListAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //TODO
+                Product clickedProduct= products.get(position);
+                Bundle data = new Bundle();
+                data.putInt("productID", clickedProduct.getId());
+
+                Fragment productDetailFragment = new ProductDetailFragment();
+                productDetailFragment.setArguments(data);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,productDetailFragment).commit(); //display the clicked fragment
             }
 
             @Override
@@ -82,13 +88,7 @@ public class ProductListFragment extends Fragment {
 
             @Override
             public void onCheckClick(int position) {
-                if(products.get(position).purchased == 1){
-                    products.get(position).purchased = 0;
-                }
-                else{
-                    products.get(position).purchased = 1;
-                }
-                if(productDAO.update(products.get(position))){
+                if(productDAO.updatePurchased(products.get(position))){
                     CharSequence text = "Check !";
                     int duration = Toast.LENGTH_SHORT;
 

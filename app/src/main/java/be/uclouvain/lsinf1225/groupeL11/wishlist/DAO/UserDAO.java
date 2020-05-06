@@ -4,10 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -265,6 +268,107 @@ public class UserDAO extends MyDatabaseHelper {
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
             return false;
+        }
+        finally {
+            db.endTransaction();
+        }
+    }
+
+    public Boolean createImage(User mainUser, Bitmap image){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        byte[] bArray = bos.toByteArray();
+
+        try {
+            ContentValues values = new ContentValues();
+
+
+            values.put(UHP_USERID, mainUser.getId());
+            values.put(UHP_IMAGE, bArray);
+
+            db.insert(UHP_TABLE, null, values);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", "Error while trying to add image");
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public Boolean changeImage(User mainUser, Bitmap image){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        byte[] bArray = bos.toByteArray();
+
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(UHP_USERID, mainUser.getId());
+            values.put(UHP_IMAGE, bArray);
+
+            db.update(UHP_TABLE, values, UHP_USERID + "=" + mainUser.getId(), null);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", "Error while trying to add image");
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public Boolean checkImage(User mainUser){
+        Bitmap image = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+            String getQuery = "SELECT * FROM User_has_Profil uhi WHERE uhi.userID == '" + mainUser.getId() + "'";
+            Cursor cursor = db.rawQuery(getQuery, null);
+            db.setTransactionSuccessful();
+
+            if(cursor.getCount() > 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return false;
+        }
+        finally {
+            db.endTransaction();
+        }
+    }
+
+    public Bitmap getImage(User mainUser){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+            String getQuery = "SELECT * FROM User_has_Profil uhi WHERE uhi.userID == '" + mainUser.getId() + "'";
+            Cursor cursor = db.rawQuery(getQuery, null);
+
+            byte[] temp = cursor.getBlob(1);
+
+            Bitmap image = BitmapFactory.decodeByteArray(temp, 0 ,temp.length);
+
+            return image;
+        } catch (Exception e) {
+            Log.d("SQL", "error while getting image");
+            Log.d("SQL", e.getMessage());
+            return null;
         }
         finally {
             db.endTransaction();

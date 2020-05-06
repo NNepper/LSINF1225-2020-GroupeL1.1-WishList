@@ -74,6 +74,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     protected static final String UHW_ID = "wishlistID";
 
 
+    //User_has_profil
+    protected static final String UHP_TABLE = "User_has_Profil";
+    protected static final String UHP_USERID = "userID";
+    protected static final String UHP_IMAGE = "image";
+
+
     // Database creation sql statement
     private static final String CREATE_USER = "CREATE TABLE User (" +
             "    userID       INTEGER       PRIMARY KEY AUTOINCREMENT,\n" +
@@ -178,6 +184,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "                        ON UPDATE NO ACTION" +
             ");";
 
+
+    private static final String CREATE_USER_HAS_PROFIL = "CREATE TABLE User_has_Profil (" +
+            "    userID INTEGER PRIMARY KEY" +
+            "                   NOT NULL" +
+            "                   UNIQUE," +
+            "    image  BOOLEAN NOT NULL" +
+            ");";
+
+
+
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -193,6 +209,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             database.execSQL(CREATE_USER_HAS_FRIENDS);
             database.execSQL(CREATE_USER_HAS_INTERESTS);
             database.execSQL(CREATE_USER_HAS_WISHLIST);
+            database.execSQL(CREATE_USER_HAS_PROFIL);
 
             for (int i = 0; i < Populate.length; i++){
                 database.execSQL(Populate[i]);
