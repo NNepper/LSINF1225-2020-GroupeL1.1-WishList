@@ -55,7 +55,14 @@ public class ProductListFragment extends Fragment {
         productItemAdapter.setOnItemClickLister(new ProductListAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //TODO
+                Product clickedProduct= products.get(position);
+                Bundle data = new Bundle();
+                data.putInt("productID", clickedProduct.getId());
+                data.putString("productName", clickedProduct.name);
+
+                Fragment productDetailFragment = new ProductDetailFragment();
+                productDetailFragment.setArguments(data);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,productDetailFragment).commit(); //display the clicked fragment
             }
 
             @Override
