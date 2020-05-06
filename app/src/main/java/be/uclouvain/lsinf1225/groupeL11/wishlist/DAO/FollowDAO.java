@@ -92,7 +92,7 @@ public class FollowDAO extends MyDatabaseHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
 
-        String whereQuery = UHF_ID + "=" + main.getId() + " AND " + UHF_FRIEND + "=" + friend.getId();
+        String whereQuery = UHF_ID + "=" + friend.getId() + " AND " + UHF_FRIEND + "=" + main.getId();
 
         try {
             if (accept){

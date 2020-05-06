@@ -89,12 +89,13 @@ public class SearchUsersResultFragment extends Fragment {
                 if (searchUsersResultsList.get(position).privacy == 0) {
                     message = "Do you want to follow " + searchUsersResultsList.get(position).username + "?";
                 } else {
-                    message = searchUsersResultsList.get(position).username + " account's is private.\nDo you want to send a follow request ?";
+                    message = searchUsersResultsList.get(position).username + " account's is private.\n" +
+                            "Do you want to send a follow request ?\nOnce you will have sent it you won't be able to go back.";
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("New follow");
                 builder.setMessage(message);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         FollowDAO followDAO = new FollowDAO(getContext());
@@ -102,7 +103,7 @@ public class SearchUsersResultFragment extends Fragment {
                         searchUsersResultsList.remove(position);
                         searchUsersResultsListAdapter.notifyItemRemoved(position);
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("I'm not sure yet.", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

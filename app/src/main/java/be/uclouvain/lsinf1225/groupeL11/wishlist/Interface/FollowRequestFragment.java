@@ -40,8 +40,8 @@ public class FollowRequestFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
-        FollowDAO followDAO = new FollowDAO(getContext());
-        final ArrayList<User> followRequest = followDAO.getPending(mainUser);
+        final FollowDAO[] followDAO = {new FollowDAO(getContext())};
+        final ArrayList<User> followRequest = followDAO[0].getPending(mainUser);
         final View view = inflater.inflate(R.layout.fragment_follow_request, container, false);
         this.backArrow = (ImageView) view.findViewById(R.id.search_users_back_arrow);
 
@@ -82,29 +82,28 @@ public class FollowRequestFragment extends Fragment {
 
             @Override
             public void onAddClick(final int position) {
-                String message;
-                if (followRequest.get(position).privacy == 0) {
-                    message = "Do you want to follow " + followRequest.get(position).username + "?";
-                } else {
-                    message = followRequest.get(position).username + " account's is private.\nDo you want to send a follow request ?";
-                }
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("New follow");
-                builder.setMessage(message);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                // Dialog to accept a follow
+                AlertDialog.Builder acceptFollowDialog = new AlertDialog.Builder(getContext());
+                acceptFollowDialog.setTitle("Accept follow");
+                String message = "Do you allow " + followRequest.get(position).username + " to follow you?\n" +
+                        "By accepting this request you will allow the user to able to see all your profile's info's.";
+                acceptFollowDialog.setMessage(message);
+                acceptFollowDialog.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        User acceptedUser = followRequest.get(position);
                         FollowDAO followDAO = new FollowDAO(getContext());
                         followDAO.setPending(mainUser, followRequest.get(position), true);
                         followRequest.remove(position);
                         followRequestListAdapter.notifyItemRemoved(position);
+                        followBackProcess(acceptedUser);
                     }
-                }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNeutralButton("I'm not sure yet.", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
-                }).setNegativeButton("No, thanks", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("No, thanks.", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         FollowDAO followDAO = new FollowDAO(getContext());
@@ -113,11 +112,42 @@ public class FollowRequestFragment extends Fragment {
                         followRequestListAdapter.notifyItemRemoved(position);
                     }
                 });
-                builder.show();
+
+                acceptFollowDialog.show();
             }
         });
 
         return view;
+    }
+
+    // Dialog to followBack
+
+    private void followBackProcess(final User acceptedUser) {
+        Log.d("followBackProcess", "IM GETTING INNNN");
+        AlertDialog.Builder followBackDialog = new AlertDialog.Builder(getContext());
+        followBackDialog.setTitle("Follow back");
+        String followBackMessage;
+        if (acceptedUser.privacy == 1) {
+            followBackMessage = "You have just allowed " + acceptedUser + " follow you!\n" +
+                    "Do you want to follow this user too?";
+        } else {
+            followBackMessage = "You have just allowed " + acceptedUser + " follow you!\n" +
+                    "Do you want to follow this user too? " + acceptedUser + "'s account is private too." +
+                    "You will then send a follow request and once you will have sent it you won't be able to go back.";
+        }
+        followBackDialog.setMessage(followBackMessage);
+        followBackDialog.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FollowDAO followDAO = new FollowDAO(getContext());
+                followDAO.addFollow(mainUser, acceptedUser);
+            }
+        }).setNegativeButton("I'm not sure yet.", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
     }
 
 }
