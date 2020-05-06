@@ -18,10 +18,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
@@ -72,27 +74,21 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        UserDAO userDAO = new UserDAO(getApplicationContext());
 
-        switch (requestCode) {
-            case 0:
-                if (resultCode == RESULT_OK) {
-                    Uri targetUri = data.getData();
-                    Bitmap bitmap;
-                    try {
-                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-
-                        UserDAO userDAO = new UserDAO(getApplicationContext());
-                        if (userDAO.checkImage(mainUser)) {
-                            userDAO.createImage(mainUser, bitmap);
-                        } else {
-                            userDAO.changeImage(mainUser, bitmap);
-                        }
-
-                    } catch (FileNotFoundException e) {
-                        Log.d("Image Retrival", e.getMessage());
-                    }
-                    break;
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                if (userDAO.checkImage(mainUser)) {
+                    userDAO.changeImage(mainUser, selectedImage);
+                } else {
+                    userDAO.createImage(mainUser, selectedImage);
                 }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 

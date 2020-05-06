@@ -185,7 +185,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             ");";
 
 
-    private static final String CREATE_USER_HAS_IMAGE = "CREATE TABLE User_has_Image (" +
+    private static final String CREATE_USER_HAS_PROFIL = "CREATE TABLE User_has_Profil (" +
             "    userID INTEGER PRIMARY KEY" +
             "                   NOT NULL" +
             "                   UNIQUE," +
@@ -209,7 +209,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             database.execSQL(CREATE_USER_HAS_FRIENDS);
             database.execSQL(CREATE_USER_HAS_INTERESTS);
             database.execSQL(CREATE_USER_HAS_WISHLIST);
-            database.execSQL(CREATE_USER_HAS_IMAGE);
+            database.execSQL(CREATE_USER_HAS_PROFIL);
 
             for (int i = 0; i < Populate.length; i++){
                 database.execSQL(Populate[i]);

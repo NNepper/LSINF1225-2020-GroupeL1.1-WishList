@@ -45,6 +45,8 @@ public class ProfileFragment extends Fragment {
     private int shoeSizeChanged;
     private ImageView profilePicture;
 
+    private static final int RESULT_LOAD_IMG = 1;
+
 
     @Nullable
     @Override
@@ -226,14 +228,12 @@ public class ProfileFragment extends Fragment {
             this.profilePicture = view.findViewById(R.id.profilePic);
         }
         this.profilePicture.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(
-                                Intent.ACTION_PICK,
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, 1);
-                Bitmap newImage = userDAO.getImage(mainUser);
-                profilePicture.setImageBitmap(newImage);
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
             }
         });
 

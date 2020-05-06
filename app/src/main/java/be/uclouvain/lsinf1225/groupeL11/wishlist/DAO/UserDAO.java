@@ -314,7 +314,7 @@ public class UserDAO extends MyDatabaseHelper {
             values.put(UHP_USERID, mainUser.getId());
             values.put(UHP_IMAGE, bArray);
 
-            db.update(UHP_TABLE, values, USER_ID + "=" + mainUser.getId(), null);
+            db.update(UHP_TABLE, values, UHP_USERID + "=" + mainUser.getId(), null);
             db.setTransactionSuccessful();
             return true;
         } catch (Exception e) {
@@ -332,7 +332,7 @@ public class UserDAO extends MyDatabaseHelper {
         db.beginTransaction();
 
         try {
-            String getQuery = "SELECT * FROM User_has_image uhi WHERE uhi.userID == '" + mainUser.getId() + "'";
+            String getQuery = "SELECT * FROM User_has_Profil uhi WHERE uhi.userID == '" + mainUser.getId() + "'";
             Cursor cursor = db.rawQuery(getQuery, null);
             db.setTransactionSuccessful();
 
@@ -357,7 +357,7 @@ public class UserDAO extends MyDatabaseHelper {
         db.beginTransaction();
 
         try {
-            String getQuery = "SELECT * FROM User_has_image uhi WHERE uhi.userID == '" + mainUser.getId() + "'";
+            String getQuery = "SELECT * FROM User_has_Profil uhi WHERE uhi.userID == '" + mainUser.getId() + "'";
             Cursor cursor = db.rawQuery(getQuery, null);
 
             byte[] temp = cursor.getBlob(1);
