@@ -1,7 +1,9 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ public class ProfileFragment extends Fragment {
     private String tShirtSizeChanged, trouserSizeChanged, colorChanged;
     private int shoeSizeChanged;
     private ImageView profilePicture;
+
 
     @Nullable
     @Override
@@ -216,9 +219,15 @@ public class ProfileFragment extends Fragment {
         this.profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: profile pic save
+                Intent i = new Intent(
+                                Intent.ACTION_PICK,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, 1);
+                Bitmap newImage = userDAO.getImage(mainUser);
+                profilePicture.setImageBitmap(newImage);
             }
         });
+
 
         return view;
     }
