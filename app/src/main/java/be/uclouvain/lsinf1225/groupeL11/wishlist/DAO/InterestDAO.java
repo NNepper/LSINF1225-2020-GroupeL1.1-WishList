@@ -33,7 +33,33 @@ public class InterestDAO extends MyDatabaseHelper{
         }
     }
 
-    public ArrayList<Interest> getInterests(int userID){
+    public ArrayList<Interest> getInterests(int userID, SQLiteDatabase db){
+        ArrayList<Interest> interestList = new ArrayList<>();
+
+        if (db == null) db = this.getWritableDatabase();
+
+        try {
+            String getQuery = String.format(
+                    "SELECT * FROM User_has_Interests uhi " +
+                            "WHERE uhi.userID == '%s'", userID);
+
+            Cursor cursor = db.rawQuery(getQuery, null);
+
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    interestList.add( getInterest( cursor.getInt(1), db));
+                    cursor.moveToNext();
+                }
+            }
+
+            return interestList;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return null;
+        }
+    }
+
+    public ArrayList<Interest> readInterests(int userID){
         ArrayList<Interest> interestList = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
