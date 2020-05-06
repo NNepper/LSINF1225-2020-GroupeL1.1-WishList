@@ -39,8 +39,8 @@ public class FollowWishlistItemsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_home_wishlists, container, false);
         Bundle bundle = this.getArguments();
-        ProductDAO productDAO = new ProductDAO(getContext());
-        ArrayList<Product> wishlisItems = productDAO.get(bundle.getInt("wishlistID"), null);
+        final ProductDAO productDAO = new ProductDAO(getContext());
+        final ArrayList<Product> wishlisItems = productDAO.get(bundle.getInt("wishlistID"), null);
 
         wishlistName = view.findViewById(R.id.title_wishlist);
         wishlistName.setText(bundle.getString("wishlistName"));
@@ -65,12 +65,15 @@ public class FollowWishlistItemsFragment extends Fragment {
 
             @Override
             public void onDeleteClick(int position) {
-                //TODO
+                // Nothing to do here because visiting user can't delete an item inside of a wishlist he is viewing
             }
 
             @Override
-            public void onCheckClick(int position) {
-                //TODO
+            public void onCheckClick(int position){
+                // TODO check if works when DAO is updated
+                Product product = wishlisItems.get(position);
+                product.purchased = product.purchased == 0? 1 : 0;
+                productDAO.update(product);
             }
         });
 
