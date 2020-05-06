@@ -221,8 +221,10 @@ public class ProfileFragment extends Fragment {
         });
 
         final UserDAO userDAO = new UserDAO(getContext());
+        this.profilePicture = view.findViewById(R.id.profilePic);
         if (userDAO.checkImage(mainUser)){
-            profilePicture.setImageBitmap(userDAO.getImage(mainUser));
+            Bitmap image = userDAO.getImage(mainUser);
+            profilePicture.setImageBitmap(image);
         }
         else {
             this.profilePicture = view.findViewById(R.id.profilePic);

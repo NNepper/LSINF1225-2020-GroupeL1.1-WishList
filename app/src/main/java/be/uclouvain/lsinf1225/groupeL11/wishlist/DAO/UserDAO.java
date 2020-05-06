@@ -359,6 +359,7 @@ public class UserDAO extends MyDatabaseHelper {
         try {
             String getQuery = "SELECT * FROM User_has_Profil uhi WHERE uhi.userID == '" + mainUser.getId() + "'";
             Cursor cursor = db.rawQuery(getQuery, null);
+            cursor.moveToFirst();
 
             byte[] temp = cursor.getBlob(1);
 

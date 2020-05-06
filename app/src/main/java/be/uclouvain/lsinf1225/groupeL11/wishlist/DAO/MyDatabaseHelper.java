@@ -233,6 +233,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         database.execSQL("DROP TABLE IF EXISTS " + UHF_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + UHI_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + UHW_TABLE);
+        database.execSQL("DROP TABLE IF EXISTS " + UHP_TABLE);
 
         onCreate(database);
     }
