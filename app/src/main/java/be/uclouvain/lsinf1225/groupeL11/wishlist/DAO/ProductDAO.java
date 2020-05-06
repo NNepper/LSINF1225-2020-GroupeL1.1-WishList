@@ -96,6 +96,80 @@ public class ProductDAO extends MyDatabaseHelper {
     }
 
     public boolean update(Product product){
-        return true;
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try{
+
+            ContentValues values = new ContentValues();
+
+            values.put(PROD_DESC, product.description);
+            values.put(PROD_LINK, product.link);
+            values.put(PROD_NAME, product.name);
+            values.put(PROD_POSITION, product.position);
+            values.put(PROD_PURCHASSED, product.purchased);
+            values.put(PROD_QUANTITY, product.quantity);
+
+            db.update(PRODUCT_TABLE, values, PRODUCT_ID + "=" + product.getId(), null);
+            db.setTransactionSuccessful();
+            return true;
+
+        } catch (Exception e){
+            Log.d("SQL", e.getMessage());
+            return false;
+        }finally {
+            db.endTransaction();
+        }
+
+    }
+
+    public boolean updatePurchased(Product product){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try{
+
+            ContentValues values = new ContentValues();
+
+            values.put(PROD_PURCHASSED, product.purchased);
+
+            db.update(PRODUCT_TABLE, values, PRODUCT_ID + "=" + product.getId(), null);
+            db.setTransactionSuccessful();
+            return true;
+
+        } catch (Exception e){
+            Log.d("SQL", e.getMessage());
+            return false;
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public Product read(int productId){
+        SQLiteDatabase db = getReadableDatabase();
+
+        try {
+            Product prod = null;
+            String getQuery = String.format(
+                    "SELECT * FROM Products P \n" +
+                            "WHERE P.productID == '%s'", productId);
+
+            Cursor cursor = db.rawQuery(getQuery, null);
+
+            if (cursor.moveToFirst()) {
+                prod = new Product(cursor.getInt(0));
+                prod.name = cursor.getString(1);
+                prod.description = cursor.getString(2);
+                prod.link = cursor.getString(3);
+                prod.purchased = cursor.getInt(4);
+                prod.position = cursor.getInt(5);
+                prod.quantity = cursor.getInt(6);
+            }
+            db.setTransactionSuccessful();
+            return prod;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return null;
+        } finally {
+            db.endTransaction();
+        }
     }
 }

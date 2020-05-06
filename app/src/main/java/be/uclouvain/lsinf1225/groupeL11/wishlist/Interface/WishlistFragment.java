@@ -72,7 +72,7 @@ public class WishlistFragment extends Fragment {
             public void onDeleteClick(final int position) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Delete WishList");
-                builder.setMessage("Are you sure you want to delete" + mainUser.wishlists.get(position)+ "?");
+                builder.setMessage("Are you sure you want to delete" + mainUser.wishlists.get(position).name+ "?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
