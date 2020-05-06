@@ -114,7 +114,7 @@ public class FollowDAO extends MyDatabaseHelper {
 
 
     /**
-     * Function returning all the waiting follow to be accepted (or refused)
+     * Function returning all the waiting follow to be accepted (or refused) for the specified user
      * @param main
      * @return
      */
@@ -128,7 +128,7 @@ public class FollowDAO extends MyDatabaseHelper {
             String getQuery = String.format(
                     "SELECT * FROM User u " +
                             "WHERE u.userID != '%s' AND u.userID IN " +
-                            "    (SELECT frienduserID FROM User_has_Friends uhf WHERE uhf.userID == '%s' AND uhf.pending == 1)"
+                            "    (SELECT userID FROM User_has_Friends uhf WHERE uhf.frienduserID == '%s' AND uhf.pending == 1)"
                     , main.getId(), main.getId());
 
             Cursor cursor = db.rawQuery(getQuery, null);
