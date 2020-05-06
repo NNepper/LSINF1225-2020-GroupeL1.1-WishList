@@ -1,5 +1,6 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Interest;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.InterestDAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.HomeActivity;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class InterestsListAdapter extends RecyclerView.Adapter<InterestsListAdapter.InterestsViewHolder> {
     private ArrayList<Interest> interestsList;
     private InterestsListAdapter.onItemClickListener interestsClickListener;
+    private Context context;
+    private User mainUser;
 
     public interface onItemClickListener{
         void onItemClick(int position);
@@ -63,7 +69,9 @@ public class InterestsListAdapter extends RecyclerView.Adapter<InterestsListAdap
         }
     }
 
-    public InterestsListAdapter(ArrayList<Interest> interests){
+    public InterestsListAdapter(ArrayList<Interest> interests, Context context, User mainUser){
+        this.mainUser = mainUser;
+        this.context = context;
         this.interestsList = interests;
     }
 
@@ -78,12 +86,24 @@ public class InterestsListAdapter extends RecyclerView.Adapter<InterestsListAdap
     @Override
     public void onBindViewHolder(@NonNull InterestsListAdapter.InterestsViewHolder holder, int position) {
         Interest currentInterest = interestsList.get(position);
-
+        InterestDAO interestDAO = new InterestDAO(this.context);
+        if (isActiveInterest(currentInterest, interestDAO)) {
+            holder.checkBox.setChecked(true);
+        }
         holder.interestName.setText(currentInterest.getInterestName());
     }
 
     @Override
     public int getItemCount() {
         return interestsList.size();
+    }
+
+    private boolean isActiveInterest(Interest interest, InterestDAO interestDAO) {
+        for (Interest current : interestDAO.getInterests(mainUser.getId())) {
+            if (interest.getInterestName() == current.getInterestName()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

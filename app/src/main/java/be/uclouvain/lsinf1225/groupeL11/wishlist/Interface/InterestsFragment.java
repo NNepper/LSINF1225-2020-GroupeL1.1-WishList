@@ -46,7 +46,7 @@ public class InterestsFragment extends Fragment {
         interestsListRecyclerView = view.findViewById(R.id.interests_recycler_view);
         interestsListRecyclerView.setHasFixedSize(true);
         interestsListLayoutManager = new LinearLayoutManager(view.getContext());
-        interestsListAdapter = new InterestsListAdapter(interestsList);
+        interestsListAdapter = new InterestsListAdapter(interestsList, getContext(), mainUser);
 
         this.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
