@@ -375,8 +375,12 @@ public class UserDAO extends MyDatabaseHelper {
         }
     }
 
-    public boolean addInterest(User main, Interest interest, boolean set){
-        //TODO
+    /*
+TODO
+    * Si set = true -> ajoute l'intéret
+    * Si set = false -> retire l'intéret
+    * */
+    public boolean setInterest(User main, Interest interest, boolean set){
         return true;
     }
 }
