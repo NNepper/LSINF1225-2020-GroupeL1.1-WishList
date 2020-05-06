@@ -270,4 +270,16 @@ public class UserDAO extends MyDatabaseHelper {
             db.endTransaction();
         }
     }
+
+    public Boolean createImage(User mainUser, byte[] image){
+        return true;
+    }
+
+    public Boolean changeImage(User mainUser, byte[] image){
+        return true;
+    }
+
+    public Boolean checkImage(User mainUser, byte[] image){
+        return true;
+    }
 }
