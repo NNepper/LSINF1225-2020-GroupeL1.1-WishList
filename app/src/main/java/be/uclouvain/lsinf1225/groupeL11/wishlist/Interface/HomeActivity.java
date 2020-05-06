@@ -62,7 +62,8 @@ public class HomeActivity extends AppCompatActivity {
         if (! followDAO.getPending(mainUser).isEmpty()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Follow request");
-            builder.setMessage("Hi ! What's up ?\nSome people want to follow you !\nYou can decide to accept or decline from your follow view.");
+            builder.setMessage("Hi ! What's up ?\nSome people want to follow you !\n" +
+                    "You can decide to accept or decline from the notification bell in your profile.");
             builder.setNeutralButton("Great !", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) { return; }
