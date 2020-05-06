@@ -155,7 +155,7 @@ public class ProfileFragment extends Fragment {
         trouserSizeSpinner = view.findViewById(R.id.profileSpinnerTrouserSize);
 
         final String[] trouserSizes = {"", "XS", "S", "M", "L", "XL", "XXL"};
-        trouserSizes[0] = "Trouser size: " + mainUser.tshirtSize;
+        trouserSizes[0] = "Trouser size: " + mainUser.trouserSize;
 
         trouserSizeSpinner.setAdapter(new ArrayAdapter<String>(
                 getContext(),
@@ -219,9 +219,10 @@ public class ProfileFragment extends Fragment {
         if(tShirtSizeChanged != null && mainUser.tshirtSize.compareTo(tShirtSizeChanged) != 0) mainUser.tshirtSize = tShirtSizeChanged;
         if(trouserSizeChanged != null && mainUser.trouserSize.compareTo(trouserSizeChanged) != 0) mainUser.trouserSize = trouserSizeChanged;
         if(shoeSizeChanged != 0 && mainUser.shoeSize != shoeSizeChanged) mainUser.shoeSize = shoeSizeChanged;
-        if(mainUser.color != colorChanged) mainUser.color = colorChanged;
+        if(colorChanged != null && mainUser.color.compareTo(colorChanged) != 0) mainUser.color = colorChanged;
         if(mainUser.username.compareTo(usernameTextView.getText().toString()) != 0) mainUser.username = usernameTextView.getText().toString();
         if(mainUser.email.compareTo(emailTextView.getText().toString()) != 0) mainUser.email = emailTextView.getText().toString();
         if(mainUser.address.compareTo(addressTextView.getText().toString()) != 0) mainUser.address = addressTextView.getText().toString();
+        userDAO.update(mainUser);
     }
 }
