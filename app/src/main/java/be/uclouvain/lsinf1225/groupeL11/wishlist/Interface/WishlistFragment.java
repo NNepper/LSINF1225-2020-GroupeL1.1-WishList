@@ -30,7 +30,8 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 public class WishlistFragment extends Fragment {
 
     private FloatingActionButton addWishlistButton;
-    private String newWishListName;
+
+    boolean isOpen = false;
 
     private RecyclerView wishListRecyclerView;
     private WishListItemAdapter wishListAdapter;
@@ -91,7 +92,8 @@ public class WishlistFragment extends Fragment {
             }
         });
 
-        this.addWishlistButton = (FloatingActionButton) view.findViewById(R.id.addWishlistButton) ;
+        this.addWishlistButton = view.findViewById(R.id.addWishlistButton);
+
         this.addWishlistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,4 +130,6 @@ public class WishlistFragment extends Fragment {
 
         return view;
     }
+
+
 }

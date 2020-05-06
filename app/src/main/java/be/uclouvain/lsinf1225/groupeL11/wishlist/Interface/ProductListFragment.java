@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -31,18 +34,33 @@ public class ProductListFragment extends Fragment {
     private ProductListAdapter productItemAdapter;
     private RecyclerView.LayoutManager productLayoutManager;
 
+    private TextView title;
+
+    boolean isOpen;
+
+    private FloatingActionButton addItemButton;
+    private FloatingActionButton editWishlistNameButton;
+    private FloatingActionButton menuOpenerButton;
+    private String newWishListName;
+
+    private WishList wishList;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
         final User mainUser = ((HomeActivity) getActivity()).mainUser;
         final ProductDAO productDAO = new ProductDAO(getContext());
+        final WishListDAO wishListDAO = new WishListDAO(getContext());
         final ArrayList<Product> products = productDAO.get(bundle.getInt("wishListID"), null);
+        wishList = wishListDAO.read(bundle.getInt("wishListID"));
+
+        isOpen = false;
 
         final  View view = inflater.inflate(R.layout.fragment_product, container, false);
 
-        TextView title = view.findViewById(R.id.product_list_title);
-        title.setText(bundle.getString("wishListName"));
+        title = view.findViewById(R.id.product_list_title);
+        title.setText(wishList.name);
 
         productView = view.findViewById(R.id.product_recycler_view);
         productView.setHasFixedSize(true);
@@ -99,6 +117,84 @@ public class ProductListFragment extends Fragment {
             }
         });
 
+        this.addItemButton = view.findViewById(R.id.product_add_FAB);
+        this.editWishlistNameButton = view.findViewById(R.id.product_edit_FAB);
+        this.menuOpenerButton = view.findViewById(R.id.product_open_FAB);
+
+        menuOpenerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuOpener();
+            }
+        });
+
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Add a new item");
+                View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_item, (ViewGroup) getView(), false);
+                final EditText itemName = viewInflated.findViewById(R.id.new_item_name);
+                final EditText itemQuantity = viewInflated.findViewById(R.id.new_item_quantity);
+                builder.setView(viewInflated)
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO add item to WS
+                                /*Product newProduct = new Product(itemName.getText(), itemQuantity.getText());
+                                wishList.addProduct(newProduct);
+                                wishListDAO.add(wishList, newProduct);
+                                products.add(newProduct);
+                                productDAO.create(newProduct);
+                                productItemAdapter.notifyDataSetChanged();*/
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        editWishlistNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Rename Wishlist");
+                View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_wishlist, (ViewGroup) getView(), false);
+                final EditText wishListName = (EditText) viewInflated.findViewById(R.id.new_wishlist_name);
+                wishListName.setText(wishList.name);
+                builder.setView(viewInflated)
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                /*wishList.name = wishListName.getText().toString();
+                                wishListDAO.update(wishList);
+                                title.setText(wishList.name);*/
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
+
         return view;
+    }
+
+    private void menuOpener(){
+        if(isOpen){
+            addItemButton.setVisibility(View.INVISIBLE);
+            editWishlistNameButton.setVisibility(View.INVISIBLE);
+        }else{
+            addItemButton.setVisibility(View.VISIBLE);
+            editWishlistNameButton.setVisibility(View.VISIBLE);
+        }
+        isOpen = !isOpen;
     }
 }
