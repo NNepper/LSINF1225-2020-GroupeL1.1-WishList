@@ -156,7 +156,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Context context = getApplicationContext();
                 UserDAO userDAO = new UserDAO(context);
-                User mainUser = data.getParcelable("mainUser");
+                User mainUser = new User(data.getString("email"), data.getString("username"), data.getString("password"));
 
                 String firstname = ((EditText) findViewById(R.id.newprofile_firstname)).getText().toString();
                 String lastname = ((EditText) findViewById(R.id.newprofile_lastname)).getText().toString();

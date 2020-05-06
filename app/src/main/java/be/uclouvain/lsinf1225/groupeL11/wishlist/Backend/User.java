@@ -25,7 +25,7 @@ public class User implements Parcelable {
     public String trouserSize;
     public int shoeSize;
     public String address;
-    public Integer privacy = 0;
+    public Integer privacy;
     public ArrayList<Interest> interests;
     public ArrayList<User> following;
     public ArrayList<WishList> wishlists;

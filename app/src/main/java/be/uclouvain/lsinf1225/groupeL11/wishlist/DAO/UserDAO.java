@@ -67,9 +67,6 @@ public class UserDAO extends MyDatabaseHelper {
             values.put(FIRSTNAME, user.firstname);
             values.put(LASTNAME, user.lastname);
             values.put(USERNAME, user.username);
-            // Provisional fix for the unicity error
-            // values.put(EMAIL, user.email);
-            // values.put(PASSWORD, user.getPassword());
             values.put(ADDRESS, user.address);
             values.put(COLOR, user.color);
             values.put(SHOES, user.shoeSize);
@@ -79,6 +76,7 @@ public class UserDAO extends MyDatabaseHelper {
 
             // Updating profile picture url for user with that userName
             db.update(USER_TABLE, values, USER_ID + " = " + user.id, null);
+            db.setTransactionSuccessful();
             return true;
         } catch (Exception e) {
             Log.d("SQL", "Error while trying to update user");
