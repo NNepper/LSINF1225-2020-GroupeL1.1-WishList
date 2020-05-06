@@ -99,7 +99,7 @@ public class InterestsListAdapter extends RecyclerView.Adapter<InterestsListAdap
     }
 
     private boolean isActiveInterest(Interest interest, InterestDAO interestDAO) {
-        for (Interest current : interestDAO.getInterests(mainUser)) {
+        for (Interest current : interestDAO.getInterests(mainUser.getId())) {
             if (interest.getInterestName() == current.getInterestName()) {
                 return true;
             }
