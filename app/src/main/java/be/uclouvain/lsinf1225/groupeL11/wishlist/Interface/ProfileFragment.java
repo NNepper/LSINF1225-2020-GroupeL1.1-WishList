@@ -221,8 +221,10 @@ public class ProfileFragment extends Fragment {
         });
 
         final UserDAO userDAO = new UserDAO(getContext());
+        this.profilePicture = view.findViewById(R.id.profilePic);
         if (userDAO.checkImage(mainUser)){
-            profilePicture.setImageBitmap(userDAO.getImage(mainUser));
+            Bitmap image = userDAO.getImage(mainUser);
+            profilePicture.setImageBitmap(image);
         }
         else {
             this.profilePicture = view.findViewById(R.id.profilePic);
@@ -232,7 +234,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
             }
         });

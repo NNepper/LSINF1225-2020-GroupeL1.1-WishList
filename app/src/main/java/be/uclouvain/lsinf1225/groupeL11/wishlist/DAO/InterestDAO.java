@@ -33,10 +33,10 @@ public class InterestDAO extends MyDatabaseHelper{
         }
     }
 
-    public ArrayList<Interest> getInterests(int userID, SQLiteDatabase db){
+    public ArrayList<Interest> getInterests(int userID){
         ArrayList<Interest> interestList = new ArrayList<>();
 
-        if(db == null) db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
 
         try {
             String getQuery = String.format(
