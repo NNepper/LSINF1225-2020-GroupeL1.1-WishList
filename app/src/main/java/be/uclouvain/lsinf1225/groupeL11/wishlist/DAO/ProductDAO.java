@@ -145,7 +145,7 @@ public class ProductDAO extends MyDatabaseHelper {
 
     public Product read(int productId){
         SQLiteDatabase db = getReadableDatabase();
-
+        db.beginTransaction();
         try {
             Product prod = null;
             String getQuery = String.format(
