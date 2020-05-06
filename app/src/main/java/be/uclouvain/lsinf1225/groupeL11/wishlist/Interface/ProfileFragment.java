@@ -218,7 +218,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        this.profilePicture = view.findViewById(R.id.profilePic);
+        final UserDAO userDAO = new UserDAO(getContext());
+        if (!userDAO.check(mainUser.email)){
+            profilePicture.setImageBitmap(userDAO.getImage(mainUser));
+        }
+        else {
+            this.profilePicture = view.findViewById(R.id.profilePic);
+        }
         this.profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
