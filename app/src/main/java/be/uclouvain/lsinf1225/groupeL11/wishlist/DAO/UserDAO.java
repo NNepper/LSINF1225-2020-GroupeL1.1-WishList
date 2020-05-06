@@ -337,10 +337,10 @@ public class UserDAO extends MyDatabaseHelper {
             db.setTransactionSuccessful();
 
             if(cursor.getCount() > 0) {
-                return false;
+                return true;
             }
             else {
-                return true;
+                return false;
             }
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());

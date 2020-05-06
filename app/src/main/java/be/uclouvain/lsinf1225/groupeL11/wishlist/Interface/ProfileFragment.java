@@ -219,7 +219,7 @@ public class ProfileFragment extends Fragment {
         });
 
         final UserDAO userDAO = new UserDAO(getContext());
-        if (!userDAO.check(mainUser.email)){
+        if (userDAO.checkImage(mainUser)){
             profilePicture.setImageBitmap(userDAO.getImage(mainUser));
         }
         else {
