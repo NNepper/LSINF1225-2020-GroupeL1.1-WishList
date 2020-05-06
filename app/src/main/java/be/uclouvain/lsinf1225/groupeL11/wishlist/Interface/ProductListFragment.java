@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -81,7 +82,19 @@ public class ProductListFragment extends Fragment {
 
             @Override
             public void onCheckClick(int position) {
-                //TODO
+                if(products.get(position).purchased == 1){
+                    products.get(position).purchased = 0;
+                }
+                else{
+                    products.get(position).purchased = 1;
+                }
+                if(productDAO.update(products.get(position))){
+                    CharSequence text = "Check !";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(getContext(), text, duration);
+                    toast.show();
+                }
             }
         });
 

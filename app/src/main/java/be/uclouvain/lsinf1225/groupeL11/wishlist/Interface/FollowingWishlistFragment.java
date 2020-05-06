@@ -28,6 +28,8 @@ public class FollowingWishlistFragment extends Fragment {
     private RecyclerView followingWishlistRecyclerView;
     private FollowingWishListItemAdapter followingWishListItemAdapter;
     private RecyclerView.LayoutManager followingWishlistLayoutManager;
+    private TextView followingUsername;
+
     private User followingUser;
 
     private ImageView profilePic;
@@ -42,6 +44,9 @@ public class FollowingWishlistFragment extends Fragment {
         final ArrayList<WishList> wishLists = wishListDAO.readWishLists(bundle.getInt("followingUserID"));
 
         final  View view = inflater.inflate(R.layout.fragment_following_wishlist, container, false);
+
+        followingUsername = view.findViewById(R.id.following_username);
+        followingUsername.setText(bundle.getString("followingUsername"));
 
         followingWishlistRecyclerView = view.findViewById(R.id.following_wishlist_recycler_view);
         followingWishlistRecyclerView.setHasFixedSize(true);

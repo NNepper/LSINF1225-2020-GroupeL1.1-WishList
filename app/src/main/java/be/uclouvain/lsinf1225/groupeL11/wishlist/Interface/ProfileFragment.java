@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.SearchUsersResultAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
@@ -34,12 +35,11 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 public class ProfileFragment extends Fragment {
 
     private TextView usernameTextView, emailTextView, addressTextView;
-    private ImageView logOut;
-    private ImageView confirm;
+    private ImageView logOut, confirm, followRequestNotification;
     private Switch privacySwitch;
     private User mainUser;
     private Spinner shoeSizeSpinner, trouserSizeSpinner, tShirtSizeSpinner, colorSpinner;
-    private Button interestButton, followRequestButton;
+    private Button interestButton;
     private UserDAO userDAO;
     private String tShirtSizeChanged, trouserSizeChanged, colorChanged;
     private int shoeSizeChanged;
@@ -205,9 +205,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        this.followRequestButton = view.findViewById(R.id.see_requests);
-        Log.d("noRequestButton", followRequestButton.toString());
-        this.followRequestButton.setOnClickListener(new View.OnClickListener() {
+        this.followRequestNotification = view.findViewById(R.id.see_requests);
+        FollowDAO followDAO = new FollowDAO(getContext());
+        if (! followDAO.getPending(mainUser).isEmpty()) {
+            this.followRequestNotification.setImageResource(R.drawable.ic_notifications_full_24dp);
+        }
+        this.followRequestNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
