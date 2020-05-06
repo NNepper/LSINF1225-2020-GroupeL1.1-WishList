@@ -66,7 +66,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                     // Bundle for easy Object storage
                     Bundle data = new Bundle();
-                    data.putParcelable("mainUser", mainUser);
+                    data.putString("username", username);
+                    data.putString("password", password);
+                    data.putString("email", email);
 
                     // Start new Activity and pass data to the next Activity
                     Intent ProfilCreation = new Intent(getApplicationContext(), ProfileCreationActivity.class); // change the intent to let the user enter his infos
