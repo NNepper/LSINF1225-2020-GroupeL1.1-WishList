@@ -90,6 +90,36 @@ public class WishListDAO extends MyDatabaseHelper{
         }
     }
 
+    public WishList read(int wishlistID){
+        ProductDAO productDAO = new ProductDAO(context);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            String getQuery = "SELECT * FROM Wishlist w WHERE w.wishlistID=" + wishlistID;
+
+            Cursor cursor = db.rawQuery(getQuery, null);
+            if (cursor.moveToFirst()) {
+                WishList wishList = new WishList(cursor.getInt(0));
+                wishList.name = cursor.getString(1);
+                wishList.description = cursor.getString(2);
+                wishList.products = productDAO.get(wishlistID, db);
+
+                db.setTransactionSuccessful();
+                return wishList;
+            }
+            return null;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return null;
+        }
+        finally {
+            db.endTransaction();
+            productDAO.close();
+        }
+    }
+
     public Boolean create(WishList wishList, User user){
         SQLiteDatabase db = getWritableDatabase();
 
