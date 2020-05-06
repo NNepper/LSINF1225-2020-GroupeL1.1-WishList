@@ -167,4 +167,14 @@ public class WishListDAO extends MyDatabaseHelper{
         }
     }
 
+    public boolean update(WishList wishList){
+        //TODO update name descritpion
+        return true;
+    }
+
+    public boolean addProduct(WishList wishList, Product prod){
+        //TODO add Product to wishList
+        return true;
+    }
+
 }

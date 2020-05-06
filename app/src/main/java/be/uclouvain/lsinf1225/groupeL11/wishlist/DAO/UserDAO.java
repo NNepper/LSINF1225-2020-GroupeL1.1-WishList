@@ -14,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Interest;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 
 public class UserDAO extends MyDatabaseHelper {
@@ -372,5 +373,10 @@ public class UserDAO extends MyDatabaseHelper {
         finally {
             db.endTransaction();
         }
+    }
+
+    public boolean addInterest(User main, Interest interest, boolean set){
+        //TODO
+        return true;
     }
 }
