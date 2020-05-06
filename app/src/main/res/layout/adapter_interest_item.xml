@@ -28,7 +28,7 @@
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/product_item_checkbox"
+            android:id="@+id/interest_item_checkbox"
             android:layout_width="53dp"
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
