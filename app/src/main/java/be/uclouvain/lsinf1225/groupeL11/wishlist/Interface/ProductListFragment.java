@@ -1,5 +1,7 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +35,8 @@ public class ProductListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
         final User mainUser = ((HomeActivity) getActivity()).mainUser;
-        ProductDAO productDAO = new ProductDAO(getContext());
-        ArrayList<Product> products = productDAO.get(bundle.getInt("wishListID"), null);
+        final ProductDAO productDAO = new ProductDAO(getContext());
+        final ArrayList<Product> products = productDAO.get(bundle.getInt("wishListID"), null);
 
         final  View view = inflater.inflate(R.layout.fragment_product, container, false);
 
@@ -56,8 +58,25 @@ public class ProductListFragment extends Fragment {
             }
 
             @Override
-            public void onDeleteClick(int position) {
-                //TODO
+            public void onDeleteClick(final int position) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Delete Product");
+                builder.setMessage("Are you sure you want to delete " + products.get(position).name + "?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(productDAO.delete(products.get(position).getId())) {
+                            products.remove(position);
+                            productItemAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
             }
 
             @Override
