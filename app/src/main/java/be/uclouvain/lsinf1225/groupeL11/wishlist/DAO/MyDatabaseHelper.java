@@ -114,7 +114,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             ");";
 
     private static final String CREATE_PRODUCTS = "CREATE TABLE Products (" +
-            "    productID   [INTEGER AUTO_INCREMENT]," +
+            "    productID   INTEGER        PRIMARY KEY AUTOINCREMENT," +
             "    name        VARCHAR (45)," +
             "    description VARCHAR (45)," +
             "    link        VARCHAR (45)," +
@@ -122,10 +122,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "    position    INTEGER," +
             "    quantity    INTEGER," +
             "    wishlistID  INTEGER," +
-            "    rating      INTEGER," +
-            "    PRIMARY KEY (" +
-            "        productID" +
-            "    )" +
+            "    rating      INTEGER" +
             ");";
 
     private static final String CREATE_INTERESTS = "CREATE TABLE Interests (" +
