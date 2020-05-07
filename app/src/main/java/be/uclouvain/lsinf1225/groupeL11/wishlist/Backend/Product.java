@@ -18,6 +18,10 @@ public class Product implements Parcelable {
         this.id = id;
     }
 
+    public Product(String productName, int quantity){
+        // TODO
+    }
+
     protected Product(Parcel in) {
         id = in.readInt();
         name = in.readString();
