@@ -48,6 +48,29 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <RatingBar
+                    android:id="@+id/product_details_ratings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    />
+
+                <ImageView
+                    android:id="@+id/product_details_submit"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/ic_done_black_24dp"
+                    android:background="@drawable/custom_red_button"
+                    />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/product_details_description"
                 android:layout_width="wrap_content"
@@ -67,6 +90,7 @@
                 android:textColor="@color/red_border"
                 android:layout_margin="20dp"
                 />
+
 
             <TextView
                 android:id="@+id/product_details_link"
