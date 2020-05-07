@@ -81,6 +81,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     protected static final String UHP_IMAGE = "image";
 
 
+    //Product_has_image
+    protected static final String PHI_TABLE = "Product_has_image";
+    protected static final String PHI_ID = "productID";
+    protected static final String PHI_IMAGE = "image";
+
+
     // Database creation sql statement
     private static final String CREATE_USER = "CREATE TABLE User (" +
             "    userID       INTEGER       PRIMARY KEY AUTOINCREMENT,\n" +
@@ -195,6 +201,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             ");";
 
 
+    private static final String CREATE_PRODUCT_HAS_IMAGE = "CREATE TABLE Product_has_image (\n" +
+            "    productID INTEGER PRIMARY KEY\n" +
+            "                      NOT NULL,\n" +
+            "    image     BLOB    NOT NULL\n" +
+            ");\n";
+
+
 
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -212,6 +225,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             database.execSQL(CREATE_USER_HAS_INTERESTS);
             database.execSQL(CREATE_USER_HAS_WISHLIST);
             database.execSQL(CREATE_USER_HAS_PROFIL);
+            database.execSQL(CREATE_PRODUCT_HAS_IMAGE);
 
             for (int i = 0; i < Populate.length; i++){
                 database.execSQL(Populate[i]);
@@ -236,6 +250,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         database.execSQL("DROP TABLE IF EXISTS " + UHI_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + UHW_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + UHP_TABLE);
+        database.execSQL("DROP TABLE IF EXISTS " + PHI_TABLE);
 
         onCreate(database);
     }
