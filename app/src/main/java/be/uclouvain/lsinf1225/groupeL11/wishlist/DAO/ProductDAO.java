@@ -59,18 +59,18 @@ public class ProductDAO extends MyDatabaseHelper {
 
         db.beginTransaction();
         try {
-            ContentValues values = new ContentValues();
+            ContentValues val1 = new ContentValues();
 
-            values.put(PROD_DESC, prod.description);
-            values.put(PROD_LINK, prod.link);
-            values.put(PROD_NAME, prod.name);
-            values.put(PROD_POSITION, prod.position);
-            values.put(PROD_PURCHASSED, prod.purchased);
-            values.put(PROD_QUANTITY, prod.quantity);
-            values.put(PROD_WISHLIST, prod.wishlist.getId());
-            values.put(PROD_RATING, prod.rating);
+            val1.put(PROD_DESC, prod.description);
+            val1.put(PROD_LINK, prod.link);
+            val1.put(PROD_NAME, prod.name);
+            val1.put(PROD_POSITION, prod.position);
+            val1.put(PROD_PURCHASSED, prod.purchased);
+            val1.put(PROD_QUANTITY, prod.quantity);
+            val1.put(PROD_WISHLIST, prod.wishlist.getId());
+            val1.put(PROD_RATING, prod.rating);
 
-            int rows = (int) db.insert(PRODUCT_TABLE, null, values);
+            int rows = (int) db.insert(PRODUCT_TABLE, null, val1);
             prod.setId(rows);
 
             db.setTransactionSuccessful();
@@ -130,7 +130,6 @@ public class ProductDAO extends MyDatabaseHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         try{
-
             ContentValues values = new ContentValues();
 
             values.put(PROD_PURCHASSED, product.purchased);
