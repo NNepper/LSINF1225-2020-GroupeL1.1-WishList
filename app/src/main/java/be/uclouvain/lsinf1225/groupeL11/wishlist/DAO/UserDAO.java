@@ -375,12 +375,30 @@ public class UserDAO extends MyDatabaseHelper {
         }
     }
 
-    /*
-TODO
-    * Si set = true -> ajoute l'intéret
-    * Si set = false -> retire l'intéret
-    * */
+
     public boolean setInterest(User main, Interest interest, boolean set){
-        return true;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            ContentValues values = new ContentValues();
+            values.put(UHI_ID,interest.getId());
+            values.put(UHI_RATING, 0); //TODO si time (ou pas)
+            values.put(UHI_USERID, main.getId());
+
+            if (set){
+                db.insert(UHI_TABLE, null, values);
+            } else {
+                db.delete(UHI_TABLE, UHI_USERID + " = " + main.getId() + " AND " + UHI_ID + " = " + interest.getId(), null);
+            }
+
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", "Error while trying to update user");
+            return false;
+        } finally {
+            db.endTransaction();
+        }
     }
 }

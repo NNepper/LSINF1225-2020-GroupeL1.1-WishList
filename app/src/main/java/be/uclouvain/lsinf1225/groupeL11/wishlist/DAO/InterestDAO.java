@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Interest;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 
 public class InterestDAO extends MyDatabaseHelper{
     public InterestDAO(Context context) {
