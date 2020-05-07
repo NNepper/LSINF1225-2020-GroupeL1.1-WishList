@@ -31,6 +31,7 @@ public class ProductDetailFragment extends Fragment {
         final ProductDAO productDAO = new ProductDAO(getContext());
         Bundle bundle = this.getArguments();
         product = productDAO.read(bundle.getInt("productID"));
+        Boolean isMainUser = bundle.getBoolean("isMainUser");
 
         TextView title = view.findViewById(R.id.product_details_title);
         title.setText(product.name);
@@ -53,22 +54,26 @@ public class ProductDetailFragment extends Fragment {
         TextView link = view.findViewById(R.id.product_details_link);
         link.setText(product.link);
 
-        final RatingBar ratings = view.findViewById(R.id.product_details_ratings);
         ImageView submit = view.findViewById(R.id.product_details_submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                product.rating = (int) ratings.getRating();
-                if(! productDAO.update(product)){
-                    CharSequence text = "Error DB update";
-                    int duration = Toast.LENGTH_SHORT;
+        if(isMainUser){
+            final RatingBar ratings = view.findViewById(R.id.product_details_ratings);
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    product.rating = (int) ratings.getRating();
+                    if(! productDAO.update(product)){
+                        CharSequence text = "Error DB update";
+                        int duration = Toast.LENGTH_SHORT;
 
-                    Toast toast = Toast.makeText(getContext(), text, duration);
-                    toast.show();
+                        Toast toast = Toast.makeText(getContext(), text, duration);
+                        toast.show();
+                    }
                 }
-            }
-        });
-
+            });
+        }
+        else{
+            submit.setVisibility(View.GONE);
+        }
 
         return view;
     }

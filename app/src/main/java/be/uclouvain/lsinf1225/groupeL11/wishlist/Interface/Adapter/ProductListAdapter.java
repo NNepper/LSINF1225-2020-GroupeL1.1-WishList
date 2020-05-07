@@ -21,7 +21,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private ArrayList<Product> products;
     private onItemClickListener productListClickListener;
-    private Boolean isMainUser;
+    public Boolean isMainUser;
 
     public interface onItemClickListener{
         void onItemClick(int position);

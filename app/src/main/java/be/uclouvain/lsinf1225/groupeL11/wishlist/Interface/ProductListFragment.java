@@ -78,6 +78,7 @@ public class ProductListFragment extends Fragment {
                 Product clickedProduct= products.get(position);
                 Bundle data = new Bundle();
                 data.putInt("productID", clickedProduct.getId());
+                data.putBoolean("isMainUser", productItemAdapter.isMainUser);
 
                 Fragment productDetailFragment = new ProductDetailFragment();
                 productDetailFragment.setArguments(data);
