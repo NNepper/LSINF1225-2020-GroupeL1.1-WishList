@@ -11,6 +11,7 @@ public class Product implements Parcelable {
     public int position;
     public int purchased;
     public int quantity;
+    public int rating;
 
     public WishList wishlist;
 
@@ -25,7 +26,8 @@ public class Product implements Parcelable {
         this.position = position;
         this.description = " ";
         this.purchased = 0;
-        id = -1;
+        this.id = -1;
+        this.rating = 0;
     }
 
     protected Product(Parcel in) {
