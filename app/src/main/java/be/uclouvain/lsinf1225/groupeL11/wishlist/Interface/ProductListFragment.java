@@ -140,13 +140,12 @@ public class ProductListFragment extends Fragment {
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO add item to WS
-                                /*Product newProduct = new Product(itemName.getText(), itemQuantity.getText());
+                                Product newProduct = new Product(itemName.getText().toString(), Integer.parseInt(itemQuantity.getText().toString()));
                                 wishList.addProduct(newProduct);
-                                wishListDAO.add(wishList, newProduct);
+                                wishListDAO.addProduct(wishList, newProduct);
                                 products.add(newProduct);
                                 productDAO.create(newProduct);
-                                productItemAdapter.notifyDataSetChanged();*/
+                                productItemAdapter.notifyDataSetChanged();
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -170,9 +169,9 @@ public class ProductListFragment extends Fragment {
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                /*wishList.name = wishListName.getText().toString();
+                                wishList.name = wishListName.getText().toString();
                                 wishListDAO.update(wishList);
-                                title.setText(wishList.name);*/
+                                title.setText(wishList.name);
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
