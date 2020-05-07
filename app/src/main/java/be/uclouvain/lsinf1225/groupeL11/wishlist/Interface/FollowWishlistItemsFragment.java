@@ -52,7 +52,7 @@ public class FollowWishlistItemsFragment extends Fragment {
         productView = view.findViewById(R.id.wishlist_recycler_view);
         productView.setHasFixedSize(true);
         productLayoutManager = new LinearLayoutManager(view.getContext());
-        productItemAdapter = new ProductListAdapter(wishlisItems, false);
+        productItemAdapter = new ProductListAdapter(getContext(), wishlisItems, false);
 
         productView.setLayoutManager(productLayoutManager);
         productView.setAdapter(productItemAdapter);

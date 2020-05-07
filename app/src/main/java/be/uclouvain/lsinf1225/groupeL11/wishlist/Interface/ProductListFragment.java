@@ -15,12 +15,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
@@ -35,6 +38,8 @@ public class ProductListFragment extends Fragment {
     private RecyclerView productView;
     private ProductListAdapter productItemAdapter;
     private RecyclerView.LayoutManager productLayoutManager;
+
+    private ItemTouchHelper itemTouchHelper;
 
     private TextView title;
 
@@ -67,10 +72,13 @@ public class ProductListFragment extends Fragment {
         productView = view.findViewById(R.id.product_recycler_view);
         productView.setHasFixedSize(true);
         productLayoutManager = new LinearLayoutManager(view.getContext());
-        productItemAdapter = new ProductListAdapter(products, true);
+        productItemAdapter = new ProductListAdapter(getContext(), products, true);
 
         productView.setLayoutManager(productLayoutManager);
         productView.setAdapter(productItemAdapter);
+
+        itemTouchHelper = new ItemTouchHelper(createSimpleCallBack(products));
+        itemTouchHelper.attachToRecyclerView(productView);
 
         productItemAdapter.setOnItemClickLister(new ProductListAdapter.onItemClickListener() {
             @Override
@@ -78,6 +86,7 @@ public class ProductListFragment extends Fragment {
                 Product clickedProduct= products.get(position);
                 Bundle data = new Bundle();
                 data.putInt("productID", clickedProduct.getId());
+                data.putBoolean("isMainUser", productItemAdapter.isMainUser);
 
                 Fragment productDetailFragment = new ProductDetailFragment();
                 productDetailFragment.setArguments(data);
@@ -116,6 +125,13 @@ public class ProductListFragment extends Fragment {
                     Toast toast = Toast.makeText(getContext(), text, duration);
                     toast.show();
                 }
+            }
+        });
+
+        productItemAdapter.setOnDragListener(new ProductListAdapter.onDragListener() {
+            @Override
+            public void onStartDrag(ProductListAdapter.ProductListItemHolder productListItemHolder, int position) {
+                itemTouchHelper.startDrag(productListItemHolder);
             }
         });
 
@@ -206,5 +222,24 @@ public class ProductListFragment extends Fragment {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getContext(), stringToShow, duration);
         toast.show();
+    }
+
+    private ItemTouchHelper.SimpleCallback createSimpleCallBack(final ArrayList<Product> products){
+        return new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+                Collections.swap(products, fromPosition, toPosition);
+                recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // Nothing to do here
+            }
+        };
     }
 }
