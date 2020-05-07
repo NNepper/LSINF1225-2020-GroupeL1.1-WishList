@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Product implements Parcelable {
-    private int id = -1;
+    private int id;
     public String name;
     public String description;
     public String link;
@@ -18,8 +18,14 @@ public class Product implements Parcelable {
         this.id = id;
     }
 
-    public Product(String productName, int quantity){
-        // TODO
+    public Product(String productName, int quantity, String link, int position){
+        name = productName;
+        quantity = quantity;
+        link = link;
+        position = position;
+        description = "";
+        purchased = 0;
+        id = -1;
     }
 
     protected Product(Parcel in) {
