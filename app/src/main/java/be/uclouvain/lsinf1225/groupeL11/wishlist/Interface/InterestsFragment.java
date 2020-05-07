@@ -72,17 +72,24 @@ public class InterestsFragment extends Fragment {
             public void onCheckClick(int position) {
                 // TODO gérer ce qu'il se passe quand on check la box !!!
                 Interest interest = interestsList.get(position);
-                ArrayList<Interest> userInterests = interestDAO.readInterests(mainUser.getId());
                 UserDAO userDAO = new UserDAO(getContext());
+                ArrayList<Interest> userInterests = interestDAO.readInterests(mainUser.id);
                 // Inverse le status de l'intérêt
-                userDAO.setInterest(mainUser, interest, ! isActiveInterest(interest, interestsList, mainUser));
+                boolean checked = isActiveInterest(interest, userInterests);
+                if (checked) {
+                    Log.d("Interest", "This is an ACTIVE interest, it must be unchecked");
+                }
+                else {
+                    Log.d("Interest", "This is an DOWN interest, it must be checked");
+                }
+                userDAO.setInterest(mainUser, interest, ! isActiveInterest(interest, userInterests));
             }
         });
 
         return view;
     }
 
-    private boolean isActiveInterest(Interest interest, ArrayList<Interest> interests, User user) {
+    private boolean isActiveInterest(Interest interest, ArrayList<Interest> interests) {
         for (Interest current : interests) {
             if (current.getInterestName().equals(interest.getInterestName())) {
                 return true;
