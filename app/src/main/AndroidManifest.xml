@@ -31,5 +31,5 @@
                 android:resource="@layout/activity_search_user" />
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>

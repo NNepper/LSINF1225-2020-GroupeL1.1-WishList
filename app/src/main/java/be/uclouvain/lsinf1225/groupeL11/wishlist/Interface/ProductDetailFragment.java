@@ -81,6 +81,7 @@ public class ProductDetailFragment extends Fragment {
                         Toast toast = Toast.makeText(getContext(), text, duration);
                         toast.show();
                     }
+
                 }
             });
         }

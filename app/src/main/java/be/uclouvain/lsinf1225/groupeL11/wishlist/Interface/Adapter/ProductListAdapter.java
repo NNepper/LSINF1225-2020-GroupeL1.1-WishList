@@ -1,13 +1,20 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter;
 
+import android.content.Context;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.MotionEventCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.internal.VisibilityAwareImageButton;
@@ -21,7 +28,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private ArrayList<Product> products;
     private onItemClickListener productListClickListener;
+    private onDragListener dragListener;
     public Boolean isMainUser;
+    private Context context;
+
 
     public interface onItemClickListener{
         void onItemClick(int position);
@@ -29,8 +39,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         void onCheckClick(int position);
     }
 
+    public interface onDragListener{
+        void onStartDrag(ProductListItemHolder productListItemHolder, int position);
+    }
+
     public void setOnItemClickLister(onItemClickListener listener){
         productListClickListener = listener;
+    }
+
+    public void setOnDragListener(onDragListener onDragListener){
+        dragListener = onDragListener;
     }
 
     public static class ProductListItemHolder extends RecyclerView.ViewHolder{
@@ -40,6 +58,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         public TextView quantity;
         public CheckBox checkBox;
         public ImageView picture;
+        public final RelativeLayout handleRelLayout;
 
         public ProductListItemHolder(@NonNull View itemView, final onItemClickListener listener) {
             super(itemView);
@@ -48,6 +67,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             quantity = itemView.findViewById(R.id.product_item_quantity);
             checkBox = itemView.findViewById(R.id.product_item_checkbox);
             picture = itemView.findViewById(R.id.product_item_picture);
+            handleRelLayout = itemView.findViewById(R.id.product_relative_layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,9 +107,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
     }
 
-    public ProductListAdapter(ArrayList<Product> products, Boolean notMainUser) {
+    public ProductListAdapter(Context context, ArrayList<Product> products, Boolean notMainUser) {
         this.products = products;
         this.isMainUser = notMainUser;
+        this.context = context;
     }
 
     @NonNull
@@ -103,7 +124,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductListAdapter.ProductListItemHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProductListAdapter.ProductListItemHolder holder, final int position) {
         Product currentProduct = products.get(position);
         //TODO: change picture ?
         //holder.picture.setImageBitmap(bm); --> bm must be the picture
@@ -114,6 +135,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.name.setText(currentProduct.name);
         String quantityStr = "Quantity: " + currentProduct.quantity;
         holder.quantity.setText(quantityStr);
+
+        holder.handleRelLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            private Vibrator vibe = (Vibrator) context.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+            @Override
+            public boolean onLongClick(View v) {
+                vibe.vibrate(100);
+                dragListener.onStartDrag(holder, position);
+                return true;
+            }
+        });
     }
 
     @Override
