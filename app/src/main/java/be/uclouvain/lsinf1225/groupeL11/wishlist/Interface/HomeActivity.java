@@ -13,11 +13,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Path;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -82,11 +86,14 @@ public class HomeActivity extends AppCompatActivity {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                final Bitmap image = getRoundedShape(selectedImage);
                 if (userDAO.checkImage(mainUser)) {
-                    userDAO.changeImage(mainUser, selectedImage);
+                    userDAO.changeImage(mainUser, image);
                 } else {
-                    userDAO.createImage(mainUser, selectedImage);
+                    userDAO.createImage(mainUser, image);
                 }
+                ImageView img= (ImageView) findViewById(R.id.profilePic);
+                img.setImageBitmap(image);            
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -118,4 +125,29 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+    //crop image imported from gallery
+    public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
+        int targetWidth = 50;
+        int targetHeight = 50;
+        Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
+                targetHeight,Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(targetBitmap);
+        Path path = new Path();
+        path.addCircle(((float) targetWidth - 1) / 2,
+                ((float) targetHeight - 1) / 2,
+                (Math.min(((float) targetWidth),
+                        ((float) targetHeight)) / 2),
+                Path.Direction.CCW);
+
+        canvas.clipPath(path);
+        Bitmap sourceBitmap = scaleBitmapImage;
+        canvas.drawBitmap(sourceBitmap,
+                new Rect(0, 0, sourceBitmap.getWidth(),
+                        sourceBitmap.getHeight()),
+                new Rect(0, 0, targetWidth,
+                        targetHeight), null);
+        return targetBitmap;
+    }
 }

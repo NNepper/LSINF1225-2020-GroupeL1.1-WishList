@@ -11,6 +11,7 @@ public class Product implements Parcelable {
     public int position;
     public int purchased;
     public int quantity;
+    public int rating;
 
     public WishList wishlist;
 
@@ -19,13 +20,14 @@ public class Product implements Parcelable {
     }
 
     public Product(String productName, int quantity, String link, int position){
-        name = productName;
-        quantity = quantity;
-        link = link;
-        position = position;
-        description = "";
-        purchased = 0;
-        id = -1;
+        this.name = productName;
+        this.quantity = quantity;
+        this.link = link;
+        this.position = position;
+        this.description = " ";
+        this.purchased = 0;
+        this.id = -1;
+        this.rating = 0;
     }
 
     protected Product(Parcel in) {

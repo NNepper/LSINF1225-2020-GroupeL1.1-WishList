@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,7 +36,12 @@ public class ProductDetailFragment extends Fragment {
         title.setText(product.name);
 
         ImageView picture = view.findViewById(R.id.product_details_picture);
-        //TODO set picture with picture.setImageBitmap(bm);
+        picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO set picture
+            }
+        });
 
         TextView description = view.findViewById(R.id.product_details_description);
         description.setText(product.description);
@@ -45,6 +52,23 @@ public class ProductDetailFragment extends Fragment {
 
         TextView link = view.findViewById(R.id.product_details_link);
         link.setText(product.link);
+
+        final RatingBar ratings = view.findViewById(R.id.product_details_ratings);
+        ImageView submit = view.findViewById(R.id.product_details_submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                product.rating = (int) ratings.getRating();
+                if(! productDAO.update(product)){
+                    CharSequence text = "Error DB update";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(getContext(), text, duration);
+                    toast.show();
+                }
+            }
+        });
+
 
         return view;
     }

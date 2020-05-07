@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Path;
+import android.graphics.Rect;
 import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.util.Log;
 import android.widget.Toast;
@@ -363,7 +366,6 @@ public class UserDAO extends MyDatabaseHelper {
             byte[] temp = cursor.getBlob(1);
 
             Bitmap image = BitmapFactory.decodeByteArray(temp, 0 ,temp.length);
-
             return image;
         } catch (Exception e) {
             Log.d("SQL", "error while getting image");
