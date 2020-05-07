@@ -65,6 +65,7 @@ public class ProductDAO extends MyDatabaseHelper {
             values.put(PROD_PURCHASSED, prod.purchased);
             values.put(PROD_QUANTITY, prod.quantity);
             values.put(PROD_WISHLIST, prod.wishlist.getId());
+            values.put(PROD_RATING, prod.rating);
 
             int rows = (int) db.insert(PRODUCT_TABLE, null, values);
             prod.setId(rows);
@@ -162,6 +163,7 @@ public class ProductDAO extends MyDatabaseHelper {
                 prod.purchased = cursor.getInt(4);
                 prod.position = cursor.getInt(5);
                 prod.quantity = cursor.getInt(6);
+                prod.rating = cursor.getInt(7);
             }
             db.setTransactionSuccessful();
             return prod;

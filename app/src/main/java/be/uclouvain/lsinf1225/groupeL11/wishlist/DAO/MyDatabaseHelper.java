@@ -39,6 +39,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     protected static final String PROD_POSITION = "position";
     protected static final String PROD_QUANTITY = "quantity" ;
     protected static final String PROD_WISHLIST = "wishlistID";
+    protected static final String PROD_RATING = "rating";
 
 
     //Interests Table Tags
@@ -115,6 +116,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "    position    INTEGER," +
             "    quantity    INTEGER," +
             "    wishlistID  INTEGER," +
+            "    rating      INTEGER," +
             "    PRIMARY KEY (" +
             "        productID" +
             "    )" +
@@ -258,37 +260,37 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "INSERT INTO Wishlist (wishlistID, name, description) VALUES (6, 'Dream gifts', 'There are so many little thingd Id never buy but they would be wonderful gifts');\n",
             "INSERT INTO Wishlist (wishlistID, name, description) VALUES (7, 'My wishlist', 'There are my wishes !!');\n",
 
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (1, 'Samsung Galaxy 20', 'Smartphone Android 5G', 'https://www.samsung.com/be_fr/smartphones/galaxy-s20/buy/', 1, 1, 2, 1);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (2, 'Cable ethernet', 'Cable ethernet de 10m', 'https://www.amazon.fr/Ethernet-Blindage-Compatible-Nintendo-Routeur/dp/B07DDH9RLK/ref=sr_1_3?keywords=cable+ethernet+10m&qid=1583517691&s=electronics&sr=1-3', 0, 1, 3, 2);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (3, 'Ballon', 'Ballon de Basket signé par Kobe Bryant', 'https://www.ebay.com/itm/Kobe-Bryant-Signed-Full-Size-Basketball-Autograph-Case-Beckett-BAS-LOA-Lakers/383441285983?hash=item5946e1b35f:g:R6IAAOSw1~BeWXDK', 0, 2, 4, 1);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (4, 'Name', 'Description', 'webLink', 0, 1, 1, -10);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (5, 'Football shirt', 'Football shirt of Axel Witsel with Belgian Red Devils', null, 0, 1, 1, 1);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (6, 'Tennis raquet', 'A babolat tennis raquet of size 3', null, 0, 2, 1, 1);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (7, 'Football ball', 'The original Jabulani ball from South Africa World Cup 2008', null, 0, 3, 1, 1);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (8, 'Football shoes', 'This new shoes are so insane!', null, 0, 4, 1, 1);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (9, 'Computer', 'If you want to be my new best friend here is the perfect gift', null, 0, 1, 1,  2);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (10, 'Pencil box', 'A pencil box to put away the pens Id like.', null, 0, 2, 1, 2);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (11, 'Pencils', 'Really high quality pencils', null, 0, 3, 1, 2);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (12, 'Sheet pad', 'That is a great sheet pad', null, 0, 4, 1, 2);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (13, 'Soup ladle', 'This superb soup ladle seams really great', null, 0, 1, 1, 3);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (14, 'Set of cutlery', 'Set of cutlery to renew my old cutlery', null, 0, 2, 1, 3);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (15, 'Saucepan', 'A funny saucepan', null, 0, 3, 1, 3);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (16, 'Meat slicer', 'This is a meat slicer to slice my sausage', null, 0, 4, 1, 3);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (17, 'Sunglasses', 'Red sunglasses', null, 0, 1, 1, 4);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (18, 'Coat', 'Brown wool coat from Ireland', null, 0, 2, 1, 4);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (19, 'Controller', 'PC controller to play with my friends', null, 0, 3, 1, 4);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (20, 'Magnet', 'A true scitific magnet', null, 0, 4, 1, 4);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (21, 'Couch', 'If you want a make a great gift!', null, 0, 1, 1, 5);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (22, 'Wallet', 'Leather wallet', null, 0, 2, 1, 5);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (23, 'Leg warmers', 'For the cold nights of winter', null, 0, 3, 1, 5);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (24, 'Tissue box', 'A funny tissue box to but in my living room', null, 0, 4, 1, 5);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (25, 'Needle', 'I want to start sewing', null, 0, 1, 1, 6);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (26, 'Shovel', 'A great shovel I know this brand', null, 0, 2, 1, 6);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (27, '45-rpm player', 'Id love to listent to my old singles', null, 1, 3, 1, 6);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (28, 'A Beatles single', 'I just got a 45-rpm player.', null, 0, 4, 1, 6);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (29, 'Paint brush', 'A large brush please', null, 0, 1, 1, 7);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (30, 'Color pot', 'Famous brand it is a must have', null, 0, 2, 1, 7);\n",
-            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID) VALUES (31, 'Nail clippers', 'My nails are soooo long', null, 0, 3, 1, 7);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (1, 'Samsung Galaxy 20', 'Smartphone Android 5G', 'https://www.samsung.com/be_fr/smartphones/galaxy-s20/buy/', 1, 1, 2, 1, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (2, 'Cable ethernet', 'Cable ethernet de 10m', 'https://www.amazon.fr/Ethernet-Blindage-Compatible-Nintendo-Routeur/dp/B07DDH9RLK/ref=sr_1_3?keywords=cable+ethernet+10m&qid=1583517691&s=electronics&sr=1-3', 0, 1, 3, 2, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (3, 'Ballon', 'Ballon de Basket signé par Kobe Bryant', 'https://www.ebay.com/itm/Kobe-Bryant-Signed-Full-Size-Basketball-Autograph-Case-Beckett-BAS-LOA-Lakers/383441285983?hash=item5946e1b35f:g:R6IAAOSw1~BeWXDK', 0, 2, 4, 1, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (4, 'Name', 'Description', 'webLink', 0, 1, 1, -10, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (5, 'Football shirt', 'Football shirt of Axel Witsel with Belgian Red Devils', null, 0, 1, 1, 1, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (6, 'Tennis raquet', 'A babolat tennis raquet of size 3', null, 0, 2, 1, 1, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (7, 'Football ball', 'The original Jabulani ball from South Africa World Cup 2008', null, 0, 3, 1, 1, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (8, 'Football shoes', 'This new shoes are so insane!', null, 0, 4, 1, 1, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (9, 'Computer', 'If you want to be my new best friend here is the perfect gift', null, 0, 1, 1, 2, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (10, 'Pencil box', 'A pencil box to put away the pens Id like.', null, 0, 2, 1, 2, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (11, 'Pencils', 'Really high quality pencils', null, 0, 3, 1, 2, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (12, 'Sheet pad', 'That is a great sheet pad', null, 0, 4, 1, 2, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (13, 'Soup ladle', 'This superb soup ladle seams really great', null, 0, 1, 1, 3, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (14, 'Set of cutlery', 'Set of cutlery to renew my old cutlery', null, 0, 2, 1, 3, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (15, 'Saucepan', 'A funny saucepan', null, 0, 3, 1, 3, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (16, 'Meat slicer', 'This is a meat slicer to slice my sausage', null, 0, 4, 1, 3, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (17, 'Sunglasses', 'Red sunglasses', null, 0, 1, 1, 4, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (18, 'Coat', 'Brown wool coat from Ireland', null, 0, 2, 1, 4, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (19, 'Controller', 'PC controller to play with my friends', null, 0, 3, 1, 4, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (20, 'Magnet', 'A true scitific magnet', null, 0, 4, 1, 4, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (21, 'Couch', 'If you want a make a great gift!', null, 0, 1, 1, 5, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (22, 'Wallet', 'Leather wallet', null, 0, 2, 1, 5, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (23, 'Leg warmers', 'For the cold nights of winter', null, 0, 3, 1, 5, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (24, 'Tissue box', 'A funny tissue box to but in my living room', null, 0, 4, 1, 5, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (25, 'Needle', 'I want to start sewing', null, 0, 1, 1, 6, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (26, 'Shovel', 'A great shovel I know this brand', null, 0, 2, 1, 6, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (27, '45-rpm player', 'Id love to listent to my old singles', null, 1, 3, 1, 6, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (28, 'A Beatles single', 'I just got a 45-rpm player.', null, 0, 4, 1, 6, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (29, 'Paint brush', 'A large brush please', null, 0, 1, 1, 7, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (30, 'Color pot', 'Famous brand it is a must have', null, 0, 2, 1, 7, 0);\n",
+            "INSERT INTO Products (productID, name, description, link, purchased, position, quantity, wishlistID, rating) VALUES (31, 'Nail clippers', 'My nails are soooo long', null, 0, 3, 1, 7, 0);\n",
 
             "INSERT INTO User (userID, firstname, lastname, username, email, password, address, fav_color, shoe_size, trouser_size, tshirt_size, privacy) VALUES (1, 'firstnameDemo', 'lastnameDemo', 'usernameDemo', 'user', 'user', 'Street, ZIP, City', 'Red', 41, 'S', 'M', 0);\n",
             "INSERT INTO User (userID, firstname, lastname, username, email, password, address, fav_color, shoe_size, trouser_size, tshirt_size, privacy) VALUES (2, 'Gia', 'Cortes', 'giacortes', 'giacortes@mail.com', 'gia', 'Gia Street, 9464, LA', 'Red', 40, 'M', 'L', 0);\n",
