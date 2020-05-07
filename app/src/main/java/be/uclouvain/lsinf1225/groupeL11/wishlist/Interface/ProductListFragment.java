@@ -92,7 +92,7 @@ public class ProductListFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         if(productDAO.delete(products.get(position).getId())) {
                             products.remove(position);
-                            productItemAdapter.notifyDataSetChanged();
+                            productItemAdapter.notifyItemRemoved(position);
                         }
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -136,16 +136,17 @@ public class ProductListFragment extends Fragment {
                 View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_item, (ViewGroup) getView(), false);
                 final EditText itemName = viewInflated.findViewById(R.id.new_item_name);
                 final EditText itemQuantity = viewInflated.findViewById(R.id.new_item_quantity);
+                final EditText itemWebLink = viewInflated.findViewById(R.id.new_item_web_link);
                 builder.setView(viewInflated)
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Product newProduct = new Product(itemName.getText().toString(), Integer.parseInt(itemQuantity.getText().toString()));
+                                Product newProduct = new Product(itemName.getText().toString(), Integer.parseInt(itemQuantity.getText().toString()), itemWebLink.getText().toString(), products.size());
                                 wishList.addProduct(newProduct);
+                                productDAO.create(newProduct);
                                 wishListDAO.addProduct(wishList, newProduct);
                                 products.add(newProduct);
-                                productDAO.create(newProduct);
-                                productItemAdapter.notifyDataSetChanged();
+                                productItemAdapter.notifyItemInserted(newProduct.position);
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override

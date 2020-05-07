@@ -19,12 +19,12 @@ public class Product implements Parcelable {
     }
 
     public Product(String productName, int quantity, String link, int position){
-        name = productName;
-        quantity = quantity;
-        link = link;
-        position = position;
-        description = "";
-        purchased = 0;
+        this.name = productName;
+        this.quantity = quantity;
+        this.link = link;
+        this.position = position;
+        this.description = " ";
+        this.purchased = 0;
         id = -1;
     }
 
