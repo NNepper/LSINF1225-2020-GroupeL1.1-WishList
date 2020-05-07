@@ -366,8 +366,6 @@ public class UserDAO extends MyDatabaseHelper {
             byte[] temp = cursor.getBlob(1);
 
             Bitmap image = BitmapFactory.decodeByteArray(temp, 0 ,temp.length);
-            image = getRoundedShape(image);
-
             return image;
         } catch (Exception e) {
             Log.d("SQL", "error while getting image");
@@ -377,30 +375,6 @@ public class UserDAO extends MyDatabaseHelper {
         finally {
             db.endTransaction();
         }
-    }
-
-    public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
-        int targetWidth = 50;
-        int targetHeight = 50;
-        Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
-                targetHeight,Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(targetBitmap);
-        Path path = new Path();
-        path.addCircle(((float) targetWidth - 1) / 2,
-                ((float) targetHeight - 1) / 2,
-                (Math.min(((float) targetWidth),
-                        ((float) targetHeight)) / 2),
-                Path.Direction.CCW);
-
-        canvas.clipPath(path);
-        Bitmap sourceBitmap = scaleBitmapImage;
-        canvas.drawBitmap(sourceBitmap,
-                new Rect(0, 0, sourceBitmap.getWidth(),
-                        sourceBitmap.getHeight()),
-                new Rect(0, 0, targetWidth,
-                        targetHeight), null);
-        return targetBitmap;
     }
 
 
