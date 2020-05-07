@@ -34,7 +34,7 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class ProfileFragment extends Fragment {
 
-    private TextView usernameTextView, emailTextView, addressTextView;
+    private TextView usernameTextView, addressTextView;
     private ImageView logOut, confirm, followRequestNotification;
     private Switch privacySwitch;
     private User mainUser;
@@ -57,9 +57,6 @@ public class ProfileFragment extends Fragment {
 
         usernameTextView = view.findViewById(R.id.profileUsername);
         usernameTextView.setText(mainUser.username);
-
-        emailTextView = view.findViewById(R.id.profileEmail);
-        emailTextView.setText(mainUser.email);
 
         addressTextView = view.findViewById(R.id.profileAddress);
         addressTextView.setText(mainUser.address);
@@ -255,7 +252,6 @@ public class ProfileFragment extends Fragment {
         if(shoeSizeChanged != 0 && mainUser.shoeSize != shoeSizeChanged) mainUser.shoeSize = shoeSizeChanged;
         if(colorChanged != null && mainUser.color.compareTo(colorChanged) != 0) mainUser.color = colorChanged;
         if(mainUser.username.compareTo(usernameTextView.getText().toString()) != 0) mainUser.username = usernameTextView.getText().toString();
-        if(mainUser.email.compareTo(emailTextView.getText().toString()) != 0) mainUser.email = emailTextView.getText().toString();
         if(mainUser.address.compareTo(addressTextView.getText().toString()) != 0) mainUser.address = addressTextView.getText().toString();
         userDAO.update(mainUser);
     }
