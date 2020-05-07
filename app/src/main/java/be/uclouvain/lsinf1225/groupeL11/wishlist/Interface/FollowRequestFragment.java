@@ -22,13 +22,13 @@ import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.SearchUsersResultAdapter;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.FollowRequestAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class FollowRequestFragment extends Fragment {
 
     private RecyclerView followRequestListRecyclerView;
-    private SearchUsersResultAdapter followRequestListAdapter;
+    private FollowRequestAdapter followRequestListAdapter;
     private RecyclerView.LayoutManager followRequestListLayoutManager;
     private User mainUser;
     private TextView disableNoMatch;
@@ -43,12 +43,11 @@ public class FollowRequestFragment extends Fragment {
         final FollowDAO[] followDAO = {new FollowDAO(getContext())};
         final ArrayList<User> followRequest = followDAO[0].getPending(mainUser);
         final View view = inflater.inflate(R.layout.fragment_follow_request, container, false);
-        this.backArrow = (ImageView) view.findViewById(R.id.search_users_back_arrow);
 
         followRequestListRecyclerView = view.findViewById(R.id.follow_request_recycler_view);
         followRequestListRecyclerView.setHasFixedSize(true);
         followRequestListLayoutManager = new LinearLayoutManager(view.getContext());
-        followRequestListAdapter = new SearchUsersResultAdapter(followRequest);
+        followRequestListAdapter = new FollowRequestAdapter(followRequest);
 
         if (followRequest.size() != 0) {
             this.disableNoMatch= view.findViewById(R.id.noRequest);
@@ -74,14 +73,14 @@ public class FollowRequestFragment extends Fragment {
         followRequestListRecyclerView.setLayoutManager(followRequestListLayoutManager);
         followRequestListRecyclerView.setAdapter(followRequestListAdapter);
 
-        followRequestListAdapter.setOnItemClickLister(new SearchUsersResultAdapter.onItemClickListener() { // set the on click listener for the card inside the recycler view
+        followRequestListAdapter.setOnItemClickLister(new FollowRequestAdapter.onItemClickListener() { // set the on click listener for the card inside the recycler view
             @Override
             public void onItemClick(int position) {
                 // TODO show follow profile ?
             }
 
             @Override
-            public void onAddClick(final int position) {
+            public void onAcceptClick(final int position) {
                 // Dialog to accept a follow
                 AlertDialog.Builder acceptFollowDialog = new AlertDialog.Builder(getContext());
                 acceptFollowDialog.setTitle("Accept follow");
