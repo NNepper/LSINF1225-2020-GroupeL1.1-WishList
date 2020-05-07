@@ -146,8 +146,8 @@ public class HomeActivity extends AppCompatActivity {
 
     //crop image imported from gallery
     public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
-        int targetWidth = 50;
-        int targetHeight = 50;
+        int targetWidth = 500;
+        int targetHeight = 500;
         Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
                 targetHeight,Bitmap.Config.ARGB_8888);
 
