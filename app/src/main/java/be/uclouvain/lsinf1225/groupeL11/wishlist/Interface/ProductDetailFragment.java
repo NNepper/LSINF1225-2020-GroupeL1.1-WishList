@@ -39,13 +39,6 @@ public class ProductDetailFragment extends Fragment {
         title.setText(product.name);
 
         ImageView picture = view.findViewById(R.id.product_details_picture);
-        if (productDAO.checkImage(product.getId())){
-            Bitmap image = productDAO.getImage(product.getId());
-            picture.setImageBitmap(image);
-        }
-        else {
-            picture = view.findViewById(R.id.profilePic);
-        }
         picture.setOnClickListener(new View.OnClickListener() {
             private static final int RESULT_LOAD_IMG = 2;
             @Override
@@ -56,6 +49,13 @@ public class ProductDetailFragment extends Fragment {
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
             }
         });
+        if (productDAO.checkImage(product.getId())){
+            Bitmap image = productDAO.getImage(product.getId());
+            picture.setImageBitmap(image);
+        }
+        else {
+            picture = view.findViewById(R.id.profilePic);
+        }
 
         TextView description = view.findViewById(R.id.product_details_description);
         description.setText(product.description);
