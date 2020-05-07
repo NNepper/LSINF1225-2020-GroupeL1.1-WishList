@@ -75,8 +75,8 @@ public class ProductDetailFragment extends Fragment {
             submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    product.rating = (int) ratings.getRating();
-                    ratings.setRating((float) product.rating);
+                    product.rating = ratings.getRating();
+                    ratings.setRating( product.rating);
                     if(productDAO.update(product)){
                         CharSequence text = "Ratings updated";
                         int duration = Toast.LENGTH_SHORT;
