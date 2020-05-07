@@ -51,6 +51,7 @@ public class ProductDetailFragment extends Fragment {
         if (productDAO.checkImage(product.getId())){
             Bitmap image = productDAO.getImage(product.getId());
             picture.setImageBitmap(image);
+            picture.setBackground(null);
         }
         else {
             picture = view.findViewById(R.id.profilePic);
