@@ -83,17 +83,15 @@ public class WishList implements Parcelable {
 
     public Product getProduct(int i) { return this.products.get(i); }
 
-    public boolean removeProduct(Product product) {
-        // ProductDAO.delete(this); TODO ne fonctionne pas car delete n'est pas static
-        return this.products.remove(product);
+    public void reorder(int fromPosition, int toPosition){
+
     }
 
-    public Map<String, Object> getWishListInfos() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("wishlist name", this.name);
-        data.put("wishlist description", this.description);
-        sortProductsByPosition();
-        data.put("products", this.products);
-        return data;
+    private void upItem(){
+
+    }
+
+    private void downItem(){
+
     }
 }

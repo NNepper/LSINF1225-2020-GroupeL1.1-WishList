@@ -142,7 +142,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         String quantityStr = "Quantity: " + currentProduct.quantity;
         holder.quantity.setText(quantityStr);
 
-        holder.handleRelLayout.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             private Vibrator vibe = (Vibrator) context.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
             @Override
             public boolean onLongClick(View v) {
