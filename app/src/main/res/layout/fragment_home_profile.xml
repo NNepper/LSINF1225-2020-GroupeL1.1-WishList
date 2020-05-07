@@ -50,32 +50,15 @@
                 android:layout_marginEnd="31dp"
                 android:background="@drawable/custom_profile_info_bar"
                 android:maxLines="1"
-                android:nextFocusDown="@id/profileEmail"
-                android:paddingStart="10dp"
-                android:text="@string/profileViewUsername" />
-
-            <EditText
-                android:id="@+id/profileEmail"
-                android:layout_width="310dp"
-                android:layout_height="50dp"
-                android:layout_below="@+id/profileUsername"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="31dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/custom_profile_info_bar"
-                android:maxLines="1"
                 android:nextFocusDown="@id/profileAddress"
                 android:paddingStart="10dp"
-                android:text="@string/profileViewEmail" />
+                android:text="@string/profileViewUsername" />
 
             <EditText
                 android:id="@+id/profileAddress"
                 android:layout_width="310dp"
                 android:layout_height="100dp"
-                android:layout_below="@+id/profileEmail"
+                android:layout_below="@+id/profileUsername"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
@@ -101,41 +84,41 @@
                 android:popupBackground="@android:color/transparent"
                 android:spinnerMode="dropdown" />
 
-            <RelativeLayout
-                android:id="@+id/relLayTshirtTrouser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+            <Spinner
+                android:id="@+id/profileSpinnerTshirtSize"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp"
                 android:layout_below="@+id/profileSpinnerShoeSize"
-                android:layout_marginTop="20dp">
+                android:background="@drawable/custom_profile_info_bar"
+                android:spinnerMode="dropdown"
+                android:popupBackground="@android:color/transparent"/>
 
-                <Spinner
-                    android:id="@+id/profileSpinnerTshirtSize"
-                    android:layout_width="140dp"
-                    android:layout_height="75dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="31dp"
-                    android:background="@drawable/custom_profile_info_bar"
-                    android:spinnerMode="dropdown"
-                    android:popupBackground="@android:color/transparent"/>
-
-                <Spinner
-                    android:id="@+id/profileSpinnerTrouserSize"
-                    android:layout_width="140dp"
-                    android:layout_height="75dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="31dp"
-                    android:layout_marginBottom="0dp"
-                    android:background="@drawable/custom_profile_info_bar"
-                    android:spinnerMode="dropdown"
-                    android:popupBackground="@android:color/transparent"/>
-
-            </RelativeLayout>
+            <Spinner
+                android:id="@+id/profileSpinnerTrouserSize"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="0dp"
+                android:layout_below="@+id/profileSpinnerTshirtSize"
+                android:background="@drawable/custom_profile_info_bar"
+                android:spinnerMode="dropdown"
+                android:popupBackground="@android:color/transparent"/>
 
             <Spinner
                 android:id="@+id/profileSpinnerColor"
                 android:layout_width="140dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/relLayTshirtTrouser"
+                android:layout_below="@+id/profileSpinnerTrouserSize"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="31dp"
