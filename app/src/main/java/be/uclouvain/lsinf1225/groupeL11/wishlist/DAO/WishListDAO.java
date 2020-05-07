@@ -168,8 +168,24 @@ public class WishListDAO extends MyDatabaseHelper{
     }
 
     public boolean update(WishList wishList){
-        //TODO update name descritpion
-        return true;
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(WISHLIST_NAME, wishList.name);
+            values.put(WISHLIST_DESC, wishList.description);
+
+            db.update(WISHLIST_TABLE, values, WISHLIST_ID + "=" + wishList.getId(), null);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", "Error while trying to update WishList");
+            return false;
+        } finally {
+            db.endTransaction();
+        }
     }
 
     public boolean addProduct(WishList wishList, Product prod){
