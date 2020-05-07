@@ -226,6 +226,7 @@ public class ProductListFragment extends Fragment {
 
     private ItemTouchHelper.SimpleCallback createSimpleCallBack(final ArrayList<Product> products){
         return new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
 

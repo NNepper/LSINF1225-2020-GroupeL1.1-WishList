@@ -40,13 +40,12 @@ public class ProductDetailFragment extends Fragment {
 
         ImageView picture = view.findViewById(R.id.product_details_picture);
         picture.setOnClickListener(new View.OnClickListener() {
-            private static final int RESULT_LOAD_IMG = 2;
+
             @Override
             public void onClick(View v) {
-
+                ((HomeActivity) getActivity()).prodID = product.getId();
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.putExtra("prodID", product.getId());
-                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+                startActivityForResult(photoPickerIntent, 1);
             }
         });
         if (productDAO.checkImage(product.getId())){
