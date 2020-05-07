@@ -375,11 +375,7 @@ public class UserDAO extends MyDatabaseHelper {
         }
     }
 
-    /*
-TODO
-    * Si set = true -> ajoute l'intéret
-    * Si set = false -> retire l'intéret
-    * */
+
     public boolean setInterest(User main, Interest interest, boolean set){
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
