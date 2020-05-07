@@ -73,7 +73,7 @@ public class ProductDAO extends MyDatabaseHelper {
             return prod.getId();
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
-            return false;
+            return -1;
         } finally {
             db.endTransaction();
         }
