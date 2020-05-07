@@ -41,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     private Bundle data;
     public User mainUser;
     public ArrayList<User> searchUsersResult;
+    public int prodID = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == 1) {
+        if (prodID == -1) {
             UserDAO userDAO = new UserDAO(getApplicationContext());
             try {
                 final Uri imageUri = data.getData();
@@ -99,22 +100,21 @@ public class HomeActivity extends AppCompatActivity {
         }
         else {
             ProductDAO prodDAO = new ProductDAO(getApplicationContext());
-            int prodID = data.getExtras().getInt("prodID");
             try {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                final Bitmap image = getRoundedShape(selectedImage);
                 if (prodDAO.checkImage(prodID)) {
-                    prodDAO.changeImage(prodID, image);
+                    prodDAO.changeImage(prodID, selectedImage);
                 } else {
-                    prodDAO.createImage(prodID, image);
+                    prodDAO.createImage(prodID, selectedImage);
                 }
                 ImageView img= (ImageView) findViewById(R.id.product_details_picture);
-                img.setImageBitmap(image);
+                img.setImageBitmap(selectedImage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+            prodID = -1;
         }
     }
 

@@ -229,10 +229,11 @@ public class ProfileFragment extends Fragment {
         }
         this.profilePicture.setOnClickListener(new View.OnClickListener() {
 
+
             @Override
             public void onClick(View v) {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+                startActivityForResult(photoPickerIntent, 1);
             }
         });
         this.interestButton = view.findViewById(R.id.my_interests_button);
