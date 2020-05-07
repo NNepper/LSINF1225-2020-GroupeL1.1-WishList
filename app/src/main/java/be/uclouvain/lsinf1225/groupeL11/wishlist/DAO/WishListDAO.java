@@ -173,8 +173,30 @@ public class WishListDAO extends MyDatabaseHelper{
     }
 
     public boolean addProduct(WishList wishList, Product prod){
-        //TODO add Product to wishList
-        return true;
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            ContentValues val = new ContentValues();
+
+            val.put(PROD_NAME, prod.name);
+            val.put(PROD_DESC, prod.description);
+            val.put(PROD_LINK, prod.link);
+            val.put(PROD_POSITION, prod.position);
+            val.put(PROD_PURCHASSED, prod.purchased);
+            val.put(PROD_QUANTITY, prod.quantity);
+            val.put(PROD_WISHLIST, wishList.getId());
+
+            int rows = (int) db.insert(PRODUCT_TABLE, null, val);
+            prod.setId(rows);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return false;
+        } finally {
+            db.endTransaction();
+        }
     }
 
 }
