@@ -1,6 +1,7 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.google.android.material.internal.VisibilityAwareImageButton;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListItemHolder> {
@@ -126,8 +128,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void onBindViewHolder(@NonNull final ProductListAdapter.ProductListItemHolder holder, final int position) {
         Product currentProduct = products.get(position);
-        //TODO: change picture ?
-        //holder.picture.setImageBitmap(bm); --> bm must be the picture
+        ProductDAO productDAO = new ProductDAO(context);
+
+        if (productDAO.checkImage(currentProduct.getId())){
+            Bitmap image = productDAO.getImage(currentProduct.getId());
+            holder.picture.setImageBitmap(image);
+        }
 
         if(currentProduct.purchased == 1){
             holder.checkBox.setChecked(true);
