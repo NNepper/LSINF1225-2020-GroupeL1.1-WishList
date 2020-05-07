@@ -53,12 +53,12 @@ public class ProductDetailFragment extends Fragment {
         TextView link = view.findViewById(R.id.product_details_link);
         link.setText(product.link);
 
-        RatingBar ratings = view.findViewById(R.id.product_details_ratings);
+        final RatingBar ratings = view.findViewById(R.id.product_details_ratings);
         ImageView submit = view.findViewById(R.id.product_details_submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                product.rating = ratings.getRating();
+                product.rating = (int) ratings.getRating();
                 if(! productDAO.update(product)){
                     CharSequence text = "Error DB update";
                     int duration = Toast.LENGTH_SHORT;
