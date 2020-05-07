@@ -1,5 +1,7 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +39,22 @@ public class ProductDetailFragment extends Fragment {
 
         ImageView picture = view.findViewById(R.id.product_details_picture);
         picture.setOnClickListener(new View.OnClickListener() {
+            private static final int RESULT_LOAD_IMG = 2;
             @Override
             public void onClick(View v) {
-                //TODO set picture
+
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.putExtra("prodID", product.getId());
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
             }
         });
+        if (productDAO.checkImage(product.getId())){
+            Bitmap image = productDAO.getImage(product.getId());
+            picture.setImageBitmap(image);
+        }
+        else {
+            picture = view.findViewById(R.id.profilePic);
+        }
 
         TextView description = view.findViewById(R.id.product_details_description);
         description.setText(product.description);
