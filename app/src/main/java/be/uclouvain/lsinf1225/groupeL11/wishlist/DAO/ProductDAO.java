@@ -4,8 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
@@ -171,6 +174,107 @@ public class ProductDAO extends MyDatabaseHelper {
             Log.d("SQL", e.getMessage());
             return null;
         } finally {
+            db.endTransaction();
+        }
+    }
+
+    public Boolean createImage(int ID, Bitmap image){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        byte[] bArray = bos.toByteArray();
+
+        try {
+            ContentValues values = new ContentValues();
+
+
+            values.put(PHI_ID, ID);
+            values.put(PHI_IMAGE, bArray);
+
+            db.insert(PHI_TABLE, null, values);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", "Error while trying to add image");
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public Boolean changeImage(int ID, Bitmap image){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        byte[] bArray = bos.toByteArray();
+
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(PHI_ID, ID);
+            values.put(PHI_IMAGE, bArray);
+
+            db.update(PHI_TABLE, values, PHI_ID + "=" + ID, null);
+            db.setTransactionSuccessful();
+            return true;
+        } catch (Exception e) {
+            Log.d("SQL", "Error while trying to add image");
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public Boolean checkImage(int ID){
+        Bitmap image = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+            String getQuery = "SELECT * FROM Product_has_image phi WHERE phi.productID == '" + ID + "'";
+            Cursor cursor = db.rawQuery(getQuery, null);
+            db.setTransactionSuccessful();
+
+            if(cursor.getCount() > 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (Exception e) {
+            Log.d("SQL", e.getMessage());
+            return false;
+        }
+        finally {
+            db.endTransaction();
+        }
+    }
+
+    public Bitmap getImage(int ID){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+            String getQuery = "SELECT * FROM Product_has_image phi WHERE phi.productID == '" + ID + "'";
+            Cursor cursor = db.rawQuery(getQuery, null);
+            cursor.moveToFirst();
+
+            byte[] temp = cursor.getBlob(1);
+
+            Bitmap image = BitmapFactory.decodeByteArray(temp, 0 ,temp.length);
+            return image;
+        } catch (Exception e) {
+            Log.d("SQL", "error while getting image");
+            Log.d("SQL", e.getMessage());
+            return null;
+        }
+        finally {
             db.endTransaction();
         }
     }
