@@ -122,7 +122,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "    position    INTEGER," +
             "    quantity    INTEGER," +
             "    wishlistID  INTEGER," +
-            "    rating      INTEGER" +
+            "    rating      FLOAT   " +
             ");";
 
     private static final String CREATE_INTERESTS = "CREATE TABLE Interests (" +
