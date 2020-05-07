@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.FollowDAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
@@ -40,8 +41,6 @@ public class HomeActivity extends AppCompatActivity {
     private Bundle data;
     public User mainUser;
     public ArrayList<User> searchUsersResult;
-
-    private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +78,9 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UserDAO userDAO = new UserDAO(getApplicationContext());
 
-        if (resultCode == RESULT_OK) {
+        if (resultCode == 1) {
+            UserDAO userDAO = new UserDAO(getApplicationContext());
             try {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
@@ -93,7 +92,26 @@ public class HomeActivity extends AppCompatActivity {
                     userDAO.createImage(mainUser, image);
                 }
                 ImageView img= (ImageView) findViewById(R.id.profilePic);
-                img.setImageBitmap(image);            
+                img.setImageBitmap(image);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            ProductDAO prodDAO = new ProductDAO(getApplicationContext());
+            int prodID = data.getExtras().getInt("prodID");
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                final Bitmap image = getRoundedShape(selectedImage);
+                if (prodDAO.checkImage(prodID)) {
+                    prodDAO.changeImage(prodID, image);
+                } else {
+                    prodDAO.createImage(prodID, image);
+                }
+                ImageView img= (ImageView) findViewById(R.id.product_details_picture);
+                img.setImageBitmap(image);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
