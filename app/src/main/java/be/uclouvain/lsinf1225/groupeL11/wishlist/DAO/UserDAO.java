@@ -393,7 +393,7 @@ TODO
             if (set){
                 db.insert(UHI_TABLE, null, values);
             } else {
-                db.update(UHI_TABLE, values, UHI_USERID + " = " + main.getId() + " AND " + UHI_ID + " = " + interest.getId(), null);
+                db.delete(UHI_TABLE, UHI_USERID + " = " + main.getId() + " AND " + UHI_ID + " = " + interest.getId(), null);
             }
 
             db.setTransactionSuccessful();
