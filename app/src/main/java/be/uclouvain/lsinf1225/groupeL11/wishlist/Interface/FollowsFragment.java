@@ -53,7 +53,7 @@ public class FollowsFragment extends Fragment {
         followListRecyclerView = view.findViewById(R.id.follow_list_recycler_view);
         followListRecyclerView.setHasFixedSize(true);
         followListLayoutManager = new LinearLayoutManager(view.getContext());
-        followListAdapter = new FollowListAdapter(followList);
+        followListAdapter = new FollowListAdapter(followList, getContext());
 
         followListRecyclerView.setLayoutManager(followListLayoutManager);
         followListRecyclerView.setAdapter(followListAdapter);
