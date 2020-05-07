@@ -2,6 +2,7 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -133,6 +134,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         if (productDAO.checkImage(currentProduct.getId())){
             Bitmap image = productDAO.getImage(currentProduct.getId());
             holder.picture.setImageBitmap(image);
+            holder.picture.setBackground(null);
         }
 
         if(currentProduct.purchased == 1){
