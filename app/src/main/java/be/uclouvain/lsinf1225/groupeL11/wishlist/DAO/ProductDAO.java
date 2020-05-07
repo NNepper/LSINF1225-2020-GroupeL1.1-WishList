@@ -51,7 +51,7 @@ public class ProductDAO extends MyDatabaseHelper {
         }
     }
 
-    public boolean create(Product prod){
+    public int create(Product prod){
         SQLiteDatabase db = getWritableDatabase();
 
         db.beginTransaction();
@@ -70,10 +70,10 @@ public class ProductDAO extends MyDatabaseHelper {
             prod.setId(rows);
 
             db.setTransactionSuccessful();
-            return true;
+            return prod.getId();
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
-            return false;
+            return -1;
         } finally {
             db.endTransaction();
         }
