@@ -110,4 +110,18 @@
 
     </ScrollView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/product_details_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:scaleType="center"
+        app:backgroundTint="@color/primary"
+        app:backgroundTintMode="src_in"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_mode_edit_black_24dp" />
+
 </RelativeLayout>

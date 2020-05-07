@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ScrollView android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/product_edit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit product"
+                android:textSize="40sp"
+                android:textColor="@color/green_border"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="20dp"
+                />
+
+            <EditText
+                android:id="@+id/product_edit_name"
+                android:layout_width="300dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="50dp"
+                android:background="@drawable/edit_round_input_text"
+                android:layout_below="@id/product_edit_title"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:hint="Product name"
+                android:textColor="@color/green_border"
+                android:maxLines="1"
+                android:inputType="text"
+                android:nextFocusDown="@id/product_edit_description"/>
+
+            <EditText
+                android:id="@+id/product_edit_description"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="50dp"
+                android:background="@drawable/edit_round_input_text"
+                android:layout_below="@id/product_edit_name"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:hint="Product description"
+                android:textColor="@color/green_border"
+                android:maxLines="10"
+                android:inputType="text"
+                android:nextFocusDown="@id/product_edit_link"/>
+
+            <EditText
+                android:id="@+id/product_edit_link"
+                android:layout_width="300dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="50dp"
+                android:background="@drawable/edit_round_input_text"
+                android:layout_below="@id/product_edit_description"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:hint="Product link"
+                android:textColor="@color/green_border"
+                android:maxLines="1"
+                android:inputType="text"
+                android:nextFocusDown="@id/newprofile_lastname"/>
+
+            <EditText
+                android:id="@+id/product_edit_quantity"
+                android:layout_width="300dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="50dp"
+                android:background="@drawable/edit_round_input_text"
+                android:layout_below="@id/product_edit_link"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:hint="Product quantity"
+                android:textColor="@color/green_border"
+                android:maxLines="1"
+                android:inputType="phone"/>
+
+            <Button
+                android:id="@+id/newprofile_submit"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/product_edit_quantity"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/custom_red_button"
+                android:text="SUBMIT"
+                android:textColor="@color/red_border"
+                />
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

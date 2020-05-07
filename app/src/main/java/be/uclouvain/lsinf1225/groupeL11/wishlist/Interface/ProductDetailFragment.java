@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
@@ -71,6 +73,7 @@ public class ProductDetailFragment extends Fragment {
         ratings.setRating((float) product.rating);
 
         ImageView submit = view.findViewById(R.id.product_details_submit);
+        FloatingActionButton edit = view.findViewById(R.id.product_details_edit);
         if(isMainUser){
             submit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,9 +97,22 @@ public class ProductDetailFragment extends Fragment {
 
                 }
             });
+
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle data = new Bundle();
+                    data.putInt("productID", product.getId());
+
+                    Fragment productEdit = new ProductEditFragment();
+                    productEdit.setArguments(data);
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container,productEdit).addToBackStack(null).commit();
+                }
+            });
         }
         else{
             submit.setVisibility(View.GONE);
+            edit.setVisibility(View.GONE);
         }
 
         return view;
