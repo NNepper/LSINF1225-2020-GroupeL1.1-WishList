@@ -1,9 +1,7 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Backend;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
-public class Product implements Parcelable {
+public class Product {
     private int id;
     public String name;
     public String description;
@@ -11,7 +9,7 @@ public class Product implements Parcelable {
     public int position;
     public int purchased;
     public int quantity;
-    public int rating;
+    public float rating;
 
     public WishList wishlist;
 
@@ -30,28 +28,6 @@ public class Product implements Parcelable {
         this.rating = 0;
     }
 
-    protected Product(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        description = in.readString();
-        link = in.readString();
-        position = in.readInt();
-        purchased = in.readInt();
-        quantity = in.readInt();
-        wishlist = in.readParcelable(WishList.class.getClassLoader());
-    }
-
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel in) {
-            return new Product(in);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
 
     public void setId(int id){ this.id = id; }
 
@@ -84,20 +60,5 @@ public class Product implements Parcelable {
         setQuantity(quantity);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeString(description);
-        dest.writeString(link);
-        dest.writeInt(position);
-        dest.writeInt(purchased);
-        dest.writeInt(quantity);
-        dest.writeParcelable(wishlist, flags);
-    }
 }

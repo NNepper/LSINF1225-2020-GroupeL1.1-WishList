@@ -13,7 +13,7 @@ import java.util.Map;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.*;
 
-public class User implements Parcelable {
+public class User {
     public int id;
     public String firstname;
     public String lastname;
@@ -90,45 +90,15 @@ public class User implements Parcelable {
         this.wishlists = null;
     }
 
-    protected User(Parcel in) {
-        id = in.readInt();
-        firstname = in.readString();
-        lastname = in.readString();
-        email = in.readString();
-        password = in.readString();
-        username = in.readString();
-        color = in.readString();
-        tshirtSize = in.readString();
-        trouserSize = in.readString();
-        shoeSize = in.readInt();
-        address = in.readString();
-        privacy = in.readInt();
-        interests = in.createTypedArrayList(Interest.CREATOR);
-        following = in.createTypedArrayList(User.CREATOR);
-        wishlists = in.createTypedArrayList(WishList.CREATOR);
-    }
 
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
 
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
 
     public int getId() { return this.id; }
 
     public void setId(int id){ this.id = id; }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+
 
     public String getPassword() { return this.password; }
 
@@ -136,40 +106,5 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(firstname);
-        dest.writeString(lastname);
-        dest.writeString(email);
-        dest.writeString(password);
-        dest.writeString(username);
-        dest.writeString(color);
-        dest.writeString(tshirtSize);
-        dest.writeString(trouserSize);
-        dest.writeInt(shoeSize);
-        dest.writeInt(privacy);
-        dest.writeTypedList(interests);
-        dest.writeTypedList(following);
-        dest.writeTypedList(wishlists);
-    }
-
-
-
-
-
-    /**
-    public void askFollow(User followed) {
-        if (this.getPrivacy()) {
-            UserDAO.addFollow(this, followed, false);
-        } else {
-            UserDAO.addFollow(this, followed, true);
-        }
-    }
-    public void acceptFollow(User toAccept) {
-        UserDAO.setFollow(toAccept, this, true);
-    }
-     **/
 }
 

@@ -42,6 +42,7 @@ public class ProductDAO extends MyDatabaseHelper {
                     prod.purchased = cursor.getInt(4);
                     prod.position = cursor.getInt(5);
                     prod.quantity = cursor.getInt(6);
+                    prod.rating = cursor.getFloat(8);
 
                     prodList.add(prod);
                     cursor.moveToNext();
@@ -112,6 +113,7 @@ public class ProductDAO extends MyDatabaseHelper {
             values.put(PROD_POSITION, product.position);
             values.put(PROD_PURCHASSED, product.purchased);
             values.put(PROD_QUANTITY, product.quantity);
+            values.put(PROD_RATING, product.rating);
 
             db.update(PRODUCT_TABLE, values, PRODUCT_ID + "=" + product.getId(), null);
             db.setTransactionSuccessful();
@@ -165,7 +167,7 @@ public class ProductDAO extends MyDatabaseHelper {
                 prod.purchased = cursor.getInt(4);
                 prod.position = cursor.getInt(5);
                 prod.quantity = cursor.getInt(6);
-                prod.rating = cursor.getInt(7);
+                prod.rating = cursor.getFloat(8);
             }
             db.setTransactionSuccessful();
             return prod;
