@@ -1,8 +1,10 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,11 +144,13 @@ public class ProductListFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Product newProduct = new Product(itemName.getText().toString(), Integer.parseInt(itemQuantity.getText().toString()), itemWebLink.getText().toString(), products.size());
-                                wishList.addProduct(newProduct);
-                                productDAO.create(newProduct);
-                                wishListDAO.addProduct(wishList, newProduct);
-                                products.add(newProduct);
-                                productItemAdapter.notifyItemInserted(newProduct.position);
+                                newProduct.wishlist = wishList;
+                                if (productDAO.create(newProduct)){
+                                    products.add(newProduct);
+                                    productItemAdapter.notifyItemInserted(newProduct.position);
+                                }else{
+                                   showToast("Error while trying to create a new item");
+                                }
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -196,5 +200,11 @@ public class ProductListFragment extends Fragment {
             editWishlistNameButton.setVisibility(View.VISIBLE);
         }
         isOpen = !isOpen;
+    }
+
+    private void showToast(String stringToShow){
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getContext(), stringToShow, duration);
+        toast.show();
     }
 }
