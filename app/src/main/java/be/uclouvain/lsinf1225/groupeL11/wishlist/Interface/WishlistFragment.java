@@ -108,6 +108,10 @@ public class WishlistFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 WishList newWishList = new WishList(wishListName.getText().toString(), wishlistDescription.getText().toString()); //create new wishlist with the given name
+                                if (newWishList.name.length() == 0 || newWishList.description.length() == 0) {
+                                    showToast("You have to specify a name and a description");
+                                    return;
+                                }
                                 if(wishListDAO.create(newWishList, mainUser)){
                                     Log.d("Yepp", "Yes sir");
                                     Log.d("newWishlistDescription", newWishList.description);
@@ -135,5 +139,10 @@ public class WishlistFragment extends Fragment {
         return view;
     }
 
+    private void showToast(String stringToShow){
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getContext(), stringToShow, duration);
+        toast.show();
+    }
 
 }
