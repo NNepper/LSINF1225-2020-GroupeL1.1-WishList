@@ -8,4 +8,5 @@
     <string name="users_search_result">Users search result</string>
     <string name="noFollowRequest"/>
     <string name="choose_interests">Choose interests</string>
+    <string name="wishlist_description_text">Wishlist description</string>
 </resources>

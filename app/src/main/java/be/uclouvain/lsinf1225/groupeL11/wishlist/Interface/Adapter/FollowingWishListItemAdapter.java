@@ -27,12 +27,13 @@ public class FollowingWishListItemAdapter extends RecyclerView.Adapter<Following
     }
 
     public static class WishlistViewHolder extends RecyclerView.ViewHolder{
-
+        public TextView wishlistDescription;
         public TextView wishlistName;
 
         public WishlistViewHolder(@NonNull View itemView, final onItemClickListener listener) {
             super(itemView);
             wishlistName = itemView.findViewById(R.id.follow_wishlist_name);
+            wishlistDescription = itemView.findViewById(R.id.follow_wishlist_description);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -61,7 +62,7 @@ public class FollowingWishListItemAdapter extends RecyclerView.Adapter<Following
     @Override
     public void onBindViewHolder(@NonNull WishlistViewHolder holder, int position) {
         WishList currentWishlist = wishLists.get(position);
-
+        holder.wishlistDescription.setText(currentWishlist.description);
         holder.wishlistName.setText(currentWishlist.name);
     }
 
