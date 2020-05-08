@@ -96,6 +96,8 @@ public class HomeActivity extends AppCompatActivity {
                 img.setImageBitmap(image);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
         }
         else {
