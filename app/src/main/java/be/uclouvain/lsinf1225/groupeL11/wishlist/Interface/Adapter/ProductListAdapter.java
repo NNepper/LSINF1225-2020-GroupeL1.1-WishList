@@ -142,8 +142,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             private Vibrator vibe = (Vibrator) context.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
             @Override
             public boolean onLongClick(View v) {
+                if(isMainUser){
                 vibe.vibrate(100);
-                dragListener.onStartDrag(holder, position);
+                dragListener.onStartDrag(holder, position);}
                 return true;
             }
         });
