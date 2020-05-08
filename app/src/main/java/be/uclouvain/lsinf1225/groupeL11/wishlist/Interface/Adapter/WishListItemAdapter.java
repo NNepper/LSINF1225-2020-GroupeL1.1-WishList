@@ -32,11 +32,13 @@ public class WishListItemAdapter extends RecyclerView.Adapter<WishListItemAdapte
 
         public ImageView deleteWishListButton;
         public TextView name;
+        public TextView description;
 
         public WishListItemHolder(@NonNull View itemView, final onItemClickListener listener) {
             super(itemView);
             deleteWishListButton = itemView.findViewById(R.id.wishlist_delete);
             name = itemView.findViewById(R.id.item_wishlist_title);
+            description = itemView.findViewById(R.id.item_wishlist_description);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,7 +81,7 @@ public class WishListItemAdapter extends RecyclerView.Adapter<WishListItemAdapte
     @Override
     public void onBindViewHolder(@NonNull WishListItemAdapter.WishListItemHolder holder, int position) {
         WishList currentWL = wishLists.get(position);
-
+        holder.description.setText(currentWL.description);
         holder.name.setText(currentWL.name);
     }
 
