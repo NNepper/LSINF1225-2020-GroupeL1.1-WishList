@@ -1,10 +1,8 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
-import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.WishListDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter.ProductListAdapter;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
@@ -47,10 +43,10 @@ public class ProductListFragment extends Fragment {
 
     private FloatingActionButton addItemButton;
     private FloatingActionButton editWishlistNameButton;
+    private FloatingActionButton validatePositionsButton;
     private FloatingActionButton menuOpenerButton;
     private String newWishListName;
     private TextView title;
-    private ImageView validatePositions;
 
     private WishList wishList;
 
@@ -209,8 +205,8 @@ public class ProductListFragment extends Fragment {
             }
         });
 
-        validatePositions = view.findViewById(R.id.product_validate_positions);
-        validatePositions.setOnClickListener(new View.OnClickListener() {
+        validatePositionsButton = view.findViewById(R.id.product_validate_order_FAB);
+        validatePositionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 wishList.products = products;
@@ -226,9 +222,11 @@ public class ProductListFragment extends Fragment {
         if(isOpen){
             addItemButton.setVisibility(View.INVISIBLE);
             editWishlistNameButton.setVisibility(View.INVISIBLE);
+            validatePositionsButton.setVisibility(View.INVISIBLE);
         }else{
             addItemButton.setVisibility(View.VISIBLE);
             editWishlistNameButton.setVisibility(View.VISIBLE);
+            validatePositionsButton.setVisibility(View.VISIBLE);
         }
         isOpen = !isOpen;
     }
