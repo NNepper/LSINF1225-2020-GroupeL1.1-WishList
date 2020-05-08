@@ -244,8 +244,12 @@ public class ProfileFragment extends Fragment {
         this.interestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new InterestsFragment()).addToBackStack(null).commit();
+                Bundle data = new Bundle();
+                data.putBoolean("isMainUser", true);
+
+                Fragment interestsFragment = new InterestsFragment();
+                interestsFragment.setArguments(data);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,interestsFragment).addToBackStack(null).commit();
             }
         });
 

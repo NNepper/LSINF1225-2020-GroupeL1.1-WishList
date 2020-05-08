@@ -40,13 +40,26 @@ public class InterestsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
         final InterestDAO interestDAO = new InterestDAO(getContext());
+        final UserDAO userDAO = new UserDAO(getContext());
+
+        final Bundle bundle = this.getArguments();
+        final Boolean isMainUser = bundle.getBoolean("isMainUser");
+        final User user;
+        if(isMainUser){
+            user = mainUser;
+        }
+        else{
+            user = userDAO.get(bundle.getInt("userID"), null);
+        }
+
+
         final ArrayList<Interest> interestsList = interestDAO.getAllInterests();
         final View view = inflater.inflate(R.layout.fragment_interests, container, false);
 
         interestsListRecyclerView = view.findViewById(R.id.interests_recycler_view);
         interestsListRecyclerView.setHasFixedSize(true);
         interestsListLayoutManager = new LinearLayoutManager(view.getContext());
-        interestsListAdapter = new InterestsListAdapter(interestsList, getContext(), mainUser);
+        interestsListAdapter = new InterestsListAdapter(interestsList, getContext(), mainUser, isMainUser, user.id);
 
         interestsListRecyclerView.setLayoutManager(interestsListLayoutManager);
         interestsListRecyclerView.setAdapter(interestsListAdapter);
@@ -59,10 +72,11 @@ public class InterestsFragment extends Fragment {
 
             @Override
             public void onCheckClick(int position) {
-                // TODO gérer ce qu'il se passe quand on check la box !!!
                 Interest interest = interestsList.get(position);
                 UserDAO userDAO = new UserDAO(getContext());
-                ArrayList<Interest> userInterests = interestDAO.readInterests(mainUser.id);
+                ArrayList<Interest> userInterests;
+                userInterests = interestDAO.readInterests(user.id);
+
                 // Inverse le status de l'intérêt
                 boolean checked = isActiveInterest(interest, userInterests);
                 if (checked) {
@@ -71,7 +85,9 @@ public class InterestsFragment extends Fragment {
                 else {
                     Log.d("Interest", "This is an DOWN interest, it must be checked");
                 }
-                userDAO.setInterest(mainUser, interest, ! isActiveInterest(interest, userInterests));
+                if(isMainUser){
+                    userDAO.setInterest(mainUser, interest, ! isActiveInterest(interest, userInterests));
+                }
             }
         });
 

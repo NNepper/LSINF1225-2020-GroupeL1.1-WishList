@@ -141,6 +141,19 @@
                 android:text="Favorite Color"
                 android:textColor="@android:color/black"/>
 
+            <Button
+                android:id="@+id/follow_profile_interests"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/follow_profile_fav_color"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="31dp"
+                android:background="@drawable/custom_profile_info_bar"
+                android:text="Choose my interests" />
+
         </RelativeLayout>
 
     </ScrollView>

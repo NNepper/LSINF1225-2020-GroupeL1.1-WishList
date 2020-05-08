@@ -25,6 +25,8 @@ public class InterestsListAdapter extends RecyclerView.Adapter<InterestsListAdap
     private InterestsListAdapter.onItemClickListener interestsClickListener;
     private Context context;
     private User mainUser;
+    private Boolean isMainUser;
+    private int userID;
 
     public interface onItemClickListener{
         void onItemClick(int position);
@@ -70,10 +72,12 @@ public class InterestsListAdapter extends RecyclerView.Adapter<InterestsListAdap
         }
     }
 
-    public InterestsListAdapter(ArrayList<Interest> interests, Context context, User mainUser){
+    public InterestsListAdapter(ArrayList<Interest> interests, Context context, User mainUser, Boolean isMainUser, int userID){
         this.mainUser = mainUser;
         this.context = context;
         this.interestsList = interests;
+        this.isMainUser = isMainUser;
+        this.userID = userID;
     }
 
     @NonNull
@@ -92,6 +96,9 @@ public class InterestsListAdapter extends RecyclerView.Adapter<InterestsListAdap
             holder.checkBox.setChecked(true);
         }
         holder.interestName.setText(currentInterest.getInterestName());
+        if(! isMainUser){
+            holder.checkBox.setEnabled(false);
+        }
     }
 
     @Override
@@ -100,7 +107,7 @@ public class InterestsListAdapter extends RecyclerView.Adapter<InterestsListAdap
     }
 
     private boolean isActiveInterest(Interest interest, InterestDAO interestDAO) {
-        for (Interest current : interestDAO.readInterests(mainUser.getId())) {
+        for (Interest current : interestDAO.readInterests(userID)) {
             if (interest.getInterestName().equals(current.getInterestName())) {
                 return true;
             }
