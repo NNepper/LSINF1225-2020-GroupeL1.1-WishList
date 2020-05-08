@@ -31,7 +31,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"
             android:text="Product name"
-            android:textColor="@color/red_border"
+            android:textColor="@color/background"
             android:textSize="30sp"
             />
 
