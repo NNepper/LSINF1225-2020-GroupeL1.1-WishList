@@ -51,6 +51,10 @@ public class ProductEditFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (name.getText().toString().length() == 0) {
+                    showToast("A product name is mandatory !");
+                    return;
+                }
                 product.name = name.getText().toString();
                 product.description = description.getText().toString();
                 product.link = link.getText().toString();
@@ -69,5 +73,11 @@ public class ProductEditFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void showToast(String stringToShow){
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getContext(), stringToShow, duration);
+        toast.show();
     }
 }
