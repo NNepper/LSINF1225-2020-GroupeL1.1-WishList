@@ -70,7 +70,7 @@ public class FollowingWishlistFragment extends Fragment {
 
                 Fragment followWishlistItemsFragment = new FollowWishlistItemsFragment();
                 followWishlistItemsFragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, followWishlistItemsFragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, followWishlistItemsFragment).addToBackStack(null).commit();
             }
         });
 
@@ -88,7 +88,7 @@ public class FollowingWishlistFragment extends Fragment {
             public void onClick(View v) {
                 Fragment followUserProfile = new FollowProfile();
                 followUserProfile.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,followUserProfile).commit(); //display the clicked fragment
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,followUserProfile).addToBackStack(null).commit(); //display the clicked fragment
             }
         });
 

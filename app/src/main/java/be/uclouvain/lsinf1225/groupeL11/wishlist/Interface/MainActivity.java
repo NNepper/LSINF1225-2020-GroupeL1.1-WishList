@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
@@ -14,6 +15,23 @@ public class MainActivity extends AppCompatActivity {
     private Button login;
     private Button register;
 
+    private Toast backToast;
+    private long backPressedTime;
+
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()){
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        }
+        else {
+            backToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+
+        backPressedTime = System.currentTimeMillis();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 finishActivity(0);
             }
         });
+
     }
 }

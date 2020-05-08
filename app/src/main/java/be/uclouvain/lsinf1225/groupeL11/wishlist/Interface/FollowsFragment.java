@@ -68,7 +68,7 @@ public class FollowsFragment extends Fragment {
 
                 Fragment followingFragment = new FollowingWishlistFragment();
                 followingFragment.setArguments(data);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,followingFragment).commit(); //display the clicked fragment
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,followingFragment).addToBackStack(null).commit(); //display the clicked fragment
             }
 
             @Override
@@ -110,7 +110,7 @@ public class FollowsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         ((HomeActivity) getActivity()).searchUsersResult = doMySearch(query.getText().toString());
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragment_container, new SearchUsersResultFragment()).commit(); //display the clicked fragment
+                        transaction.replace(R.id.fragment_container, new SearchUsersResultFragment()).addToBackStack(null).commit(); //display the clicked fragment
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

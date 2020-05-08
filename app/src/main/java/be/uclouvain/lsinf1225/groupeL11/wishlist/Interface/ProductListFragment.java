@@ -88,7 +88,7 @@ public class ProductListFragment extends Fragment {
 
                 Fragment productDetailFragment = new ProductDetailFragment();
                 productDetailFragment.setArguments(data);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,productDetailFragment).commit(); //display the clicked fragment
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,productDetailFragment).addToBackStack(null).commit(); //display the clicked fragment
             }
 
             @Override

@@ -67,7 +67,7 @@ public class WishlistFragment extends Fragment {
 
                 Fragment productListFragment = new ProductListFragment();
                 productListFragment.setArguments(data);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,productListFragment).commit(); //display the clicked fragment
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,productListFragment).addToBackStack(null).commit(); //display the clicked fragment
             }
 
             @Override

@@ -198,6 +198,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
                 Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class);
                 HomeActivity.putExtras(data);
                 startActivity(HomeActivity);
+                finish();
             }
         });
 

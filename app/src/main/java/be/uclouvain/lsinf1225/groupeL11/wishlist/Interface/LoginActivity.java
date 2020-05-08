@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent HomeActivity = new Intent(getApplicationContext(), HomeActivity.class); // change the intent to let the user enter his infos
                             HomeActivity.putExtras(data);
                             startActivity(HomeActivity);
+                            finish();
                         }
                         else {
                             CharSequence toastText = "Wrong password!";

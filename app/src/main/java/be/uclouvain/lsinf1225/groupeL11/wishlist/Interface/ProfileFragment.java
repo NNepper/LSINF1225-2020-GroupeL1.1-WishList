@@ -218,7 +218,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new FollowRequestFragment()).commit();
+                transaction.replace(R.id.fragment_container, new FollowRequestFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -245,7 +245,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new InterestsFragment()).commit();
+                transaction.replace(R.id.fragment_container, new InterestsFragment()).addToBackStack(null).commit();
             }
         });
 

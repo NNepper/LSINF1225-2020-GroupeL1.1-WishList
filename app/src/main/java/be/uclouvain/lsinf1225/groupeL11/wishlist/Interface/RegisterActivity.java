@@ -80,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Intent ProfilCreation = new Intent(getApplicationContext(), ProfileCreationActivity.class); // change the intent to let the user enter his infos
                     ProfilCreation.putExtras(data);
                     startActivity(ProfilCreation);
+                    finish();
                 }
                 else {
                     CharSequence text = "Recheck the password you entered..";

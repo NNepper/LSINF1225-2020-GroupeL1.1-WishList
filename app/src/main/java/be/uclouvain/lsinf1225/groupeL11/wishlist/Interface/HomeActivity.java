@@ -43,6 +43,24 @@ public class HomeActivity extends AppCompatActivity {
     public ArrayList<User> searchUsersResult;
     public int prodID = -1;
 
+    private long backPressedTime;
+    private Toast backToast;
+
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()){
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        }
+        else {
+            backToast = Toast.makeText(getBaseContext(), "Press back again to disconnect", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+
+        backPressedTime = System.currentTimeMillis();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +92,7 @@ public class HomeActivity extends AppCompatActivity {
             });
             builder.show();
         }
+
     }
 
     @Override
@@ -170,4 +189,6 @@ public class HomeActivity extends AppCompatActivity {
                         targetHeight), null);
         return targetBitmap;
     }
+
+
 }
