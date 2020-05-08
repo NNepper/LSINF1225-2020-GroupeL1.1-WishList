@@ -81,4 +81,14 @@
         android:layout_height="match_parent"
         />
 
+    <ImageView
+        android:id="@+id/product_validate_positions"
+        android:layout_width="35dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        app:srcCompat="@drawable/ic_check_black_24dp" />
+
 </RelativeLayout>
