@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,12 @@ public class ProductEditFragment extends Fragment {
             public void onClick(View v) {
                 if (name.getText().toString().length() == 0) {
                     showToast("A product name is mandatory !");
+                    return;
+                }
+                try {
+                    Integer.parseInt(quantity.getText().toString());
+                } catch (Exception e) {
+                    showToast("A quantity is an integer !");
                     return;
                 }
                 product.name = name.getText().toString();

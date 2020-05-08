@@ -157,7 +157,13 @@ public class ProductListFragment extends Fragment {
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(itemName.getText().toString().length() == 0 || itemQuantity.getText().toString().length() == 0 || itemWebLink.getText().toString().length() == 0){
+                                try {
+                                    Integer.parseInt(itemQuantity.getText().toString());
+                                } catch (Exception e) {
+                                    showToast("A quantity is an integer !");
+                                    return;
+                                }
+                                if(itemName.getText().toString().length() == 0 || itemWebLink.getText().toString().length() == 0){
                                     showToast("Please enter informations");
                                     return;
                                 }
