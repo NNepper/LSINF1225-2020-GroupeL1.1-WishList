@@ -125,14 +125,18 @@ public class HomeActivity extends AppCompatActivity {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                final Bitmap image = getResizedBitmap(selectedImage, 500);
                 if (prodDAO.checkImage(prodID)) {
-                    prodDAO.changeImage(prodID, selectedImage);
+                    prodDAO.changeImage(prodID, image);
                 } else {
-                    prodDAO.createImage(prodID, selectedImage);
+                    prodDAO.createImage(prodID, image);
                 }
                 ImageView img= (ImageView) findViewById(R.id.product_details_picture);
-                img.setImageBitmap(selectedImage);
+                img.setImageBitmap(image);
             } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            catch (NullPointerException e){
                 e.printStackTrace();
             }
             prodID = -1;
@@ -188,6 +192,22 @@ public class HomeActivity extends AppCompatActivity {
                 new Rect(0, 0, targetWidth,
                         targetHeight), null);
         return targetBitmap;
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
 

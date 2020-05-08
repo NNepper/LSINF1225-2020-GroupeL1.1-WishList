@@ -236,7 +236,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 startActivityForResult(photoPickerIntent, 1);
             }
         });
