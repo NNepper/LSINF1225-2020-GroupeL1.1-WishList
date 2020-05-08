@@ -3,6 +3,7 @@ package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,12 +102,15 @@ public class WishlistFragment extends Fragment {
                 builder.setTitle("Add a new wishlist");
                 View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_wishlist, (ViewGroup) getView(), false);
                 final EditText wishListName = (EditText) viewInflated.findViewById(R.id.new_wishlist_name);
+                final EditText wishlistDescription = (EditText) viewInflated.findViewById(R.id.new_wishlist_description);
                 builder.setView(viewInflated)
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                WishList newWishList = new WishList(wishListName.getText().toString()); //create new wishlist with the given name
+                                WishList newWishList = new WishList(wishListName.getText().toString(), wishlistDescription.getText().toString()); //create new wishlist with the given name
                                 if(wishListDAO.create(newWishList, mainUser)){
+                                    Log.d("Yepp", "Yes sir");
+                                    Log.d("newWishlistDescription", newWishList.description);
                                     mainUser.wishlists.add(newWishList);
                                     wishListRecyclerView.getAdapter().notifyDataSetChanged();
                                 }
