@@ -13,7 +13,7 @@
         android:text="@string/choose_interests"
         android:textSize="30sp"
         android:textColor="@color/green_border"
-        android:layout_toRightOf="@id/interests_back_arrow"
+        android:layout_centerHorizontal="true"
         android:layout_marginVertical="20dp"
         />
 
@@ -28,14 +28,5 @@
         android:layout_marginTop="6dp"
         android:padding="4dp" />
 
-    <ImageView
-        android:id="@+id/interests_back_arrow"
-        android:layout_width="73dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back_arrow"/>
 
 </RelativeLayout>

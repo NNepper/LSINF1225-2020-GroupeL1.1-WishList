@@ -38,7 +38,6 @@ public class SearchUsersResultFragment extends Fragment {
     private RecyclerView.LayoutManager searchUsersResultsListLayoutManager;
     private User mainUser;
     private TextView disableNoMatch;
-    private ImageView backArrow;
 
 
     @SuppressLint("SetTextI18n")
@@ -48,7 +47,6 @@ public class SearchUsersResultFragment extends Fragment {
         this.mainUser = ((HomeActivity) getActivity()).mainUser;
         final ArrayList<User> searchUsersResultsList = ((HomeActivity) getActivity()).searchUsersResult;
         final View view = inflater.inflate(R.layout.fragment_search_users_result, container, false);
-        this.backArrow = (ImageView) view.findViewById(R.id.search_users_back_arrow);
 
         searchUsersResultsListRecyclerView = view.findViewById(R.id.search_result_recycler_view);
         searchUsersResultsListRecyclerView.setHasFixedSize(true);
@@ -64,15 +62,6 @@ public class SearchUsersResultFragment extends Fragment {
             Log.d("disableNoMatch", disableNoMatch.toString());
             this.disableNoMatch.setText("No result matched your search");
         }
-
-        this.backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Status", "Clicked !!");
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new FollowsFragment()).commit();
-            }
-        });
 
         searchUsersResultsListRecyclerView.setLayoutManager(searchUsersResultsListLayoutManager);
         searchUsersResultsListRecyclerView.setAdapter(searchUsersResultsListAdapter);

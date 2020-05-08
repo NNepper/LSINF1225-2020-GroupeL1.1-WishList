@@ -18,7 +18,6 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private ImageView backArrow;
     private Button submitButton;
     private Bundle data;
 
@@ -27,18 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        this.backArrow = (ImageView) findViewById(R.id.BackHomeArrow);
         this.submitButton = (Button) findViewById(R.id.submitButton);
-
-        this.backArrow.setOnClickListener(new View.OnClickListener() { // back arrow to get back to home page
-            @Override
-            public void onClick(View v) {
-                    // Start new Activity and pass data to the next Activity
-                    Intent back_to_home_page = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(back_to_home_page);
-                    finish();
-            }
-        });
 
         this.submitButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -33,7 +33,6 @@ public class InterestsFragment extends Fragment {
     private InterestsListAdapter interestsListAdapter;
     private RecyclerView.LayoutManager interestsListLayoutManager;
     private User mainUser;
-    private ImageView backArrow;
 
 
 
@@ -43,21 +42,11 @@ public class InterestsFragment extends Fragment {
         final InterestDAO interestDAO = new InterestDAO(getContext());
         final ArrayList<Interest> interestsList = interestDAO.getAllInterests();
         final View view = inflater.inflate(R.layout.fragment_interests, container, false);
-        this.backArrow = (ImageView) view.findViewById(R.id.interests_back_arrow);
 
         interestsListRecyclerView = view.findViewById(R.id.interests_recycler_view);
         interestsListRecyclerView.setHasFixedSize(true);
         interestsListLayoutManager = new LinearLayoutManager(view.getContext());
         interestsListAdapter = new InterestsListAdapter(interestsList, getContext(), mainUser);
-
-        this.backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Status", "Clicked !!");
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new ProfileFragment()).commit();
-            }
-        });
 
         interestsListRecyclerView.setLayoutManager(interestsListLayoutManager);
         interestsListRecyclerView.setAdapter(interestsListAdapter);

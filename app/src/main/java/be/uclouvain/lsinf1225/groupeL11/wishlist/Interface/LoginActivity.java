@@ -22,7 +22,6 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private ImageView backArrow;
     private Button submit;
     UserDAO userDAO;
 
@@ -31,19 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // getSupportActionBar().hide(); remove top bar
-
-        this.backArrow = (ImageView) findViewById(R.id.login_back_arrow);
         this.submit = findViewById(R.id.login_submit);
-
-        this.backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent back_to_main_page = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(back_to_main_page);
-                finish();
-            }
-        });
 
         this.submit.setOnClickListener(new View.OnClickListener() {
             @Override

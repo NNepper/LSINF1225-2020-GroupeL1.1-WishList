@@ -32,7 +32,6 @@ public class FollowRequestFragment extends Fragment {
     private RecyclerView.LayoutManager followRequestListLayoutManager;
     private User mainUser;
     private TextView disableNoMatch;
-    private ImageView backArrow;
 
 
     @SuppressLint("SetTextI18n")
@@ -58,17 +57,6 @@ public class FollowRequestFragment extends Fragment {
             Log.d("disableNoMatch", disableNoMatch.toString());
             this.disableNoMatch.setText("You don't have any follow request for the moment !\nWe will notify you when you get one.");
         }
-
-        this.backArrow = view.findViewById(R.id.follow_request_back_arrow);
-
-        this.backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Status", "Clicked !!");
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new ProfileFragment()).commit();
-            }
-        });
 
         followRequestListRecyclerView.setLayoutManager(followRequestListLayoutManager);
         followRequestListRecyclerView.setAdapter(followRequestListAdapter);
