@@ -11,20 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.MotionEventCompat;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.internal.VisibilityAwareImageButton;
 
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.ProductDAO;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.WishList;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListItemHolder> {
@@ -61,7 +57,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         public TextView quantity;
         public CheckBox checkBox;
         public ImageView picture;
-        public final RelativeLayout handleRelLayout;
 
         public ProductListItemHolder(@NonNull View itemView, final onItemClickListener listener) {
             super(itemView);
@@ -70,7 +65,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             quantity = itemView.findViewById(R.id.product_item_quantity);
             checkBox = itemView.findViewById(R.id.product_item_checkbox);
             picture = itemView.findViewById(R.id.product_item_picture);
-            handleRelLayout = itemView.findViewById(R.id.product_relative_layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
