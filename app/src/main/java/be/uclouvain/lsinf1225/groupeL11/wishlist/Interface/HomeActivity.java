@@ -48,6 +48,10 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+            return;
+        }
         if (backPressedTime + 2000 > System.currentTimeMillis()){
             backToast.cancel();
             super.onBackPressed();
