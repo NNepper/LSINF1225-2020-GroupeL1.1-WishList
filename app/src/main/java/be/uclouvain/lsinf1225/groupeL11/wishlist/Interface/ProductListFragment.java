@@ -159,7 +159,6 @@ public class ProductListFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 if(itemName.getText().toString().length() == 0 || itemQuantity.getText().toString().length() == 0 || itemWebLink.getText().toString().length() == 0){
                                     showToast("Please enter informations");
-                                    dialog.cancel();
                                     return;
                                 }
                                 Product newProduct = new Product(itemName.getText().toString(), Integer.parseInt(itemQuantity.getText().toString()), itemWebLink.getText().toString(), products.size());
@@ -195,6 +194,10 @@ public class ProductListFragment extends Fragment {
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                if (wishListName.getText().toString().length() == 0 || wishlistDescription.getText().toString().length() == 0) {
+                                    showToast("You have to specify a name and a description");
+                                    return;
+                                }
                                 wishList.name = wishListName.getText().toString();
                                 wishList.description =wishlistDescription.getText().toString();
                                 wishListDAO.update(wishList);
