@@ -157,13 +157,17 @@ public class ProductListFragment extends Fragment {
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Product newProduct = new Product(itemName.getText().toString(), Integer.parseInt(itemQuantity.getText().toString()), itemWebLink.getText().toString(), products.size());
-                                newProduct.wishlist = wishList;
-                                if (productDAO.create(newProduct)){
-                                    products.add(newProduct);
-                                    productItemAdapter.notifyItemInserted(newProduct.position);
-                                }else{
-                                   showToast("Error while trying to create a new item");
+                                if(itemName.getText().toString().length() == 0 || itemQuantity.getText().toString().length() == 0 || itemWebLink.getText().toString().length() == 0){
+                                    showToast("Please enter informations");
+                                }else {
+                                    Product newProduct = new Product(itemName.getText().toString(), Integer.parseInt(itemQuantity.getText().toString()), itemWebLink.getText().toString(), products.size());
+                                    newProduct.wishlist = wishList;
+                                    if (productDAO.create(newProduct)) {
+                                        products.add(newProduct);
+                                        productItemAdapter.notifyItemInserted(newProduct.position);
+                                    } else {
+                                        showToast("Error while trying to create a new item");
+                                    }
                                 }
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
