@@ -25,8 +25,9 @@ public class WishList{
         this.products = new ArrayList<Product>();
     }
 
-    public WishList(String name){
+    public WishList(String name, String description){
         this.name = name;
+        this.description = description;
         this.products = new ArrayList<Product>();
     }
 

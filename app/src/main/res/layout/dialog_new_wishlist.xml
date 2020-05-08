@@ -13,4 +13,14 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:hint="Wishlist name" />
+    <EditText
+        android:id="@+id/new_wishlist_description"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Wishlist description" />
 </LinearLayout>
