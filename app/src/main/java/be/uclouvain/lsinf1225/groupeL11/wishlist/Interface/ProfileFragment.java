@@ -79,6 +79,10 @@ public class ProfileFragment extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (usernameTextView.getText().toString().length() == 0) {
+                    showToast("You must provide an username !");
+                    return;
+                }
                 updateMainUser();
                 CharSequence toastText = "Infos updated";
                 int duration = Toast.LENGTH_SHORT;
@@ -256,5 +260,11 @@ public class ProfileFragment extends Fragment {
         if(mainUser.username.compareTo(usernameTextView.getText().toString()) != 0) mainUser.username = usernameTextView.getText().toString();
         if(mainUser.address.compareTo(addressTextView.getText().toString()) != 0) mainUser.address = addressTextView.getText().toString();
         userDAO.update(mainUser);
+    }
+
+    private void showToast(String stringToShow){
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getContext(), stringToShow, duration);
+        toast.show();
     }
 }
