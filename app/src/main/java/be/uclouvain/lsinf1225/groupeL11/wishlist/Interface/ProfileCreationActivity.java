@@ -9,7 +9,6 @@ import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,8 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.util.Objects;
 
 
 public class ProfileCreationActivity extends AppCompatActivity {
@@ -41,7 +38,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
         /** Color **/
 
-        dropdownColor = findViewById(R.id.newprofile_color);
+        dropdownColor = findViewById(R.id.new_profile_color);
 
         String[] testItems = {"Choose color","Color: Red", "Color: Blue", "Color: Green"};
 

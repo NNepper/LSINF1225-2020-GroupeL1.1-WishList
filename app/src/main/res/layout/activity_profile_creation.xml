@@ -92,7 +92,7 @@
                     android:layout_below="@id/new_profile_street"
                     android:textColor="@color/green_border"
                     android:maxLines="1"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:nextFocusDown="@id/new_profile_city"/>
 
                 <EditText
@@ -106,13 +106,15 @@
                     android:gravity="center"
                     android:hint="City"
                     android:maxLines="1"
-                    android:textColor="@color/green_border" />
+                    android:inputType="text"
+                    android:textColor="@color/green_border"
+                    android:focusable="true"/>
 
             </RelativeLayout>
 
 
             <Spinner
-                android:id="@+id/newprofile_color"
+                android:id="@+id/new_profile_color"
                 android:layout_width="319dp"
                 android:layout_height="43dp"
                 android:background="@drawable/edit_round_input_text"
