@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,6 @@ public class ProductListFragment extends Fragment {
 
     private ItemTouchHelper itemTouchHelper;
 
-    private TextView title;
 
     boolean isOpen;
 
@@ -49,12 +49,14 @@ public class ProductListFragment extends Fragment {
     private FloatingActionButton editWishlistNameButton;
     private FloatingActionButton menuOpenerButton;
     private String newWishListName;
+    private TextView title;
+    private ImageView validatePositions;
 
     private WishList wishList;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
         final User mainUser = ((HomeActivity) getActivity()).mainUser;
         final ProductDAO productDAO = new ProductDAO(getContext());
@@ -132,7 +134,7 @@ public class ProductListFragment extends Fragment {
             @Override
             public void onStartDrag(ProductListAdapter.ProductListItemHolder productListItemHolder, int position) {
                 itemTouchHelper.startDrag(productListItemHolder);
-            }
+        }
         });
 
         this.addItemButton = view.findViewById(R.id.product_add_FAB);
@@ -204,6 +206,16 @@ public class ProductListFragment extends Fragment {
             }
         });
 
+        validatePositions = view.findViewById(R.id.product_validate_positions);
+        validatePositions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wishList.products = products;
+                wishList.reorder(getContext());
+                showToast("Order saved");
+            }
+        });
+
         return view;
     }
 
@@ -234,6 +246,8 @@ public class ProductListFragment extends Fragment {
                 int toPosition = target.getAdapterPosition();
                 Collections.swap(products, fromPosition, toPosition);
                 recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+                products.get(fromPosition).position = fromPosition+1;
+                products.get(toPosition).position = toPosition+1;
                 return false;
             }
 
