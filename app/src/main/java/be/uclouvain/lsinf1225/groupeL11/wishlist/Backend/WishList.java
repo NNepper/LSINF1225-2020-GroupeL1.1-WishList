@@ -48,8 +48,6 @@ public class WishList{
     public void reorder(Context context){
         ProductDAO productDAO = new ProductDAO(context);
         for(Product product:products){
-            Log.v("debug-gwen", product.name);
-            Log.v("debug-gwen", "position: " + product.position);
             productDAO.update(product);
         }
         Log.v("debug-gwen", "savec in DB");

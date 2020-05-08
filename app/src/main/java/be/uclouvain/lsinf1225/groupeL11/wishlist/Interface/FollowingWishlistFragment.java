@@ -1,5 +1,6 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,8 @@ public class FollowingWishlistFragment extends Fragment {
         WishListDAO wishListDAO = new WishListDAO(getContext());
         final ArrayList<WishList> wishLists = wishListDAO.readWishLists(bundle.getInt("followingUserID"));
 
+        followingUser = userDAO.get(bundle.getInt("followingUserID"), null);
+
         final  View view = inflater.inflate(R.layout.fragment_following_wishlist, container, false);
 
         followingUsername = view.findViewById(R.id.following_username);
@@ -72,7 +75,13 @@ public class FollowingWishlistFragment extends Fragment {
         });
 
         this.profilePic = view.findViewById(R.id.following_profil_pic);
-        profilePic.setImageResource(R.drawable.ic_default_image_profile); // TODO change into real user profile pic when implemented in DB
+        if (userDAO.checkImage(followingUser)){
+            Bitmap image = userDAO.getImage(followingUser);
+            profilePic.setImageBitmap(image);
+        }
+        else {
+            profilePic.setImageResource(R.drawable.ic_default_image_profile);
+        }
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
