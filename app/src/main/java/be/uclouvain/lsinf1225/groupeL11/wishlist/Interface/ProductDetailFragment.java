@@ -42,15 +42,6 @@ public class ProductDetailFragment extends Fragment {
         title.setText(product.name);
 
         ImageView picture = view.findViewById(R.id.product_details_picture);
-        picture.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                ((HomeActivity) getActivity()).prodID = product.getId();
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(photoPickerIntent, 1);
-            }
-        });
         if (productDAO.checkImage(product.getId())){
             Bitmap image = productDAO.getImage(product.getId());
             picture.setImageBitmap(image);
@@ -108,6 +99,16 @@ public class ProductDetailFragment extends Fragment {
                     Fragment productEdit = new ProductEditFragment();
                     productEdit.setArguments(data);
                     getFragmentManager().beginTransaction().replace(R.id.fragment_container,productEdit).addToBackStack(null).commit();
+                }
+            });
+
+            picture.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    ((HomeActivity) getActivity()).prodID = product.getId();
+                    Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    startActivityForResult(photoPickerIntent, 1);
                 }
             });
         }
