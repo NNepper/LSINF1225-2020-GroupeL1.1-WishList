@@ -48,7 +48,7 @@ public class ProductDetailFragment extends Fragment {
             picture.setBackground(null);
         }
         else {
-            picture = view.findViewById(R.id.profilePic);
+            picture.setImageResource(R.drawable.no_picture_default);
         }
 
         TextView description = view.findViewById(R.id.product_details_description);
