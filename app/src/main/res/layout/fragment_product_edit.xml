@@ -88,7 +88,7 @@
                 android:inputType="phone"/>
 
             <Button
-                android:id="@+id/newprofile_submit"
+                android:id="@+id/product_edit_submit"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
