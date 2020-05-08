@@ -46,6 +46,21 @@
         app:srcCompat="@drawable/ic_add_black_24dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/product_validate_order_FAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/product_edit_FAB"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toStartOf="@+id/product_add_FAB"
+        android:scaleType="center"
+        android:visibility="invisible"
+        app:backgroundTint="@color/primary"
+        app:backgroundTintMode="src_in"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_reorder_black_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/product_edit_FAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,15 +95,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-
-    <ImageView
-        android:id="@+id/product_validate_positions"
-        android:layout_width="35dp"
-        android:layout_height="36dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
-        app:srcCompat="@drawable/ic_check_black_24dp" />
 
 </RelativeLayout>
