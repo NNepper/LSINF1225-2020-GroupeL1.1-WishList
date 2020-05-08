@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class FollowProfile extends Fragment {
     private TextView trouserSize;
     private TextView favColor;
     private ImageView profilePicture;
+    private Button interests;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class FollowProfile extends Fragment {
         tShirtSize = view.findViewById(R.id.follow_profile_thsirt_size);
         trouserSize = view.findViewById(R.id.follow_profile_trouser_size);
         favColor = view.findViewById(R.id.follow_profile_fav_color);
+        interests = view.findViewById(R.id.follow_profile_interests);
 
         username.setText(following_user.username);
         address.setText(following_user.address);
@@ -48,6 +51,19 @@ public class FollowProfile extends Fragment {
         tShirtSize.setText("TShirt Size: " + following_user.tshirtSize);
         trouserSize.setText("Trouser Size: " + following_user.trouserSize);
         favColor.setText("Favorite Color: " + following_user.color);
+
+        this.interests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle data = new Bundle();
+                data.putBoolean("isMainUser", false);
+                data.putInt("userID", following_user.id);
+
+                Fragment interestsFragment = new InterestsFragment();
+                interestsFragment.setArguments(data);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,interestsFragment).addToBackStack(null).commit();
+            }
+        });
 
         this.profilePicture = view.findViewById(R.id.following_profileF_profile_pic);
         if (userDAO.checkImage(following_user)){
