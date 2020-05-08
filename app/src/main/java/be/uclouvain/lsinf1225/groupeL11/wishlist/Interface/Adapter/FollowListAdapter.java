@@ -1,5 +1,7 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface.Adapter;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
+import be.uclouvain.lsinf1225.groupeL11.wishlist.DAO.UserDAO;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.R;
 
 public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.FollowListViewHolder> {
 
     private ArrayList<User> followList;
     private onItemClickListener followClickListener;
+    private Context context;
 
     public interface onItemClickListener{
         void onItemClick(int position);
@@ -66,8 +70,9 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Fo
         }
     }
 
-    public FollowListAdapter(ArrayList<User> friendList){
+    public FollowListAdapter(ArrayList<User> friendList, Context context){
         this.followList = friendList;
+        this.context = context;
     }
 
     @NonNull
@@ -81,8 +86,14 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Fo
     @Override
     public void onBindViewHolder(@NonNull FollowListViewHolder holder, int position) {
         User currentFriend = followList.get(position);
-
-        holder.followProfilPic.setImageResource(R.drawable.ic_default_image_profile); // get the default profile pic
+        UserDAO userDAO = new UserDAO(context);
+        if (userDAO.checkImage(currentFriend)){
+            Bitmap image = userDAO.getImage(currentFriend);
+            holder.followProfilPic.setImageBitmap(image);
+        }
+        else {
+            holder.followProfilPic.setImageResource(R.drawable.ic_default_image_profile); // get the default profile pic
+        }
         holder.followUsername.setText(currentFriend.username);
 
     }

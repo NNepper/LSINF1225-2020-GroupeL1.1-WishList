@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.Product;
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
@@ -48,6 +49,12 @@ public class ProductDAO extends MyDatabaseHelper {
                     cursor.moveToNext();
                 }
             }
+            prodList.sort(new Comparator<Product>() {
+                @Override
+                public int compare(Product o1, Product o2) {
+                    return o1.position-o2.position;
+                }
+            });
             return prodList;
         } catch (Exception e) {
             Log.d("SQL", e.getMessage());
