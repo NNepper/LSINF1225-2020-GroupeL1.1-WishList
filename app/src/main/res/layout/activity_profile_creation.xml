@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Interface.ProfileCreationActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
 
+    <TextView
+        android:id="@+id/product_details_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create new profile"
+        android:textSize="40sp"
+        android:textColor="@color/green_border"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="20dp"
+        />
 
-        <RelativeLayout
+    <ScrollView
+        android:id="@+id/new_profile_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/product_details_title"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        >
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
-
-            <TextView
-                android:id="@+id/newprofile_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create new profile"
-                android:textSize="35sp"
-                android:textColor="@color/green_border"
-                android:layout_centerHorizontal="true"
-                android:layout_marginVertical="20dp"
-                />
+            android:id="@+id/product_details_all"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            >
 
             <EditText
                 android:id="@+id/newprofile_firstname"
@@ -30,14 +42,13 @@
                 android:layout_height="43dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/edit_round_input_text"
-                android:layout_below="@id/newprofile_title"
-                android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:hint="firstname"
                 android:textColor="@color/green_border"
                 android:maxLines="1"
                 android:inputType="text"
-                android:nextFocusDown="@id/newprofile_lastname"/>
+                android:nextFocusDown="@id/newprofile_lastname"
+                />
 
             <EditText
                 android:id="@+id/newprofile_lastname"
@@ -45,8 +56,6 @@
                 android:layout_height="43dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/edit_round_input_text"
-                android:layout_below="@id/newprofile_firstname"
-                android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:hint="lastname"
                 android:textColor="@color/green_border"
@@ -57,9 +66,7 @@
             <RelativeLayout
                 android:id="@+id/new_profile_adress"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/newprofile_lastname"
-                android:layout_centerHorizontal="true">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/new_profile_street"
@@ -106,63 +113,55 @@
 
             <Spinner
                 android:id="@+id/newprofile_color"
-                android:layout_below="@id/new_profile_adress"
                 android:layout_width="319dp"
                 android:layout_height="43dp"
                 android:background="@drawable/edit_round_input_text"
                 android:spinnerMode="dropdown"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:popupBackground="@android:color/transparent"
                 />
 
             <Spinner
                 android:id="@+id/newprofile_tshirt"
-                android:layout_below="@id/newprofile_color"
                 android:layout_width="319dp"
                 android:layout_height="43dp"
                 android:background="@drawable/edit_round_input_text"
                 android:spinnerMode="dropdown"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:popupBackground="@android:color/transparent"
                 />
 
             <Spinner
                 android:id="@+id/newprofile_trousers"
-                android:layout_below="@id/newprofile_tshirt"
                 android:layout_width="319dp"
                 android:layout_height="43dp"
                 android:background="@drawable/edit_round_input_text"
                 android:spinnerMode="dropdown"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:popupBackground="@android:color/transparent"
                 />
 
             <Spinner
                 android:id="@+id/newprofile_shoe"
-                android:layout_below="@id/newprofile_trousers"
                 android:layout_width="319dp"
                 android:layout_height="43dp"
                 android:background="@drawable/edit_round_input_text"
                 android:spinnerMode="dropdown"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:popupBackground="@android:color/transparent"
                 />
 
             <Button
                 android:id="@+id/newprofile_submit"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
-                android:layout_below="@id/newprofile_shoe"
-                android:layout_centerHorizontal="true"
                 android:background="@drawable/custom_red_button"
                 android:text="SUBMIT"
                 android:textColor="@color/red_border"
                 />
 
-        </RelativeLayout>
-</ScrollView>
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>
