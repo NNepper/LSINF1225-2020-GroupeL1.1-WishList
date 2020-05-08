@@ -114,6 +114,7 @@ public class ProductDetailFragment extends Fragment {
         else{
             submit.setVisibility(View.GONE);
             edit.setVisibility(View.GONE);
+            ratings.setIsIndicator(true);
         }
 
         return view;
