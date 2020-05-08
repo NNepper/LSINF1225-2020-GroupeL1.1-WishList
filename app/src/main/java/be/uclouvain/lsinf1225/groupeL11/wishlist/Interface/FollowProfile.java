@@ -1,5 +1,6 @@
 package be.uclouvain.lsinf1225.groupeL11.wishlist.Interface;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import be.uclouvain.lsinf1225.groupeL11.wishlist.Backend.User;
@@ -23,6 +25,7 @@ public class FollowProfile extends Fragment {
     private TextView tShirtSize;
     private TextView trouserSize;
     private TextView favColor;
+    private ImageView profilePicture;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +49,11 @@ public class FollowProfile extends Fragment {
         trouserSize.setText("Trouser Size: " + following_user.trouserSize);
         favColor.setText("Favorite Color: " + following_user.color);
 
+        this.profilePicture = view.findViewById(R.id.following_profileF_profile_pic);
+        if (userDAO.checkImage(following_user)){
+            Bitmap image = userDAO.getImage(following_user);
+            profilePicture.setImageBitmap(image);
+        }
 
         return view;
     }
