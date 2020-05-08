@@ -40,7 +40,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
         dropdownColor = findViewById(R.id.new_profile_color);
 
-        String[] testItems = {"Choose color","Color: Red", "Color: Blue", "Color: Green"};
+        String[] testItems = {"Color: Red", "Color: Blue", "Color: Green"};
 
         dropdownColor.setAdapter(new ArrayAdapter<String>(
                 this,
@@ -54,13 +54,13 @@ public class ProfileCreationActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Context context = getApplicationContext();
                 switch (position) {
-                    case 1:
+                    case 0:
                         color = "Red";
                         break;
-                    case 2:
+                    case 1:
                         color = "Blue";
                         break;
-                    case 3:
+                    case 2:
                         color = "Green";
                         break;
                 }
