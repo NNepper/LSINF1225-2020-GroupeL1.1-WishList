@@ -183,14 +183,17 @@ public class ProductListFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Rename Wishlist");
-                View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_wishlist, (ViewGroup) getView(), false);
-                final EditText wishListName = (EditText) viewInflated.findViewById(R.id.new_wishlist_name);
+                View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_wishlist, (ViewGroup) getView(), false);
+                final EditText wishListName = (EditText) viewInflated.findViewById(R.id.edit_wishlist_name);
                 wishListName.setText(wishList.name);
+                final EditText wishlistDescription = (EditText) viewInflated.findViewById(R.id.edit_wishlist_description);
+                wishlistDescription.setText(wishList.description);
                 builder.setView(viewInflated)
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 wishList.name = wishListName.getText().toString();
+                                wishList.description =wishlistDescription.getText().toString();
                                 wishListDAO.update(wishList);
                                 title.setText(wishList.name);
                             }
